@@ -18,6 +18,9 @@ import { MarcaAgua } from "@/components/marca-agua";
 import { LangProvider } from "@/lib/i18n";
 import { MODO_DEMO } from "@/lib/demo";
 
+/** Dominio de producción. Necesario para las URL absolutas de Open Graph. */
+const SITIO = "https://marmoles-de-honduras.vercel.app";
+
 /**
  * En modo demo ningún enlace navega. Se intercepta en fase de captura para
  * detener el clic antes de que TanStack Router lo procese, así el navbar y los
@@ -125,7 +128,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { name: "author", content: "Mármoles de Honduras" },
       { property: "og:type", content: "website" },
+      { property: "og:site_name", content: "Mármoles de Honduras" },
+      { property: "og:url", content: SITIO },
+      // Vista previa al compartir el enlace (WhatsApp, redes, buscadores).
+      // Debe ser URL absoluta: las rutas relativas no las resuelven los scrapers.
+      { property: "og:image", content: `${SITIO}/og-image.jpg` },
+      { property: "og:image:width", content: "770" },
+      { property: "og:image:height", content: "385" },
+      {
+        property: "og:image:alt",
+        content: "Cantera de mármol blanco con frentes de corte escalonados",
+      },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:image", content: `${SITIO}/og-image.jpg` },
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -138,7 +153,6 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
