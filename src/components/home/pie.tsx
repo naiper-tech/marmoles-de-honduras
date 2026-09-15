@@ -3,6 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 
 import { CASA_MARMOL_URL, CONTACTO, REDES, correoCon } from "@/lib/home-contenido";
 import { useLang } from "@/lib/i18n";
+import logoClaro from "@/assets/logo-mdh-horizontal-claro.png";
 
 export function Pie() {
   const { t } = useLang();
@@ -23,7 +24,12 @@ export function Pie() {
       <div className="mx-auto max-w-[1440px] px-6 pt-24 md:px-10 md:pt-32">
         <div className="grid gap-14 border-b border-white/15 pb-16 md:grid-cols-12">
           <div className="md:col-span-4">
-            <p className="mdh-label">Mármoles de Honduras</p>
+            <img
+              src={logoClaro}
+              alt="Mármoles de Honduras S.A."
+              className="h-9 w-auto md:h-10"
+              loading="lazy"
+            />
             <p className="mt-5 max-w-xs leading-relaxed text-white/60">
               {t(
                 "Fabricantes y exportadores de piedra natural desde 1970.",

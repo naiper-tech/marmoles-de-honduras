@@ -6,6 +6,8 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import { useLang, type Lang } from "@/lib/i18n";
 import { CASA_MARMOL_URL } from "@/lib/home-contenido";
 import { EASE } from "./movimiento";
+import logoClaro from "@/assets/logo-mdh-horizontal-claro.png";
+import logoOscuro from "@/assets/logo-mdh-horizontal-oscuro.png";
 
 /**
  * Menú fijo y siempre visible (pedido en el kick-off). Transparente mientras hay
@@ -62,8 +64,27 @@ export function Encabezado() {
         }`}
       >
         <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-6 md:px-10">
-          <Link to="/" className="mdh-label whitespace-nowrap" aria-label={t("Mármoles de Honduras — inicio", "Mármoles de Honduras — home")}>
-            Mármoles de Honduras
+          {/* Las dos versiones se cruzan en opacidad para que el cambio de fondo no dé un salto. */}
+          <Link
+            to="/"
+            className="relative block h-7 w-[168px] shrink-0 md:h-8 md:w-[196px]"
+            aria-label={t("Mármoles de Honduras — inicio", "Mármoles de Honduras — home")}
+          >
+            <img
+              src={logoClaro}
+              alt=""
+              aria-hidden="true"
+              className={`absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                claro ? "opacity-100" : "opacity-0"
+              }`}
+            />
+            <img
+              src={logoOscuro}
+              alt="Mármoles de Honduras S.A."
+              className={`absolute inset-0 h-full w-full object-contain object-left transition-opacity duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                claro ? "opacity-0" : "opacity-100"
+              }`}
+            />
           </Link>
 
           <nav aria-label={t("Principal", "Main")} className="hidden items-center gap-7 lg:flex xl:gap-10">

@@ -2,6 +2,7 @@ import { Outlet, createFileRoute } from "@tanstack/react-router";
 import { MotionConfig } from "motion/react";
 
 import { Encabezado } from "@/components/home/encabezado";
+import { Entrada } from "@/components/home/entrada";
 import { Pie } from "@/components/home/pie";
 import { ScrollSuave } from "@/components/home/scroll-suave";
 
@@ -26,6 +27,7 @@ function SitioNuevo() {
   return (
     <MotionConfig reducedMotion="user">
       <div className="mdh min-h-screen bg-white font-mdh text-mdh-tinta antialiased">
+        <Entrada />
         <ScrollSuave />
         <Encabezado />
         <main>
