@@ -11,8 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CotizarRouteImport } from './routes/cotizar'
+import { Route as HomeRouteImport } from './routes/home'
 import { Route as NosotrosRouteImport } from './routes/nosotros'
 import { Route as ServiciosRouteImport } from './routes/servicios'
+import { Route as HomeIndexRouteImport } from './routes/home.index'
+import { Route as HomeContactoRouteImport } from './routes/home.contacto'
+import { Route as HomeNosotrosRouteImport } from './routes/home.nosotros'
+import { Route as HomeProduccionRouteImport } from './routes/home.produccion'
+import { Route as HomeProyectosRouteImport } from './routes/home.proyectos'
 import { Route as ProyectosIndexRouteImport } from './routes/proyectos.index'
 import { Route as ProyectosSlugRouteImport } from './routes/proyectos.$slug'
 
@@ -26,6 +32,11 @@ const CotizarRoute = CotizarRouteImport.update({
   path: '/cotizar',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HomeRoute = HomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const NosotrosRoute = NosotrosRouteImport.update({
   id: '/nosotros',
   path: '/nosotros',
@@ -35,6 +46,31 @@ const ServiciosRoute = ServiciosRouteImport.update({
   id: '/servicios',
   path: '/servicios',
   getParentRoute: () => rootRouteImport,
+} as any)
+const HomeIndexRoute = HomeIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => HomeRoute,
+} as any)
+const HomeContactoRoute = HomeContactoRouteImport.update({
+  id: '/contacto',
+  path: '/contacto',
+  getParentRoute: () => HomeRoute,
+} as any)
+const HomeNosotrosRoute = HomeNosotrosRouteImport.update({
+  id: '/nosotros',
+  path: '/nosotros',
+  getParentRoute: () => HomeRoute,
+} as any)
+const HomeProduccionRoute = HomeProduccionRouteImport.update({
+  id: '/produccion',
+  path: '/produccion',
+  getParentRoute: () => HomeRoute,
+} as any)
+const HomeProyectosRoute = HomeProyectosRouteImport.update({
+  id: '/proyectos',
+  path: '/proyectos',
+  getParentRoute: () => HomeRoute,
 } as any)
 const ProyectosIndexRoute = ProyectosIndexRouteImport.update({
   id: '/proyectos/',
@@ -50,9 +86,15 @@ const ProyectosSlugRoute = ProyectosSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/cotizar': typeof CotizarRoute
+  '/home': typeof HomeRouteWithChildren
   '/nosotros': typeof NosotrosRoute
   '/servicios': typeof ServiciosRoute
+  '/home/contacto': typeof HomeContactoRoute
+  '/home/nosotros': typeof HomeNosotrosRoute
+  '/home/produccion': typeof HomeProduccionRoute
+  '/home/proyectos': typeof HomeProyectosRoute
   '/proyectos/$slug': typeof ProyectosSlugRoute
+  '/home/': typeof HomeIndexRoute
   '/proyectos/': typeof ProyectosIndexRoute
 }
 export interface FileRoutesByTo {
@@ -60,16 +102,27 @@ export interface FileRoutesByTo {
   '/cotizar': typeof CotizarRoute
   '/nosotros': typeof NosotrosRoute
   '/servicios': typeof ServiciosRoute
+  '/home/contacto': typeof HomeContactoRoute
+  '/home/nosotros': typeof HomeNosotrosRoute
+  '/home/produccion': typeof HomeProduccionRoute
+  '/home/proyectos': typeof HomeProyectosRoute
   '/proyectos/$slug': typeof ProyectosSlugRoute
+  '/home': typeof HomeIndexRoute
   '/proyectos': typeof ProyectosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/cotizar': typeof CotizarRoute
+  '/home': typeof HomeRouteWithChildren
   '/nosotros': typeof NosotrosRoute
   '/servicios': typeof ServiciosRoute
+  '/home/contacto': typeof HomeContactoRoute
+  '/home/nosotros': typeof HomeNosotrosRoute
+  '/home/produccion': typeof HomeProduccionRoute
+  '/home/proyectos': typeof HomeProyectosRoute
   '/proyectos/$slug': typeof ProyectosSlugRoute
+  '/home/': typeof HomeIndexRoute
   '/proyectos/': typeof ProyectosIndexRoute
 }
 export interface FileRouteTypes {
@@ -77,9 +130,15 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/cotizar'
+    | '/home'
     | '/nosotros'
     | '/servicios'
+    | '/home/contacto'
+    | '/home/nosotros'
+    | '/home/produccion'
+    | '/home/proyectos'
     | '/proyectos/$slug'
+    | '/home/'
     | '/proyectos/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -87,21 +146,33 @@ export interface FileRouteTypes {
     | '/cotizar'
     | '/nosotros'
     | '/servicios'
+    | '/home/contacto'
+    | '/home/nosotros'
+    | '/home/produccion'
+    | '/home/proyectos'
     | '/proyectos/$slug'
+    | '/home'
     | '/proyectos'
   id:
     | '__root__'
     | '/'
     | '/cotizar'
+    | '/home'
     | '/nosotros'
     | '/servicios'
+    | '/home/contacto'
+    | '/home/nosotros'
+    | '/home/produccion'
+    | '/home/proyectos'
     | '/proyectos/$slug'
+    | '/home/'
     | '/proyectos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CotizarRoute: typeof CotizarRoute
+  HomeRoute: typeof HomeRouteWithChildren
   NosotrosRoute: typeof NosotrosRoute
   ServiciosRoute: typeof ServiciosRoute
   ProyectosSlugRoute: typeof ProyectosSlugRoute
@@ -124,6 +195,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CotizarRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/home': {
+      id: '/home'
+      path: '/home'
+      fullPath: '/home'
+      preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/nosotros': {
       id: '/nosotros'
       path: '/nosotros'
@@ -137,6 +215,41 @@ declare module '@tanstack/react-router' {
       fullPath: '/servicios'
       preLoaderRoute: typeof ServiciosRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/home/': {
+      id: '/home/'
+      path: '/'
+      fullPath: '/home/'
+      preLoaderRoute: typeof HomeIndexRouteImport
+      parentRoute: typeof HomeRoute
+    }
+    '/home/contacto': {
+      id: '/home/contacto'
+      path: '/contacto'
+      fullPath: '/home/contacto'
+      preLoaderRoute: typeof HomeContactoRouteImport
+      parentRoute: typeof HomeRoute
+    }
+    '/home/nosotros': {
+      id: '/home/nosotros'
+      path: '/nosotros'
+      fullPath: '/home/nosotros'
+      preLoaderRoute: typeof HomeNosotrosRouteImport
+      parentRoute: typeof HomeRoute
+    }
+    '/home/produccion': {
+      id: '/home/produccion'
+      path: '/produccion'
+      fullPath: '/home/produccion'
+      preLoaderRoute: typeof HomeProduccionRouteImport
+      parentRoute: typeof HomeRoute
+    }
+    '/home/proyectos': {
+      id: '/home/proyectos'
+      path: '/proyectos'
+      fullPath: '/home/proyectos'
+      preLoaderRoute: typeof HomeProyectosRouteImport
+      parentRoute: typeof HomeRoute
     }
     '/proyectos/': {
       id: '/proyectos/'
@@ -155,9 +268,28 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface HomeRouteChildren {
+  HomeContactoRoute: typeof HomeContactoRoute
+  HomeNosotrosRoute: typeof HomeNosotrosRoute
+  HomeProduccionRoute: typeof HomeProduccionRoute
+  HomeProyectosRoute: typeof HomeProyectosRoute
+  HomeIndexRoute: typeof HomeIndexRoute
+}
+
+const HomeRouteChildren: HomeRouteChildren = {
+  HomeContactoRoute: HomeContactoRoute,
+  HomeNosotrosRoute: HomeNosotrosRoute,
+  HomeProduccionRoute: HomeProduccionRoute,
+  HomeProyectosRoute: HomeProyectosRoute,
+  HomeIndexRoute: HomeIndexRoute,
+}
+
+const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CotizarRoute: CotizarRoute,
+  HomeRoute: HomeRouteWithChildren,
   NosotrosRoute: NosotrosRoute,
   ServiciosRoute: ServiciosRoute,
   ProyectosSlugRoute: ProyectosSlugRoute,

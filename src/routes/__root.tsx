@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useRouterState,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -22,13 +23,21 @@ import { MODO_DEMO } from "@/lib/demo";
 const SITIO = "https://marmoles-de-honduras.vercel.app";
 
 /**
+ * La nueva home vive en /home mientras el cliente la aprueba. Trae su propio
+ * encabezado y pie, y no le aplica ninguna restricción del modo demo.
+ */
+function esHomeNueva(pathname: string) {
+  return pathname === "/home" || pathname.startsWith("/home/");
+}
+
+/**
  * En modo demo ningún enlace navega. Se intercepta en fase de captura para
  * detener el clic antes de que TanStack Router lo procese, así el navbar y los
  * CTA conservan su aspecto y sus estados hover sin llevar a ninguna parte.
  */
-function useBloqueoNavegacion() {
+function useBloqueoNavegacion(activo: boolean) {
   useEffect(() => {
-    if (!MODO_DEMO) return;
+    if (!activo) return;
     const alHacerClic = (e: MouseEvent) => {
       const destino = e.target as HTMLElement | null;
       const enlace = destino?.closest?.("a");
@@ -40,7 +49,7 @@ function useBloqueoNavegacion() {
     };
     document.addEventListener("click", alHacerClic, true);
     return () => document.removeEventListener("click", alHacerClic, true);
-  }, []);
+  }, [activo]);
 }
 
 /**
@@ -53,7 +62,8 @@ function useSoloHome() {
 
   useEffect(() => {
     if (!MODO_DEMO) return;
-    if (window.location.pathname !== "/") {
+    const ruta = window.location.pathname;
+    if (ruta !== "/" && !esHomeNueva(ruta)) {
       void router.navigate({ to: "/", replace: true });
     }
   }, [router]);
@@ -177,8 +187,20 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
-  useBloqueoNavegacion();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const homeNueva = esHomeNueva(pathname);
+  useBloqueoNavegacion(MODO_DEMO && !homeNueva);
   useSoloHome();
+
+  if (homeNueva) {
+    return (
+      <QueryClientProvider client={queryClient}>
+        <LangProvider>
+          <Outlet />
+        </LangProvider>
+      </QueryClientProvider>
+    );
+  }
 
   return (
     <QueryClientProvider client={queryClient}>
