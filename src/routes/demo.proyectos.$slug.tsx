@@ -8,7 +8,7 @@ import { useLang, loc } from "@/lib/i18n";
 import { Reveal } from "@/components/motion";
 import { CtaBanner } from "@/components/cta-banner";
 
-export const Route = createFileRoute("/proyectos/$slug")({
+export const Route = createFileRoute("/demo/proyectos/$slug")({
   loader: ({ params }): { proyecto: Proyecto } => {
     const proyecto = proyectos.find((p) => p.slug === params.slug);
     if (!proyecto) throw notFound();
@@ -52,7 +52,7 @@ function ProyectoNoEncontrado() {
         )}
       </p>
       <Link
-        to="/proyectos"
+        to="/demo/proyectos"
         className="mt-8 inline-block rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground"
       >
         {t("Ver proyectos", "View projects")}
@@ -102,7 +102,7 @@ function ProyectoDetalle() {
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           >
             <Link
-              to="/proyectos"
+              to="/demo/proyectos"
               className="inline-flex items-center gap-2 text-sm text-background/70 transition-colors hover:text-background"
             >
               <ArrowLeft className="h-4 w-4" /> {t("Proyectos", "Projects")}
@@ -161,7 +161,7 @@ function ProyectoDetalle() {
               <p className="mt-3 text-sm">{proyecto.lugar}</p>
             </div>
             <Link
-              to="/cotizar"
+              to="/demo/cotizar"
               className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-medium text-primary-foreground"
             >
               {t("Quiero algo así", "I want something like this")} <ArrowUpRight className="h-4 w-4" />
@@ -194,7 +194,7 @@ function ProyectoDetalle() {
             {otros.map((p, i) => (
               <Reveal key={p.slug} delay={i * 0.06}>
                 <Link
-                  to="/proyectos/$slug"
+                  to="/demo/proyectos/$slug"
                   params={{ slug: p.slug }}
                   className="group block"
                 >

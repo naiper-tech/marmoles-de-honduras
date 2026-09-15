@@ -13,7 +13,7 @@ import { Valores } from "@/components/home/valores";
 import { MISION, VISION, useTexto } from "@/lib/home-contenido";
 import { useLang } from "@/lib/i18n";
 
-export const Route = createFileRoute("/home/nosotros")({
+export const Route = createFileRoute("/_sitio/nosotros")({
   head: () => ({
     meta: [
       { title: "Nosotros — Mármoles de Honduras" },

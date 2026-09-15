@@ -70,7 +70,7 @@ export function CapacidadesHome() {
                   "Every piece is made to measure. If you can picture it in stone, we can make it.",
                 )}
               </p>
-              <EnlaceMas to="/home/produccion" className="self-start md:self-auto">
+              <EnlaceMas to="/produccion" className="self-start md:self-auto">
                 {t("Ver toda la producción", "See all production")}
               </EnlaceMas>
             </Aparecer>
@@ -91,7 +91,7 @@ export function CapacidadesHome() {
             return (
               <li key={capacidad.id} className="border-t border-white/15">
                 <Link
-                  to="/home/produccion"
+                  to="/produccion"
                   onPointerEnter={(e) => entrar(i, e)}
                   onFocus={() => setActiva(i)}
                   onBlur={() => setActiva(null)}

@@ -7,7 +7,7 @@ const title = "Cotizar — Solicita tu cotización | Mármoles de Honduras";
 const description =
   "Cuéntanos tu proyecto en piedra natural y te enviamos una cotización a la medida.";
 
-export const Route = createFileRoute("/cotizar")({
+export const Route = createFileRoute("/demo/cotizar")({
   head: () => ({
     meta: [
       { title },

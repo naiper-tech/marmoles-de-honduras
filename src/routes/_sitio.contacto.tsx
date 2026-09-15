@@ -9,7 +9,7 @@ import { Aparecer, EASE, Emerge } from "@/components/home/movimiento";
 import { CONTACTO, correoCon } from "@/lib/home-contenido";
 import { useLang } from "@/lib/i18n";
 
-export const Route = createFileRoute("/home/contacto")({
+export const Route = createFileRoute("/_sitio/contacto")({
   // ?proyecto=slug llega desde "Cotizar algo similar" en el modal de proyectos.
   validateSearch: (search: Record<string, unknown>): { proyecto?: string } => ({
     proyecto: typeof search.proyecto === "string" ? search.proyecto : undefined,

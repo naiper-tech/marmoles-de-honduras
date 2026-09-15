@@ -17,7 +17,7 @@ const title = "Nosotros — Mármoles de Honduras";
 const description =
   "Empresa familiar hondureña con más de 50 años fabricando, distribuyendo e instalando piedra natural en Centroamérica y Estados Unidos.";
 
-export const Route = createFileRoute("/nosotros")({
+export const Route = createFileRoute("/demo/nosotros")({
   head: () => ({
     meta: [
       { title },

@@ -48,7 +48,7 @@ export function HistoriaResumen() {
                 "Since 1970 we have led the natural stone industry in Honduras. A Honduran family company that today delivers work across three regions of the Americas.",
               )}
             </p>
-            <EnlaceMas to="/home/nosotros" className="mt-10">
+            <EnlaceMas to="/nosotros" className="mt-10">
               {t("Conoce nuestra historia", "Discover our story")}
             </EnlaceMas>
           </Aparecer>

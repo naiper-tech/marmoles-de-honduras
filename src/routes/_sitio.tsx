@@ -6,12 +6,12 @@ import { Pie } from "@/components/home/pie";
 import { ScrollSuave } from "@/components/home/scroll-suave";
 
 /**
- * Sitio nuevo de Mármoles de Honduras, en revisión con el cliente.
- * Vive bajo /home hasta su aprobación; mientras tanto queda fuera de buscadores.
+ * Sitio de Mármoles de Honduras. Ruta sin segmento propio: envuelve la raíz y
+ * las páginas interiores con el encabezado fijo, el pie y el scroll suave.
+ * El demo anterior quedó archivado en /demo.
  */
-export const Route = createFileRoute("/home")({
+export const Route = createFileRoute("/_sitio")({
   head: () => ({
-    meta: [{ name: "robots", content: "noindex, nofollow" }],
     links: [
       {
         rel: "stylesheet",

@@ -154,7 +154,7 @@ export function ModalProyecto({
             <div className="mt-auto pt-10">
               {/* Lleva al formulario con el proyecto ya referenciado. */}
               <Link
-                to="/home/contacto"
+                to="/contacto"
                 search={{ proyecto: p.slug }}
                 className="group flex w-full items-center justify-between bg-mdh-tinta px-7 py-5 text-white transition-colors duration-500 hover:bg-mdh-acero"
               >

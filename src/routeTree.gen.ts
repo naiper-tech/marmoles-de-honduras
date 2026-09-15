@@ -9,291 +9,357 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as CotizarRouteImport } from './routes/cotizar'
-import { Route as HomeRouteImport } from './routes/home'
-import { Route as NosotrosRouteImport } from './routes/nosotros'
-import { Route as ServiciosRouteImport } from './routes/servicios'
+import { Route as SitioRouteImport } from './routes/_sitio'
+import { Route as DemoRouteImport } from './routes/demo'
+import { Route as SitioIndexRouteImport } from './routes/_sitio.index'
+import { Route as SitioContactoRouteImport } from './routes/_sitio.contacto'
+import { Route as SitioNosotrosRouteImport } from './routes/_sitio.nosotros'
+import { Route as SitioProduccionRouteImport } from './routes/_sitio.produccion'
+import { Route as SitioProyectosRouteImport } from './routes/_sitio.proyectos'
+import { Route as DemoIndexRouteImport } from './routes/demo.index'
+import { Route as DemoCotizarRouteImport } from './routes/demo.cotizar'
+import { Route as DemoNosotrosRouteImport } from './routes/demo.nosotros'
+import { Route as DemoServiciosRouteImport } from './routes/demo.servicios'
 import { Route as HomeIndexRouteImport } from './routes/home.index'
-import { Route as HomeContactoRouteImport } from './routes/home.contacto'
-import { Route as HomeNosotrosRouteImport } from './routes/home.nosotros'
-import { Route as HomeProduccionRouteImport } from './routes/home.produccion'
-import { Route as HomeProyectosRouteImport } from './routes/home.proyectos'
-import { Route as ProyectosIndexRouteImport } from './routes/proyectos.index'
-import { Route as ProyectosSlugRouteImport } from './routes/proyectos.$slug'
+import { Route as HomeSplatRouteImport } from './routes/home.$'
+import { Route as DemoProyectosIndexRouteImport } from './routes/demo.proyectos.index'
+import { Route as DemoProyectosSlugRouteImport } from './routes/demo.proyectos.$slug'
 
-const IndexRoute = IndexRouteImport.update({
+const SitioRoute = SitioRouteImport.update({
+  id: '/_sitio',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoRoute = DemoRouteImport.update({
+  id: '/demo',
+  path: '/demo',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitioIndexRoute = SitioIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => SitioRoute,
 } as any)
-const CotizarRoute = CotizarRouteImport.update({
-  id: '/cotizar',
-  path: '/cotizar',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HomeRoute = HomeRouteImport.update({
-  id: '/home',
-  path: '/home',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const NosotrosRoute = NosotrosRouteImport.update({
-  id: '/nosotros',
-  path: '/nosotros',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ServiciosRoute = ServiciosRouteImport.update({
-  id: '/servicios',
-  path: '/servicios',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const HomeIndexRoute = HomeIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => HomeRoute,
-} as any)
-const HomeContactoRoute = HomeContactoRouteImport.update({
+const SitioContactoRoute = SitioContactoRouteImport.update({
   id: '/contacto',
   path: '/contacto',
-  getParentRoute: () => HomeRoute,
+  getParentRoute: () => SitioRoute,
 } as any)
-const HomeNosotrosRoute = HomeNosotrosRouteImport.update({
+const SitioNosotrosRoute = SitioNosotrosRouteImport.update({
   id: '/nosotros',
   path: '/nosotros',
-  getParentRoute: () => HomeRoute,
+  getParentRoute: () => SitioRoute,
 } as any)
-const HomeProduccionRoute = HomeProduccionRouteImport.update({
+const SitioProduccionRoute = SitioProduccionRouteImport.update({
   id: '/produccion',
   path: '/produccion',
-  getParentRoute: () => HomeRoute,
+  getParentRoute: () => SitioRoute,
 } as any)
-const HomeProyectosRoute = HomeProyectosRouteImport.update({
+const SitioProyectosRoute = SitioProyectosRouteImport.update({
   id: '/proyectos',
   path: '/proyectos',
-  getParentRoute: () => HomeRoute,
+  getParentRoute: () => SitioRoute,
 } as any)
-const ProyectosIndexRoute = ProyectosIndexRouteImport.update({
+const DemoIndexRoute = DemoIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => DemoRoute,
+} as any)
+const DemoCotizarRoute = DemoCotizarRouteImport.update({
+  id: '/cotizar',
+  path: '/cotizar',
+  getParentRoute: () => DemoRoute,
+} as any)
+const DemoNosotrosRoute = DemoNosotrosRouteImport.update({
+  id: '/nosotros',
+  path: '/nosotros',
+  getParentRoute: () => DemoRoute,
+} as any)
+const DemoServiciosRoute = DemoServiciosRouteImport.update({
+  id: '/servicios',
+  path: '/servicios',
+  getParentRoute: () => DemoRoute,
+} as any)
+const HomeIndexRoute = HomeIndexRouteImport.update({
+  id: '/home/',
+  path: '/home/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const HomeSplatRoute = HomeSplatRouteImport.update({
+  id: '/home/$',
+  path: '/home/$',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DemoProyectosIndexRoute = DemoProyectosIndexRouteImport.update({
   id: '/proyectos/',
   path: '/proyectos/',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => DemoRoute,
 } as any)
-const ProyectosSlugRoute = ProyectosSlugRouteImport.update({
+const DemoProyectosSlugRoute = DemoProyectosSlugRouteImport.update({
   id: '/proyectos/$slug',
   path: '/proyectos/$slug',
-  getParentRoute: () => rootRouteImport,
+  getParentRoute: () => DemoRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/cotizar': typeof CotizarRoute
-  '/home': typeof HomeRouteWithChildren
-  '/nosotros': typeof NosotrosRoute
-  '/servicios': typeof ServiciosRoute
-  '/home/contacto': typeof HomeContactoRoute
-  '/home/nosotros': typeof HomeNosotrosRoute
-  '/home/produccion': typeof HomeProduccionRoute
-  '/home/proyectos': typeof HomeProyectosRoute
-  '/proyectos/$slug': typeof ProyectosSlugRoute
+  '/': typeof SitioIndexRoute
+  '/demo': typeof DemoRouteWithChildren
+  '/contacto': typeof SitioContactoRoute
+  '/nosotros': typeof SitioNosotrosRoute
+  '/produccion': typeof SitioProduccionRoute
+  '/proyectos': typeof SitioProyectosRoute
+  '/demo/cotizar': typeof DemoCotizarRoute
+  '/demo/nosotros': typeof DemoNosotrosRoute
+  '/demo/servicios': typeof DemoServiciosRoute
+  '/home/$': typeof HomeSplatRoute
+  '/demo/': typeof DemoIndexRoute
   '/home/': typeof HomeIndexRoute
-  '/proyectos/': typeof ProyectosIndexRoute
+  '/demo/proyectos/$slug': typeof DemoProyectosSlugRoute
+  '/demo/proyectos/': typeof DemoProyectosIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/cotizar': typeof CotizarRoute
-  '/nosotros': typeof NosotrosRoute
-  '/servicios': typeof ServiciosRoute
-  '/home/contacto': typeof HomeContactoRoute
-  '/home/nosotros': typeof HomeNosotrosRoute
-  '/home/produccion': typeof HomeProduccionRoute
-  '/home/proyectos': typeof HomeProyectosRoute
-  '/proyectos/$slug': typeof ProyectosSlugRoute
+  '/contacto': typeof SitioContactoRoute
+  '/nosotros': typeof SitioNosotrosRoute
+  '/produccion': typeof SitioProduccionRoute
+  '/proyectos': typeof SitioProyectosRoute
+  '/demo/cotizar': typeof DemoCotizarRoute
+  '/demo/nosotros': typeof DemoNosotrosRoute
+  '/demo/servicios': typeof DemoServiciosRoute
+  '/home/$': typeof HomeSplatRoute
+  '/': typeof SitioIndexRoute
+  '/demo': typeof DemoIndexRoute
   '/home': typeof HomeIndexRoute
-  '/proyectos': typeof ProyectosIndexRoute
+  '/demo/proyectos/$slug': typeof DemoProyectosSlugRoute
+  '/demo/proyectos': typeof DemoProyectosIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/cotizar': typeof CotizarRoute
-  '/home': typeof HomeRouteWithChildren
-  '/nosotros': typeof NosotrosRoute
-  '/servicios': typeof ServiciosRoute
-  '/home/contacto': typeof HomeContactoRoute
-  '/home/nosotros': typeof HomeNosotrosRoute
-  '/home/produccion': typeof HomeProduccionRoute
-  '/home/proyectos': typeof HomeProyectosRoute
-  '/proyectos/$slug': typeof ProyectosSlugRoute
+  '/_sitio': typeof SitioRouteWithChildren
+  '/demo': typeof DemoRouteWithChildren
+  '/_sitio/contacto': typeof SitioContactoRoute
+  '/_sitio/nosotros': typeof SitioNosotrosRoute
+  '/_sitio/produccion': typeof SitioProduccionRoute
+  '/_sitio/proyectos': typeof SitioProyectosRoute
+  '/demo/cotizar': typeof DemoCotizarRoute
+  '/demo/nosotros': typeof DemoNosotrosRoute
+  '/demo/servicios': typeof DemoServiciosRoute
+  '/home/$': typeof HomeSplatRoute
+  '/_sitio/': typeof SitioIndexRoute
+  '/demo/': typeof DemoIndexRoute
   '/home/': typeof HomeIndexRoute
-  '/proyectos/': typeof ProyectosIndexRoute
+  '/demo/proyectos/$slug': typeof DemoProyectosSlugRoute
+  '/demo/proyectos/': typeof DemoProyectosIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/cotizar'
-    | '/home'
+    | '/demo'
+    | '/contacto'
     | '/nosotros'
-    | '/servicios'
-    | '/home/contacto'
-    | '/home/nosotros'
-    | '/home/produccion'
-    | '/home/proyectos'
-    | '/proyectos/$slug'
+    | '/produccion'
+    | '/proyectos'
+    | '/demo/cotizar'
+    | '/demo/nosotros'
+    | '/demo/servicios'
+    | '/home/$'
+    | '/demo/'
     | '/home/'
-    | '/proyectos/'
+    | '/demo/proyectos/$slug'
+    | '/demo/proyectos/'
   fileRoutesByTo: FileRoutesByTo
   to:
-    | '/'
-    | '/cotizar'
+    | '/contacto'
     | '/nosotros'
-    | '/servicios'
-    | '/home/contacto'
-    | '/home/nosotros'
-    | '/home/produccion'
-    | '/home/proyectos'
-    | '/proyectos/$slug'
-    | '/home'
+    | '/produccion'
     | '/proyectos'
+    | '/demo/cotizar'
+    | '/demo/nosotros'
+    | '/demo/servicios'
+    | '/home/$'
+    | '/'
+    | '/demo'
+    | '/home'
+    | '/demo/proyectos/$slug'
+    | '/demo/proyectos'
   id:
     | '__root__'
-    | '/'
-    | '/cotizar'
-    | '/home'
-    | '/nosotros'
-    | '/servicios'
-    | '/home/contacto'
-    | '/home/nosotros'
-    | '/home/produccion'
-    | '/home/proyectos'
-    | '/proyectos/$slug'
+    | '/_sitio'
+    | '/demo'
+    | '/_sitio/contacto'
+    | '/_sitio/nosotros'
+    | '/_sitio/produccion'
+    | '/_sitio/proyectos'
+    | '/demo/cotizar'
+    | '/demo/nosotros'
+    | '/demo/servicios'
+    | '/home/$'
+    | '/_sitio/'
+    | '/demo/'
     | '/home/'
-    | '/proyectos/'
+    | '/demo/proyectos/$slug'
+    | '/demo/proyectos/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  CotizarRoute: typeof CotizarRoute
-  HomeRoute: typeof HomeRouteWithChildren
-  NosotrosRoute: typeof NosotrosRoute
-  ServiciosRoute: typeof ServiciosRoute
-  ProyectosSlugRoute: typeof ProyectosSlugRoute
-  ProyectosIndexRoute: typeof ProyectosIndexRoute
+  SitioRoute: typeof SitioRouteWithChildren
+  DemoRoute: typeof DemoRouteWithChildren
+  HomeSplatRoute: typeof HomeSplatRoute
+  HomeIndexRoute: typeof HomeIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_sitio': {
+      id: '/_sitio'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof SitioRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo': {
+      id: '/demo'
+      path: '/demo'
+      fullPath: '/demo'
+      preLoaderRoute: typeof DemoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_sitio/': {
+      id: '/_sitio/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof SitioIndexRouteImport
+      parentRoute: typeof SitioRoute
     }
-    '/cotizar': {
-      id: '/cotizar'
-      path: '/cotizar'
-      fullPath: '/cotizar'
-      preLoaderRoute: typeof CotizarRouteImport
-      parentRoute: typeof rootRouteImport
+    '/_sitio/contacto': {
+      id: '/_sitio/contacto'
+      path: '/contacto'
+      fullPath: '/contacto'
+      preLoaderRoute: typeof SitioContactoRouteImport
+      parentRoute: typeof SitioRoute
     }
-    '/home': {
-      id: '/home'
-      path: '/home'
-      fullPath: '/home'
-      preLoaderRoute: typeof HomeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/nosotros': {
-      id: '/nosotros'
+    '/_sitio/nosotros': {
+      id: '/_sitio/nosotros'
       path: '/nosotros'
       fullPath: '/nosotros'
-      preLoaderRoute: typeof NosotrosRouteImport
-      parentRoute: typeof rootRouteImport
+      preLoaderRoute: typeof SitioNosotrosRouteImport
+      parentRoute: typeof SitioRoute
     }
-    '/servicios': {
-      id: '/servicios'
+    '/_sitio/produccion': {
+      id: '/_sitio/produccion'
+      path: '/produccion'
+      fullPath: '/produccion'
+      preLoaderRoute: typeof SitioProduccionRouteImport
+      parentRoute: typeof SitioRoute
+    }
+    '/_sitio/proyectos': {
+      id: '/_sitio/proyectos'
+      path: '/proyectos'
+      fullPath: '/proyectos'
+      preLoaderRoute: typeof SitioProyectosRouteImport
+      parentRoute: typeof SitioRoute
+    }
+    '/demo/': {
+      id: '/demo/'
+      path: '/'
+      fullPath: '/demo/'
+      preLoaderRoute: typeof DemoIndexRouteImport
+      parentRoute: typeof DemoRoute
+    }
+    '/demo/cotizar': {
+      id: '/demo/cotizar'
+      path: '/cotizar'
+      fullPath: '/demo/cotizar'
+      preLoaderRoute: typeof DemoCotizarRouteImport
+      parentRoute: typeof DemoRoute
+    }
+    '/demo/nosotros': {
+      id: '/demo/nosotros'
+      path: '/nosotros'
+      fullPath: '/demo/nosotros'
+      preLoaderRoute: typeof DemoNosotrosRouteImport
+      parentRoute: typeof DemoRoute
+    }
+    '/demo/servicios': {
+      id: '/demo/servicios'
       path: '/servicios'
-      fullPath: '/servicios'
-      preLoaderRoute: typeof ServiciosRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/demo/servicios'
+      preLoaderRoute: typeof DemoServiciosRouteImport
+      parentRoute: typeof DemoRoute
     }
     '/home/': {
       id: '/home/'
-      path: '/'
+      path: '/home'
       fullPath: '/home/'
       preLoaderRoute: typeof HomeIndexRouteImport
-      parentRoute: typeof HomeRoute
-    }
-    '/home/contacto': {
-      id: '/home/contacto'
-      path: '/contacto'
-      fullPath: '/home/contacto'
-      preLoaderRoute: typeof HomeContactoRouteImport
-      parentRoute: typeof HomeRoute
-    }
-    '/home/nosotros': {
-      id: '/home/nosotros'
-      path: '/nosotros'
-      fullPath: '/home/nosotros'
-      preLoaderRoute: typeof HomeNosotrosRouteImport
-      parentRoute: typeof HomeRoute
-    }
-    '/home/produccion': {
-      id: '/home/produccion'
-      path: '/produccion'
-      fullPath: '/home/produccion'
-      preLoaderRoute: typeof HomeProduccionRouteImport
-      parentRoute: typeof HomeRoute
-    }
-    '/home/proyectos': {
-      id: '/home/proyectos'
-      path: '/proyectos'
-      fullPath: '/home/proyectos'
-      preLoaderRoute: typeof HomeProyectosRouteImport
-      parentRoute: typeof HomeRoute
-    }
-    '/proyectos/': {
-      id: '/proyectos/'
-      path: '/proyectos'
-      fullPath: '/proyectos/'
-      preLoaderRoute: typeof ProyectosIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/proyectos/$slug': {
-      id: '/proyectos/$slug'
+    '/home/$': {
+      id: '/home/$'
+      path: '/home/$'
+      fullPath: '/home/$'
+      preLoaderRoute: typeof HomeSplatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/demo/proyectos/': {
+      id: '/demo/proyectos/'
+      path: '/proyectos'
+      fullPath: '/demo/proyectos/'
+      preLoaderRoute: typeof DemoProyectosIndexRouteImport
+      parentRoute: typeof DemoRoute
+    }
+    '/demo/proyectos/$slug': {
+      id: '/demo/proyectos/$slug'
       path: '/proyectos/$slug'
-      fullPath: '/proyectos/$slug'
-      preLoaderRoute: typeof ProyectosSlugRouteImport
-      parentRoute: typeof rootRouteImport
+      fullPath: '/demo/proyectos/$slug'
+      preLoaderRoute: typeof DemoProyectosSlugRouteImport
+      parentRoute: typeof DemoRoute
     }
   }
 }
 
-interface HomeRouteChildren {
-  HomeContactoRoute: typeof HomeContactoRoute
-  HomeNosotrosRoute: typeof HomeNosotrosRoute
-  HomeProduccionRoute: typeof HomeProduccionRoute
-  HomeProyectosRoute: typeof HomeProyectosRoute
-  HomeIndexRoute: typeof HomeIndexRoute
+interface SitioRouteChildren {
+  SitioContactoRoute: typeof SitioContactoRoute
+  SitioNosotrosRoute: typeof SitioNosotrosRoute
+  SitioProduccionRoute: typeof SitioProduccionRoute
+  SitioProyectosRoute: typeof SitioProyectosRoute
+  SitioIndexRoute: typeof SitioIndexRoute
 }
 
-const HomeRouteChildren: HomeRouteChildren = {
-  HomeContactoRoute: HomeContactoRoute,
-  HomeNosotrosRoute: HomeNosotrosRoute,
-  HomeProduccionRoute: HomeProduccionRoute,
-  HomeProyectosRoute: HomeProyectosRoute,
-  HomeIndexRoute: HomeIndexRoute,
+const SitioRouteChildren: SitioRouteChildren = {
+  SitioContactoRoute: SitioContactoRoute,
+  SitioNosotrosRoute: SitioNosotrosRoute,
+  SitioProduccionRoute: SitioProduccionRoute,
+  SitioProyectosRoute: SitioProyectosRoute,
+  SitioIndexRoute: SitioIndexRoute,
 }
 
-const HomeRouteWithChildren = HomeRoute._addFileChildren(HomeRouteChildren)
+const SitioRouteWithChildren = SitioRoute._addFileChildren(SitioRouteChildren)
+
+interface DemoRouteChildren {
+  DemoCotizarRoute: typeof DemoCotizarRoute
+  DemoNosotrosRoute: typeof DemoNosotrosRoute
+  DemoServiciosRoute: typeof DemoServiciosRoute
+  DemoIndexRoute: typeof DemoIndexRoute
+  DemoProyectosSlugRoute: typeof DemoProyectosSlugRoute
+  DemoProyectosIndexRoute: typeof DemoProyectosIndexRoute
+}
+
+const DemoRouteChildren: DemoRouteChildren = {
+  DemoCotizarRoute: DemoCotizarRoute,
+  DemoNosotrosRoute: DemoNosotrosRoute,
+  DemoServiciosRoute: DemoServiciosRoute,
+  DemoIndexRoute: DemoIndexRoute,
+  DemoProyectosSlugRoute: DemoProyectosSlugRoute,
+  DemoProyectosIndexRoute: DemoProyectosIndexRoute,
+}
+
+const DemoRouteWithChildren = DemoRoute._addFileChildren(DemoRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  CotizarRoute: CotizarRoute,
-  HomeRoute: HomeRouteWithChildren,
-  NosotrosRoute: NosotrosRoute,
-  ServiciosRoute: ServiciosRoute,
-  ProyectosSlugRoute: ProyectosSlugRoute,
-  ProyectosIndexRoute: ProyectosIndexRoute,
+  SitioRoute: SitioRouteWithChildren,
+  DemoRoute: DemoRouteWithChildren,
+  HomeSplatRoute: HomeSplatRoute,
+  HomeIndexRoute: HomeIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

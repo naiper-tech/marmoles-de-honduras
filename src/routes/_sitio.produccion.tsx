@@ -12,7 +12,7 @@ import { ProcesoScroll } from "@/components/home/proceso-scroll";
 import { correoCon, materiales, useTexto } from "@/lib/home-contenido";
 import { useLang } from "@/lib/i18n";
 
-export const Route = createFileRoute("/home/produccion")({
+export const Route = createFileRoute("/_sitio/produccion")({
   head: () => ({
     meta: [
       { title: "Producción — Mármoles de Honduras" },
@@ -128,7 +128,7 @@ function ProduccionPagina() {
                 "Every piece is prepared to travel: individual packaging, international logistics and coordination with the site straight from the plant.",
               )}
             </p>
-            <EnlaceMas to="/home/proyectos" className="mt-10">
+            <EnlaceMas to="/proyectos" className="mt-10">
               {t("Ver proyectos entregados", "See delivered projects")}
             </EnlaceMas>
           </Aparecer>

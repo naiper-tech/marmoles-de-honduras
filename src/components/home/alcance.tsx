@@ -56,7 +56,7 @@ export function Alcance() {
           <Aparecer retraso={0.1}>
             <p className="mt-10 text-mdh-acero">
               {t("¿Tu país no aparece?", "Don't see your country?")}{" "}
-              <Link to="/home/contacto" className="mdh-enlace text-mdh-tinta">
+              <Link to="/contacto" className="mdh-enlace text-mdh-tinta">
                 {t("Escríbenos igual", "Write to us anyway")}
               </Link>
             </p>

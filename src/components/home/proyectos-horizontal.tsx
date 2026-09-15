@@ -143,7 +143,7 @@ export function ProyectosHorizontal() {
             >
               {tarjetas}
               <Link
-                to="/home/proyectos"
+                to="/proyectos"
                 className="group flex aspect-[4/5] h-[50vh] shrink-0 flex-col justify-between border border-mdh-tinta/15 p-9 transition-colors duration-700 hover:border-mdh-tinta hover:bg-mdh-tinta hover:text-white"
               >
                 <span className="mdh-label text-mdh-pizarra transition-colors duration-700 group-hover:text-white/60">
@@ -168,7 +168,7 @@ export function ProyectosHorizontal() {
             {tarjetas}
           </div>
           <div className="mt-12 px-6 md:px-10">
-            <EnlaceMas to="/home/proyectos">{t("Ver todos los proyectos", "View all projects")}</EnlaceMas>
+            <EnlaceMas to="/proyectos">{t("Ver todos los proyectos", "View all projects")}</EnlaceMas>
           </div>
         </section>
       )}

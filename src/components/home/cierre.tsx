@@ -43,7 +43,7 @@ export function Cierre({ lineas }: { lineas?: Bilingue }) {
           <Aparecer retraso={0.2} className="lg:col-span-3 lg:flex lg:justify-end">
             <Magnetico fuerza={0.4}>
               <Link
-                to="/home/contacto"
+                to="/contacto"
                 className="group relative grid h-44 w-44 place-items-center overflow-hidden rounded-full bg-white text-mdh-tinta md:h-56 md:w-56"
               >
                 <span

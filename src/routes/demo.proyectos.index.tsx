@@ -12,7 +12,7 @@ const title = "Proyectos — Mármoles de Honduras";
 const description =
   "Bitácora de proyectos residenciales, comerciales e institucionales en piedra natural: el encargo, el reto y cómo se resolvió.";
 
-export const Route = createFileRoute("/proyectos/")({
+export const Route = createFileRoute("/demo/proyectos/")({
   head: () => ({
     meta: [
       { title },
@@ -103,7 +103,7 @@ function ProyectosPage() {
             className="mt-10"
           >
             <Link
-              to="/proyectos/$slug"
+              to="/demo/proyectos/$slug"
               params={{ slug: destacado.slug }}
               className="group grid gap-8 md:grid-cols-2 md:items-center"
             >
@@ -143,7 +143,7 @@ function ProyectosPage() {
         {resto.map((p, i) => (
           <Reveal key={p.slug} delay={(i % 3) * 0.08}>
             <Link
-              to="/proyectos/$slug"
+              to="/demo/proyectos/$slug"
               params={{ slug: p.slug }}
               className="group block"
             >

@@ -65,7 +65,7 @@ export function CtaBanner({ eyebrow, titulo, texto, cta }: Props) {
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3">
             <Link
-              to="/cotizar"
+              to="/demo/cotizar"
               className="btn-lux group inline-flex items-center gap-2 rounded-full bg-background px-8 py-4 text-sm font-medium text-foreground"
             >
               {ctaTxt}

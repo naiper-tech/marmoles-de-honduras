@@ -43,11 +43,11 @@ export function Encabezado() {
   }, [abierto]);
 
   const enlaces = [
-    { to: "/home", label: t("Inicio", "Home") },
-    { to: "/home/nosotros", label: t("Nosotros", "About") },
-    { to: "/home/produccion", label: t("Producción", "Production") },
-    { to: "/home/proyectos", label: t("Proyectos", "Projects") },
-    { to: "/home/contacto", label: t("Contacto", "Contact") },
+    { to: "/", label: t("Inicio", "Home") },
+    { to: "/nosotros", label: t("Nosotros", "About") },
+    { to: "/produccion", label: t("Producción", "Production") },
+    { to: "/proyectos", label: t("Proyectos", "Projects") },
+    { to: "/contacto", label: t("Contacto", "Contact") },
   ] as const;
 
   const claro = !solido && !abierto;
@@ -62,7 +62,7 @@ export function Encabezado() {
         }`}
       >
         <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-6 md:px-10">
-          <Link to="/home" className="mdh-label whitespace-nowrap" aria-label={t("Mármoles de Honduras — inicio", "Mármoles de Honduras — home")}>
+          <Link to="/" className="mdh-label whitespace-nowrap" aria-label={t("Mármoles de Honduras — inicio", "Mármoles de Honduras — home")}>
             Mármoles de Honduras
           </Link>
 
@@ -71,8 +71,8 @@ export function Encabezado() {
               <Link
                 key={enlace.to}
                 to={enlace.to}
-                // Sin exact, "/home" quedaría activo en todas las páginas interiores.
-                activeOptions={{ exact: enlace.to === "/home" }}
+                // Sin exact, "/" quedaría activo en todas las páginas interiores.
+                activeOptions={{ exact: enlace.to === "/" }}
                 className="mdh-label mdh-enlace"
               >
                 {enlace.label}
@@ -137,7 +137,7 @@ export function Encabezado() {
                   <Link
                     to={enlace.to}
                     onClick={() => setAbierto(false)}
-                    activeOptions={{ exact: enlace.to === "/home" }}
+                    activeOptions={{ exact: enlace.to === "/" }}
                     activeProps={{ className: "text-mdh-tinta" }}
                     inactiveProps={{ className: "text-mdh-tinta/60" }}
                     className="block py-5 text-3xl font-light"

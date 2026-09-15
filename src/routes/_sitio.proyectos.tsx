@@ -10,7 +10,7 @@ import { useCategoria } from "@/components/home/proyectos";
 import { proyectosDestacados } from "@/lib/home-contenido";
 import { useLang } from "@/lib/i18n";
 
-export const Route = createFileRoute("/home/proyectos")({
+export const Route = createFileRoute("/_sitio/proyectos")({
   head: () => ({
     meta: [
       { title: "Proyectos — Mármoles de Honduras" },

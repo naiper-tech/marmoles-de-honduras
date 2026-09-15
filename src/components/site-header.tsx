@@ -14,10 +14,10 @@ export function SiteHeader() {
   const claro = overlay && !scrolled && !open;
 
   const nav = [
-    { to: "/", label: t("Home", "Home") },
-    { to: "/nosotros", label: t("Nosotros", "About") },
-    { to: "/servicios", label: t("Servicios", "Services") },
-    { to: "/proyectos", label: t("Proyectos", "Projects") },
+    { to: "/demo", label: t("Home", "Home") },
+    { to: "/demo/nosotros", label: t("Nosotros", "About") },
+    { to: "/demo/servicios", label: t("Servicios", "Services") },
+    { to: "/demo/proyectos", label: t("Proyectos", "Projects") },
   ] as const;
 
   useEffect(() => {
@@ -39,7 +39,7 @@ export function SiteHeader() {
       }`}
     >
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-4 md:px-8">
-        <Link to="/" className="flex min-w-0 items-center gap-3">
+        <Link to="/demo" className="flex min-w-0 items-center gap-3">
           <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-primary font-display text-sm font-bold text-primary-foreground">
             M
           </span>
@@ -67,14 +67,14 @@ export function SiteHeader() {
               activeProps={{
                 className: `text-sm font-semibold ${claro ? "text-background" : "text-foreground"}`,
               }}
-              activeOptions={{ exact: item.to === "/" }}
+              activeOptions={{ exact: item.to === "/demo" }}
             >
               {item.label}
             </Link>
           ))}
           <LangToggle claro={claro} lang={lang} setLang={setLang} />
           <Link
-            to="/cotizar"
+            to="/demo/cotizar"
             className="btn-lux rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
           >
             {t("Cotizar", "Get a quote")}
@@ -116,7 +116,7 @@ export function SiteHeader() {
                 </Link>
               ))}
               <Link
-                to="/cotizar"
+                to="/demo/cotizar"
                 onClick={() => setOpen(false)}
                 className="mt-3 block rounded-full bg-primary px-5 py-3 text-center text-sm font-medium text-primary-foreground"
               >

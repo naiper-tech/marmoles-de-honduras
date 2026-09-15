@@ -8,11 +8,11 @@ export function Pie() {
   const { t } = useLang();
 
   const enlaces = [
-    { to: "/home", label: t("Inicio", "Home") },
-    { to: "/home/nosotros", label: t("Nosotros", "About") },
-    { to: "/home/produccion", label: t("Producción", "Production") },
-    { to: "/home/proyectos", label: t("Proyectos", "Projects") },
-    { to: "/home/contacto", label: t("Contacto", "Contact") },
+    { to: "/", label: t("Inicio", "Home") },
+    { to: "/nosotros", label: t("Nosotros", "About") },
+    { to: "/produccion", label: t("Producción", "Production") },
+    { to: "/proyectos", label: t("Proyectos", "Projects") },
+    { to: "/contacto", label: t("Contacto", "Contact") },
   ] as const;
 
   // PROVISIONAL: páginas legales en preparación (plantillas de privacidad, términos y cookies).

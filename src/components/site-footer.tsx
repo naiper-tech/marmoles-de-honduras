@@ -9,11 +9,11 @@ export function SiteFooter() {
   const { t } = useLang();
 
   const nav = [
-    { to: "/", label: t("Home", "Home") },
-    { to: "/nosotros", label: t("Nosotros", "About") },
-    { to: "/servicios", label: t("Servicios", "Services") },
-    { to: "/proyectos", label: t("Proyectos", "Projects") },
-    { to: "/cotizar", label: t("Cotizar", "Get a quote") },
+    { to: "/demo", label: t("Home", "Home") },
+    { to: "/demo/nosotros", label: t("Nosotros", "About") },
+    { to: "/demo/servicios", label: t("Servicios", "Services") },
+    { to: "/demo/proyectos", label: t("Proyectos", "Projects") },
+    { to: "/demo/cotizar", label: t("Cotizar", "Get a quote") },
   ] as const;
 
   const materiales = [
@@ -110,7 +110,7 @@ export function SiteFooter() {
               </li>
             </ul>
             <Link
-              to="/cotizar"
+              to="/demo/cotizar"
               className="btn-lux mt-6 inline-flex items-center gap-2 rounded-full bg-background px-6 py-3 text-sm font-medium text-foreground"
             >
               {t("Solicitar cotización", "Request a quote")}

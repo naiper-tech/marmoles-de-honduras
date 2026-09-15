@@ -17,7 +17,7 @@ const title = "Servicios, piezas a medida y materiales — Mármoles de Honduras
 const description =
   "Fabricación, corte a medida, instalación y distribución. Escaleras, chimeneas, columnas, bustos, tinas y detalles arquitectónicos en piedra natural.";
 
-export const Route = createFileRoute("/servicios")({
+export const Route = createFileRoute("/demo/servicios")({
   head: () => ({
     meta: [
       { title },

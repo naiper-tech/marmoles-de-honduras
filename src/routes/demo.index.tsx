@@ -19,7 +19,7 @@ const title = "Mármoles de Honduras — Piedra natural desde hace más de 50 a�
 const description =
   "Fabricación, distribución e instalación de mármol, granito, cuarcita, ónix y travertino para proyectos residenciales, comerciales e institucionales.";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/demo/")({
   head: () => ({
     meta: [
       { title },
@@ -142,14 +142,14 @@ function Index() {
             </p>
             <div className="flex flex-wrap gap-3">
               <Link
-                to="/cotizar"
+                to="/demo/cotizar"
                 className="group inline-flex items-center gap-2 rounded-full bg-background px-6 py-3.5 text-sm font-medium text-foreground transition-transform hover:-translate-y-0.5"
               >
                 {t("Solicitar cotización", "Request a quote")}
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link
-                to="/proyectos"
+                to="/demo/proyectos"
                 className="rounded-full border border-background/40 px-6 py-3.5 text-sm font-medium text-background transition-colors hover:bg-background/10"
               >
                 {t("Ver proyectos", "View projects")}
@@ -251,7 +251,7 @@ function Index() {
             </h2>
           </div>
           <Link
-            to="/servicios"
+            to="/demo/servicios"
             className="group inline-flex items-center gap-1 text-sm font-medium text-primary"
           >
             {t("Ver materiales y servicios", "View materials and services")}
@@ -264,7 +264,7 @@ function Index() {
             return (
               <StaggerItem key={m.slug}>
                 <Link
-                  to="/servicios"
+                  to="/demo/servicios"
                   className="group block overflow-hidden rounded-2xl border border-border bg-card"
                 >
                   <div className="overflow-hidden">
@@ -304,7 +304,7 @@ function Index() {
               </h2>
             </div>
             <Link
-              to="/servicios"
+              to="/demo/servicios"
               className="group inline-flex items-center gap-1 text-sm font-medium text-background/80"
             >
               {t("Ver todas las piezas", "View all pieces")}
@@ -336,7 +336,7 @@ function Index() {
             return (
               <Reveal key={p.slug} delay={i * 0.06}>
                 <Link
-                  to="/proyectos/$slug"
+                  to="/demo/proyectos/$slug"
                   params={{ slug: p.slug }}
                   className="group grid items-center gap-6 rounded-3xl border border-border bg-card p-4 transition-colors hover:bg-secondary/60 md:grid-cols-[300px_1fr_auto] md:p-5"
                 >
@@ -374,7 +374,7 @@ function Index() {
         </div>
         <Reveal className="mt-8">
           <Link
-            to="/proyectos"
+            to="/demo/proyectos"
             className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-medium transition-colors hover:bg-secondary"
           >
             {t("Ver todos los proyectos", "View all projects")} <ArrowRight className="h-4 w-4" />
