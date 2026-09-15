@@ -1,6 +1,6 @@
 import { motion } from "motion/react";
 
-import planta from "@/assets/proceso-corte-losa.jpg";
+import planta from "@/assets/losa-tallada.jpg";
 import { useLang } from "@/lib/i18n";
 import { TextoPorScroll } from "./efectos";
 import { ImagenExpansiva } from "./imagen-expansiva";

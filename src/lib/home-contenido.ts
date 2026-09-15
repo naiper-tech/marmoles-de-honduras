@@ -1,10 +1,10 @@
-import procesoCorteBloque from "@/assets/proceso-corte-bloque.jpg";
-import matMarmol from "@/assets/mat-marmol.jpg";
-import projectKitchen from "@/assets/project-kitchen.jpg";
-import piezaBustos from "@/assets/pieza-bustos.jpg";
-import piezaColumnas from "@/assets/pieza-columnas.jpg";
-import piezaDetalles from "@/assets/pieza-detalles.jpg";
-import piezaEscaleras from "@/assets/pieza-escaleras.jpg";
+import sierraBloque from "@/assets/sierra-bloque.jpg";
+import mesaVeta from "@/assets/mesa-veta.jpg";
+import pisoLaGorce from "@/assets/proy-la-gorce.jpg";
+import artesanoTallado from "@/assets/artesano-tallado.jpg";
+import columnasTaller from "@/assets/columnas-taller.jpg";
+import rosetones from "@/assets/rosetones.jpg";
+import escaleraRitz from "@/assets/proy-escalera-ritz.jpg";
 import { useLang } from "@/lib/i18n";
 import { proyectos, type Proyecto } from "@/lib/site-data";
 
@@ -31,7 +31,7 @@ export const YOUTUBE_ID = "DIX-ObqYLiM";
 export const CASA_MARMOL_URL = "https://casamarmol.com";
 
 export const CONTACTO = {
-  correo: "info@marmolesdehonduras.com",
+  correo: "sales@marmolesdehonduras.com",
   telefono: "+504 2226-9005",
   telefonoHref: "tel:+50422269005",
   correoRRHH: "info@marmolesdehonduras.com",
@@ -108,7 +108,7 @@ export const capacidades: Capacidad[] = [
       es: "Nos envías tu piedra en bruto y la convertimos en las piezas de tu proyecto.",
       en: "Send us your raw stone and we turn it into the pieces your project needs.",
     },
-    imagen: procesoCorteBloque,
+    imagen: sierraBloque,
   },
   {
     id: "cubiertas",
@@ -117,7 +117,7 @@ export const capacidades: Capacidad[] = [
       es: "Cocinas, baños y barras cortadas a la medida, con veta continua.",
       en: "Kitchens, bathrooms and bars cut to size, with continuous veining.",
     },
-    imagen: projectKitchen,
+    imagen: mesaVeta,
   },
   {
     id: "pisos",
@@ -126,7 +126,7 @@ export const capacidades: Capacidad[] = [
       es: "Grandes superficies con tono uniforme, de la cantera a la obra.",
       en: "Large surfaces with a consistent tone, from quarry to site.",
     },
-    imagen: matMarmol,
+    imagen: pisoLaGorce,
   },
   {
     id: "tallado",
@@ -135,7 +135,7 @@ export const capacidades: Capacidad[] = [
       es: "Piezas talladas a mano por nuestros artesanos, a partir de un solo bloque.",
       en: "Pieces carved by hand by our artisans, from a single block.",
     },
-    imagen: piezaBustos,
+    imagen: artesanoTallado,
   },
   {
     id: "columnas",
@@ -144,7 +144,7 @@ export const capacidades: Capacidad[] = [
       es: "Elementos estructurales y decorativos con el detalle que pida el proyecto.",
       en: "Structural and decorative elements, detailed to the project's needs.",
     },
-    imagen: piezaColumnas,
+    imagen: columnasTaller,
   },
   {
     id: "mosaicos",
@@ -153,7 +153,7 @@ export const capacidades: Capacidad[] = [
       es: "Composiciones a medida para pisos y muros de carácter.",
       en: "Custom compositions for statement floors and walls.",
     },
-    imagen: piezaDetalles,
+    imagen: rosetones,
   },
   {
     id: "gradas",
@@ -162,7 +162,7 @@ export const capacidades: Capacidad[] = [
       es: "Piezas macizas, fabricadas para durar tanto como el edificio.",
       en: "Solid pieces, built to last as long as the building.",
     },
-    imagen: piezaEscaleras,
+    imagen: escaleraRitz,
   },
 ];
 

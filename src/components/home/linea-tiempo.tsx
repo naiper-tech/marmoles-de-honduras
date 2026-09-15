@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView } from "motion/react";
 
 import cantera from "@/assets/cover-video.jpg";
-import exportacion from "@/assets/foto-intercontinental-cr.jpg";
-import casa from "@/assets/interior-living.jpg";
-import planta from "@/assets/proceso-corte-losa.jpg";
-import taller from "@/assets/workshop.jpg";
+import exportacion from "@/assets/proy-taylorsville.jpg";
+import casa from "@/assets/proy-cocoplum.jpg";
+import planta from "@/assets/planta-aerea.jpg";
+import taller from "@/assets/artesano-acabado.jpg";
 import { capitulos, useTexto, type Capitulo } from "@/lib/home-contenido";
 import { useLang } from "@/lib/i18n";
 import { Emerge, EASE, ImagenRevelada } from "./movimiento";

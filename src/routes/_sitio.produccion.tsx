@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 
-import planta from "@/assets/proceso-corte-losa.jpg";
+import planta from "@/assets/taller-columnas.jpg";
 import { CapacidadesDetalle } from "@/components/home/capacidades-detalle";
 import { Cierre } from "@/components/home/cierre";
 import { Magnetico, Marquesina, TextoPorScroll } from "@/components/home/efectos";

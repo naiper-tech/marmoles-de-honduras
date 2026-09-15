@@ -1,6 +1,6 @@
 import { ArrowUpRight } from "lucide-react";
 
-import interior from "@/assets/interior-living.jpg";
+import interior from "@/assets/proy-la-gorce.jpg";
 import { CASA_MARMOL_URL } from "@/lib/home-contenido";
 import { useLang } from "@/lib/i18n";
 import { Aparecer, ImagenRevelada } from "./movimiento";

@@ -11,8 +11,8 @@ import projTorreSky from "@/assets/proj-torre-sky.jpg";
 import projMall from "@/assets/proj-mall.jpg";
 import projHotel from "@/assets/proj-hotel.jpg";
 import projBasilica from "@/assets/proj-basilica.jpg";
-import interiorLiving from "@/assets/interior-living.jpg";
-import workshop from "@/assets/workshop.jpg";
+import tallerColumnas from "@/assets/taller-columnas.jpg";
+import artesanoAcabado from "@/assets/artesano-acabado.jpg";
 import piezaDetalles from "@/assets/pieza-detalles.jpg";
 import piezaBustos from "@/assets/pieza-bustos.jpg";
 import piezaEscaleras from "@/assets/pieza-escaleras.jpg";
@@ -21,14 +21,17 @@ import piezaColumnas from "@/assets/pieza-columnas.jpg";
 import piezaBancas from "@/assets/pieza-bancas.jpg";
 import piezaTinas from "@/assets/pieza-tinas.jpg";
 import piezaSolarium from "@/assets/pieza-solarium.jpg";
-import fotoClockTower from "@/assets/foto-clock-tower.jpg";
-import fotoAhana from "@/assets/foto-ahana.jpg";
+import fotoClockTower from "@/assets/proy-clock-tower.jpg";
+import fotoAhana from "@/assets/proy-ahana.jpg";
 import fotoInterCR from "@/assets/foto-intercontinental-cr.jpg";
 import fotoInterTGU from "@/assets/foto-intercontinental-tgu.jpg";
 import fotoTorreSky from "@/assets/foto-torre-sky.jpg";
 import fotoCityMall from "@/assets/foto-city-mall.jpg";
 import fotoBasilica from "@/assets/foto-basilica.jpg";
 import fotoIglesiaConcepcion from "@/assets/foto-iglesia-concepcion.jpg";
+import fotoGuacalito from "@/assets/proy-guacalito.jpg";
+import fotoIndura from "@/assets/proy-indura.jpg";
+import fotoConcepcionInterior from "@/assets/proy-concepcion.jpg";
 
 export type Material = {
   slug: string;
@@ -183,7 +186,7 @@ export const proyectos: Proyecto[] = [
           "Es nuestra obra más visible fuera de Honduras y la que mejor resume lo que hacemos: talla en piedra natural con estándar de exportación, desde una planta hondureña.",
       },
     ],
-    galeria: [fotoClockTower, matMarmol, workshop],
+    galeria: [fotoClockTower, matMarmol, artesanoAcabado],
     en: {
       titulo: "Clock Tower",
       lugar: "Palm Beach, Florida",
@@ -206,7 +209,7 @@ export const proyectos: Proyecto[] = [
         {
           titulo: "Our work",
           texto:
-            "We select the block, model the layout piece by piece before cutting, and fabricate in our own plant. Pieces are numbered so that on-site installation follows a sequence defined back at the workshop.",
+            "We select the block, model the layout piece by piece before cutting, and fabricate in our own plant. Pieces are numbered so that on-site installation follows a sequence defined back at the artesanoAcabado.",
         },
         {
           titulo: "Why it matters",
@@ -290,7 +293,7 @@ export const proyectos: Proyecto[] = [
     categoria: "Residencial",
     resumen:
       "Desarrollo residencial y de resort en la costa pacífica de Nicaragua, con piedra natural en interiores y áreas exteriores.",
-    imagen: interiorLiving,
+    imagen: fotoGuacalito,
     alcance: ["Suministro", "Corte a medida", "Instalación"],
     materiales: ["Travertino", "Mármol"],
     contenido: [
@@ -315,7 +318,7 @@ export const proyectos: Proyecto[] = [
           "Confirma nuestra presencia en Centroamérica más allá de Honduras, en un segmento donde el acabado define el precio por metro cuadrado del desarrollo.",
       },
     ],
-    galeria: [interiorLiving, matTravertino, projBath],
+    galeria: [fotoGuacalito, matTravertino, tallerColumnas],
     en: {
       titulo: "Guacalito de la Isla",
       lugar: "Tola",
@@ -447,7 +450,7 @@ export const proyectos: Proyecto[] = [
           "En vivienda vertical, la continuidad visual del lobby al último piso es lo que separa un edificio de categoría de uno que solo usó material caro.",
       },
     ],
-    galeria: [fotoTorreSky, matMarmol, interiorLiving],
+    galeria: [fotoTorreSky, matMarmol, tallerColumnas],
     en: {
       titulo: "Torre Sky",
       lugar: "Tegucigalpa",
@@ -579,7 +582,7 @@ export const proyectos: Proyecto[] = [
           "Es la obra que más hondureños han visto sin saber que es nuestra. En patrimonio religioso, el mejor resultado es el que no se nota.",
       },
     ],
-    galeria: [fotoBasilica, matMarmol, workshop],
+    galeria: [fotoBasilica, matMarmol, artesanoAcabado],
     en: {
       titulo: "Basilica of Suyapa",
       lugar: "Tegucigalpa",
@@ -645,7 +648,7 @@ export const proyectos: Proyecto[] = [
           "Trabajar en Roatán exige resolver logística además de piedra. Es la clase de proyecto donde un proveedor sin planta propia no puede sostener el ritmo.",
       },
     ],
-    galeria: [projBath, matTravertino, interiorLiving],
+    galeria: [projBath, matTravertino, tallerColumnas],
     en: {
       titulo: "Pristine Bay",
       lugar: "Roatán, Bay Islands",
@@ -686,7 +689,7 @@ export const proyectos: Proyecto[] = [
     categoria: "Residencial",
     resumen:
       "Resort de playa y golf con piedra natural en áreas comunes, villas y zonas húmedas.",
-    imagen: projKitchen,
+    imagen: fotoIndura,
     alcance: ["Suministro", "Corte a medida", "Instalación"],
     materiales: ["Travertino", "Mármol", "Granito"],
     contenido: [
@@ -711,7 +714,7 @@ export const proyectos: Proyecto[] = [
           "La hotelería vacacional vende experiencia, y la piedra es de los pocos materiales que el huésped toca con los pies descalzos todos los días.",
       },
     ],
-    galeria: [projKitchen, matTravertino, matGranito],
+    galeria: [fotoIndura, matTravertino, matGranito],
     en: {
       titulo: "Indura Beach & Golf Resort",
       lugar: "San Pedro Sula",
@@ -777,7 +780,7 @@ export const proyectos: Proyecto[] = [
           "Guatemala es uno de los cinco países donde hemos entregado obra. El trabajo religioso es, además, el que más confianza exige del cliente.",
       },
     ],
-    galeria: [fotoIglesiaConcepcion, fotoBasilica, matMarmol],
+    galeria: [fotoIglesiaConcepcion, fotoConcepcionInterior, matMarmol],
     en: {
       titulo: "Concepción Church",
       lugar: "Guatemala City",

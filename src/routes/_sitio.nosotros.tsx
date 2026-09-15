@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 
-import taller from "@/assets/proceso-corte-bloque.jpg";
+import taller from "@/assets/planta-aerea.jpg";
 import { Alcance } from "@/components/home/alcance";
 import { CasaMarmol } from "@/components/home/casa-marmol";
 import { Cierre } from "@/components/home/cierre";
@@ -47,7 +47,10 @@ function Nosotros() {
           "A Honduran family company, leading the fabrication and distribution of natural stone.",
         )}
         imagen={taller}
-        alt={t("Bloque de piedra entrando al telar en la planta", "A stone block entering the gang saw at the plant")}
+        alt={t(
+          "Vista aérea de la planta de Mármoles de Honduras en Tegucigalpa",
+          "Aerial view of the Mármoles de Honduras plant in Tegucigalpa",
+        )}
       />
 
       <section aria-labelledby="quienes-titulo" className="bg-white">
@@ -103,11 +106,60 @@ function Nosotros() {
         </div>
       </section>
 
+      <LaPlanta />
       <LineaTiempo />
       <Valores />
       <Alcance />
       <CasaMarmol />
       <Cierre />
     </>
+  );
+}
+
+/**
+ * Cifras de la operación (brochure de marca): lo que un comprador extranjero
+ * necesita saber antes de escribir — tamaño de planta, equipo y cercanía.
+ */
+function LaPlanta() {
+  const { t } = useLang();
+
+  const cifras = [
+    { dato: "1970", etiqueta: t("Año de fundación", "Founded") },
+    { dato: "70+", etiqueta: t("Artesanos en planta", "Craftsmen on the floor") },
+    { dato: "12,450 m²", etiqueta: t("Área de fabricación", "Manufacturing area") },
+    { dato: "24 h", etiqueta: t("Desde EE. UU. para inspección", "From the U.S. for an inspection") },
+  ];
+
+  return (
+    <section aria-labelledby="planta-titulo" className="border-t border-mdh-niebla bg-mdh-hueso">
+      <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-10 md:py-32">
+        <div className="grid gap-12 md:grid-cols-12">
+          <Aparecer className="md:col-span-3">
+            <h2 id="planta-titulo" className="mdh-label text-mdh-pizarra">
+              {t("La planta", "The plant")}
+            </h2>
+          </Aparecer>
+          <Aparecer className="md:col-span-9">
+            <p className="max-w-3xl text-[clamp(1.25rem,2.2vw,2rem)] font-light leading-[1.35] text-mdh-acero">
+              {t(
+                "12,450 m² de fabricación sobre un terreno de 19,000 m², a las afueras de Tegucigalpa y a minutos del aeropuerto internacional: una visita de inspección desde Estados Unidos toma menos de 24 horas.",
+                "12,450 m² of manufacturing on a 19,000 m² site just outside Tegucigalpa, minutes from the international airport: an inspection visit from the United States takes under 24 hours.",
+              )}
+            </p>
+          </Aparecer>
+        </div>
+
+        <dl className="mt-16 grid grid-cols-2 gap-x-8 gap-y-12 border-t border-mdh-tinta/10 pt-12 md:mt-24 md:grid-cols-4">
+          {cifras.map((cifra, i) => (
+            <Aparecer key={cifra.dato} retraso={i * 0.08}>
+              <dt className="mdh-label text-mdh-pizarra">{cifra.etiqueta}</dt>
+              <dd className="mt-4 text-[clamp(2rem,4vw,3.25rem)] font-extralight leading-none tracking-[-0.03em]">
+                {cifra.dato}
+              </dd>
+            </Aparecer>
+          ))}
+        </dl>
+      </div>
+    </section>
   );
 }
