@@ -25,6 +25,9 @@ export function Portada() {
   useEffect(() => {
     const loop = loopRef.current;
     if (!loop) return;
+    // La fuente se asigna en el cliente para elegir peso según pantalla (12 MB → 4-6 MB)
+    // y para que el póster se vea de inmediato mientras el video carga.
+    loop.src = window.innerWidth < 768 ? "/videos/hero-taller-sd.mp4" : "/videos/hero-taller-hd.mp4";
     loop.muted = true;
     void loop.play().catch(() => {});
   }, []);
@@ -44,7 +47,6 @@ export function Portada() {
         <video
           ref={loopRef}
           className="h-full w-full object-cover"
-          src="/videos/hero-taller.mp4"
           poster={poster}
           autoPlay
           muted
