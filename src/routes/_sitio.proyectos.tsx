@@ -7,7 +7,7 @@ import { GaleriaProyectos } from "@/components/home/galeria-proyectos";
 import { Aparecer } from "@/components/home/movimiento";
 import { PortadaPagina } from "@/components/home/portada-pagina";
 import { useCategoria } from "@/components/home/proyectos";
-import { proyectosDestacados } from "@/lib/home-contenido";
+import { proyectosPortafolio } from "@/lib/home-contenido";
 import { useLang } from "@/lib/i18n";
 
 export const Route = createFileRoute("/_sitio/proyectos")({
@@ -29,8 +29,8 @@ function ProyectosPagina() {
   const categoria = useCategoria();
 
   // Cifras derivadas del portafolio publicado: cambian solas al actualizar proyectos.
-  const paises = new Set(proyectosDestacados.map((p) => p.pais)).size;
-  const tipologias = [...new Set(proyectosDestacados.map((p) => p.categoria))].map(categoria);
+  const paises = new Set(proyectosPortafolio.map((p) => p.pais)).size;
+  const tipologias = [...new Set(proyectosPortafolio.map((p) => p.categoria))].map(categoria);
 
   return (
     <>
@@ -67,7 +67,7 @@ function ProyectosPagina() {
               <div>
                 <dt className="mdh-label text-mdh-pizarra">{t("Proyectos", "Projects")}</dt>
                 <dd className="mt-4 text-6xl font-extralight tracking-[-0.04em]">
-                  <Contador hasta={proyectosDestacados.length} duracion={1.6} />
+                  <Contador hasta={proyectosPortafolio.length} duracion={1.6} />
                 </dd>
               </div>
               <div>

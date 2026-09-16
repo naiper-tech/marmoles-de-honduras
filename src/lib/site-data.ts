@@ -29,6 +29,18 @@ import fotoTorreSky from "@/assets/foto-torre-sky.jpg";
 import fotoCityMall from "@/assets/foto-city-mall.jpg";
 import fotoBasilica from "@/assets/foto-basilica.jpg";
 import fotoIglesiaConcepcion from "@/assets/foto-iglesia-concepcion.jpg";
+import fotoTaylorsville from "@/assets/proy-taylorsville.jpg";
+import fotoPublicSafety from "@/assets/proy-public-safety.jpg";
+import fotoPonceLeon from "@/assets/proy-ponce-leon.jpg";
+import fotoHannibalSquare from "@/assets/proy-hannibal-square.jpg";
+import fotoHannibalPark from "@/assets/proy-hannibal-park.jpg";
+import fotoNewEngland from "@/assets/proy-411-new-england.jpg";
+import fotoLaGorce from "@/assets/proy-la-gorce.jpg";
+import fotoCocoplum from "@/assets/proy-cocoplum.jpg";
+import fotoWindermere from "@/assets/proy-chimenea-windermere.jpg";
+import fotoWindermereCampana from "@/assets/proy-campana-windermere.jpg";
+import fotoRitzTiburon from "@/assets/proy-escalera-ritz.jpg";
+import fotoAlamar from "@/assets/proy-alamar.jpg";
 import fotoGuacalito from "@/assets/proy-guacalito.jpg";
 import fotoIndura from "@/assets/proy-indura.jpg";
 import fotoConcepcionInterior from "@/assets/proy-concepcion.jpg";
@@ -126,7 +138,12 @@ export const materiales: Material[] = [
   },
 ];
 
-export type Categoria = "Residencial" | "Comercial" | "Institucional";
+export type Categoria =
+  | "Residencial"
+  | "Comercial"
+  | "Institucional"
+  | "Hotelero"
+  | "Religioso";
 
 export type Proyecto = {
   slug: string;
@@ -134,6 +151,10 @@ export type Proyecto = {
   lugar: string;
   pais: string;
   categoria: Categoria;
+  /** Año de entrega. Pendiente de la memoria técnica del cliente. */
+  anio?: string;
+  /** Fotos reales de la obra para el carrusel del modal (la principal va aparte). */
+  fotos?: string[];
   resumen: string;
   imagen: string;
   alcance: string[];
@@ -290,7 +311,7 @@ export const proyectos: Proyecto[] = [
     titulo: "Guacalito de la Isla",
     lugar: "Tola",
     pais: "Nicaragua",
-    categoria: "Residencial",
+    categoria: "Hotelero",
     resumen:
       "Desarrollo residencial y de resort en la costa pacífica de Nicaragua, con piedra natural en interiores y áreas exteriores.",
     imagen: fotoGuacalito,
@@ -356,7 +377,7 @@ export const proyectos: Proyecto[] = [
     titulo: "Intercontinental",
     lugar: "San José",
     pais: "Costa Rica",
-    categoria: "Comercial",
+    categoria: "Hotelero",
     resumen:
       "Piedra natural para áreas públicas de hotelería internacional en San José. Superficies de alto tránsito con acabado de categoría.",
     imagen: fotoInterCR,
@@ -554,7 +575,7 @@ export const proyectos: Proyecto[] = [
     titulo: "Basílica de Suyapa",
     lugar: "Tegucigalpa",
     pais: "Honduras",
-    categoria: "Institucional",
+    categoria: "Religioso",
     resumen:
       "Trabajo en mármol para uno de los espacios religiosos más visitados de Honduras. Obra litúrgica de alto valor simbólico.",
     imagen: fotoBasilica,
@@ -620,7 +641,7 @@ export const proyectos: Proyecto[] = [
     titulo: "Pristine Bay",
     lugar: "Roatán, Islas de la Bahía",
     pais: "Honduras",
-    categoria: "Residencial",
+    categoria: "Hotelero",
     resumen:
       "Villas frente al mar en Roatán, con travertino en terrazas y baños revestidos del piso al cielo.",
     imagen: projBath,
@@ -686,7 +707,7 @@ export const proyectos: Proyecto[] = [
     titulo: "Indura Beach & Golf Resort",
     lugar: "San Pedro Sula",
     pais: "Honduras",
-    categoria: "Residencial",
+    categoria: "Hotelero",
     resumen:
       "Resort de playa y golf con piedra natural en áreas comunes, villas y zonas húmedas.",
     imagen: fotoIndura,
@@ -752,7 +773,7 @@ export const proyectos: Proyecto[] = [
     titulo: "Iglesia Concepción",
     lugar: "Ciudad de Guatemala",
     pais: "Guatemala",
-    categoria: "Institucional",
+    categoria: "Religioso",
     resumen:
       "Obra litúrgica en piedra natural en Ciudad de Guatemala. Talla y fabricación desde nuestra planta en Honduras.",
     imagen: fotoIglesiaConcepcion,
@@ -781,6 +802,7 @@ export const proyectos: Proyecto[] = [
       },
     ],
     galeria: [fotoIglesiaConcepcion, fotoConcepcionInterior, matMarmol],
+    fotos: [fotoIglesiaConcepcion, fotoConcepcionInterior],
     en: {
       titulo: "Concepción Church",
       lugar: "Guatemala City",
@@ -811,6 +833,208 @@ export const proyectos: Proyecto[] = [
             "Guatemala is one of five countries where we have delivered work. Religious commissions also demand the highest level of client trust.",
         },
       ],
+    },
+  },
+  // ── Portafolio internacional del brochure de marca (MDH Brand Presentation).
+  // Nombre y ubicación son los que publica la empresa; el año y los acabados
+  // suministrados quedan pendientes de la memoria técnica de Antonella.
+  {
+    slug: "taylorsville-utah-temple",
+    titulo: "Taylorsville Utah Temple",
+    lugar: "Taylorsville, Utah",
+    pais: "Estados Unidos",
+    categoria: "Religioso",
+    resumen:
+      "Templo en Utah revestido con piedra natural fabricada en Honduras y exportada a Estados Unidos.",
+    imagen: fotoTaylorsville,
+    alcance: [],
+    materiales: [],
+    contenido: [],
+    galeria: [fotoTaylorsville],
+    en: {
+      pais: "United States",
+      resumen:
+        "A temple in Utah clad in natural stone fabricated in Honduras and exported to the United States.",
+    },
+  },
+  {
+    slug: "public-safety-building-winter-park",
+    titulo: "Public Safety Building",
+    lugar: "Winter Park, Florida",
+    pais: "Estados Unidos",
+    categoria: "Institucional",
+    resumen:
+      "Edificio institucional en Winter Park con fachada y elementos en piedra natural exportada desde Honduras.",
+    imagen: fotoPublicSafety,
+    alcance: [],
+    materiales: [],
+    contenido: [],
+    galeria: [fotoPublicSafety],
+    en: {
+      pais: "United States",
+      resumen:
+        "A civic building in Winter Park with a façade and elements in natural stone exported from Honduras.",
+    },
+  },
+  {
+    slug: "1500-ponce-de-leon",
+    titulo: "1500 Ponce de León Blvd",
+    lugar: "Coral Gables, Florida",
+    pais: "Estados Unidos",
+    categoria: "Comercial",
+    resumen:
+      "Portal y enmarcados en piedra labrada para un edificio en Coral Gables.",
+    imagen: fotoPonceLeon,
+    alcance: [],
+    materiales: [],
+    contenido: [],
+    galeria: [fotoPonceLeon],
+    en: {
+      pais: "United States",
+      resumen: "Carved stone portal and surrounds for a building in Coral Gables.",
+    },
+  },
+  {
+    slug: "225-e-hannibal-square",
+    titulo: "225 E Hannibal Square",
+    lugar: "Winter Park, Florida",
+    pais: "Estados Unidos",
+    categoria: "Comercial",
+    resumen: "Obra comercial en Hannibal Square, dentro del portafolio de exportación a Florida.",
+    imagen: fotoHannibalSquare,
+    alcance: [],
+    materiales: [],
+    contenido: [],
+    galeria: [fotoHannibalSquare],
+    en: {
+      pais: "United States",
+      resumen: "A commercial project on Hannibal Square, part of the Florida export portfolio.",
+    },
+  },
+  {
+    slug: "hannibal-square-park",
+    titulo: "Hannibal Square Park",
+    lugar: "Winter Park, Florida",
+    pais: "Estados Unidos",
+    categoria: "Institucional",
+    resumen: "Monumento conmemorativo en piedra natural para un parque público de Winter Park.",
+    imagen: fotoHannibalPark,
+    alcance: [],
+    materiales: [],
+    contenido: [],
+    galeria: [fotoHannibalPark],
+    en: {
+      pais: "United States",
+      resumen: "A natural stone memorial for a public park in Winter Park.",
+    },
+  },
+  {
+    slug: "411-w-new-england",
+    titulo: "411 W New England",
+    lugar: "Winter Park, Florida",
+    pais: "Estados Unidos",
+    categoria: "Comercial",
+    resumen: "Edificio de uso mixto con fachada en piedra natural, en el centro de Winter Park.",
+    imagen: fotoNewEngland,
+    alcance: [],
+    materiales: [],
+    contenido: [],
+    galeria: [fotoNewEngland],
+    en: {
+      pais: "United States",
+      resumen: "A mixed-use building with a natural stone façade in downtown Winter Park.",
+    },
+  },
+  {
+    slug: "residencia-la-gorce-island",
+    titulo: "Residencia privada, La Gorce Island",
+    lugar: "Miami Beach, Florida",
+    pais: "Estados Unidos",
+    categoria: "Residencial",
+    resumen:
+      "Galería exterior con columnas, arcos y pisos en piedra natural frente a la bahía.",
+    imagen: fotoLaGorce,
+    alcance: [],
+    materiales: [],
+    contenido: [],
+    galeria: [fotoLaGorce],
+    en: {
+      titulo: "Private residence, La Gorce Island",
+      pais: "United States",
+      resumen: "A bayfront loggia with natural stone columns, arches and floors.",
+    },
+  },
+  {
+    slug: "residencia-cocoplum",
+    titulo: "Residencia privada, Cocoplum",
+    lugar: "Miami, Florida",
+    pais: "Estados Unidos",
+    categoria: "Residencial",
+    resumen: "Balaustradas, gradas y bordes de piscina tallados en piedra natural.",
+    imagen: fotoCocoplum,
+    alcance: [],
+    materiales: [],
+    contenido: [],
+    galeria: [fotoCocoplum],
+    en: {
+      titulo: "Private residence, Cocoplum",
+      pais: "United States",
+      resumen: "Balustrades, steps and pool coping carved in natural stone.",
+    },
+  },
+  {
+    slug: "residencia-windermere",
+    titulo: "Residencia privada, Windermere",
+    lugar: "Orlando, Florida",
+    pais: "Estados Unidos",
+    categoria: "Residencial",
+    resumen:
+      "Chimenea y campana de cocina talladas a mano, fabricadas pieza por pieza en planta.",
+    imagen: fotoWindermere,
+    alcance: [],
+    materiales: [],
+    contenido: [],
+    galeria: [fotoWindermere, fotoWindermereCampana],
+    fotos: [fotoWindermere, fotoWindermereCampana],
+    en: {
+      titulo: "Private residence, Windermere",
+      pais: "United States",
+      resumen: "A hand-carved fireplace and kitchen hood, fabricated piece by piece at the plant.",
+    },
+  },
+  {
+    slug: "residencia-ritz-carlton-tiburon",
+    titulo: "Residencia privada, Ritz-Carlton Tiburón",
+    lugar: "Naples, Florida",
+    pais: "Estados Unidos",
+    categoria: "Residencial",
+    resumen: "Escalera curva con balaustrada calada, tallada en piedra natural.",
+    imagen: fotoRitzTiburon,
+    alcance: [],
+    materiales: [],
+    contenido: [],
+    galeria: [fotoRitzTiburon],
+    en: {
+      titulo: "Private residence, Ritz-Carlton Tiburón",
+      pais: "United States",
+      resumen: "A curved staircase with a pierced balustrade, carved in natural stone.",
+    },
+  },
+  {
+    slug: "capilla-alamar",
+    titulo: "Capilla Alamar",
+    lugar: "San Salvador",
+    pais: "El Salvador",
+    categoria: "Religioso",
+    resumen: "Altar, relieves y mausoleo en mármol para una capilla en San Salvador.",
+    imagen: fotoAlamar,
+    alcance: [],
+    materiales: [],
+    contenido: [],
+    galeria: [fotoAlamar],
+    en: {
+      titulo: "Alamar Chapel",
+      resumen: "Marble altar, reliefs and mausoleum for a chapel in San Salvador.",
     },
   },
 ];

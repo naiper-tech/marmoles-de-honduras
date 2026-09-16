@@ -11,6 +11,8 @@ const CATEGORIA_EN: Record<Proyecto["categoria"], string> = {
   Residencial: "Residential",
   Comercial: "Commercial",
   Institucional: "Institutional",
+  Hotelero: "Hospitality",
+  Religioso: "Religious",
 };
 
 /** El proyecto abierto viaja en la URL: el enlace se puede compartir directo. */
@@ -21,13 +23,13 @@ export function useCategoria() {
   return (c: Proyecto["categoria"]) => (lang === "en" ? CATEGORIA_EN[c] : c);
 }
 
-export function useProyectoAbierto() {
+export function useProyectoAbierto(lista: Proyecto[] = proyectosDestacados) {
   const [slug, setSlug] = useState<string | null>(null);
 
   useEffect(() => {
     const inicial = new URLSearchParams(window.location.search).get(PARAMETRO);
-    if (inicial && proyectosDestacados.some((p) => p.slug === inicial)) setSlug(inicial);
-  }, []);
+    if (inicial && lista.some((p) => p.slug === inicial)) setSlug(inicial);
+  }, [lista]);
 
   const cambiar = useCallback((nuevo: string | null) => {
     setSlug(nuevo);
@@ -38,7 +40,7 @@ export function useProyectoAbierto() {
   }, []);
 
   return {
-    proyecto: proyectosDestacados.find((p) => p.slug === slug),
+    proyecto: lista.find((p) => p.slug === slug),
     abrir: (nuevo: string) => cambiar(nuevo),
     cerrar: () => cambiar(null),
   };
@@ -65,7 +67,7 @@ export function ModalProyecto({
   if (!p) return null;
 
   // Galería solo con fotos reales del proyecto; hoy la mayoría tiene una.
-  const imagenes = [p.imagen];
+  const imagenes = p.fotos?.length ? p.fotos : [p.imagen];
   const variasFotos = imagenes.length > 1;
   const mover = (paso: number) => setIndice((v) => (v + paso + imagenes.length) % imagenes.length);
 
@@ -128,28 +130,42 @@ export function ModalProyecto({
               {p.resumen}
             </Dialog.Description>
 
-            <dl className="mt-10 grid gap-8 border-t border-mdh-niebla pt-8 sm:grid-cols-2">
-              <div>
-                <dt className="mdh-label text-mdh-pizarra">{t("Alcance", "Scope")}</dt>
-                <dd className="mt-3 space-y-1.5 text-[0.95rem]">
-                  {p.alcance.map((a) => (
-                    <span key={a} className="block">
-                      {a}
-                    </span>
-                  ))}
-                </dd>
-              </div>
-              <div>
-                <dt className="mdh-label text-mdh-pizarra">{t("Materiales", "Materials")}</dt>
-                <dd className="mt-3 space-y-1.5 text-[0.95rem]">
-                  {p.materiales.map((m) => (
-                    <span key={m} className="block">
-                      {m}
-                    </span>
-                  ))}
-                </dd>
-              </div>
-            </dl>
+            {/* La ficha solo muestra los datos que existen: las obras del portafolio
+                internacional aún no tienen memoria técnica del cliente. */}
+            {(p.anio || p.alcance.length > 0 || p.materiales.length > 0) && (
+              <dl className="mt-10 grid gap-8 border-t border-mdh-niebla pt-8 sm:grid-cols-2">
+                {p.anio && (
+                  <div>
+                    <dt className="mdh-label text-mdh-pizarra">{t("Año", "Year")}</dt>
+                    <dd className="mt-3 text-[0.95rem]">{p.anio}</dd>
+                  </div>
+                )}
+                {p.alcance.length > 0 && (
+                  <div>
+                    <dt className="mdh-label text-mdh-pizarra">{t("Alcance", "Scope")}</dt>
+                    <dd className="mt-3 space-y-1.5 text-[0.95rem]">
+                      {p.alcance.map((a) => (
+                        <span key={a} className="block">
+                          {a}
+                        </span>
+                      ))}
+                    </dd>
+                  </div>
+                )}
+                {p.materiales.length > 0 && (
+                  <div>
+                    <dt className="mdh-label text-mdh-pizarra">{t("Materiales", "Materials")}</dt>
+                    <dd className="mt-3 space-y-1.5 text-[0.95rem]">
+                      {p.materiales.map((m) => (
+                        <span key={m} className="block">
+                          {m}
+                        </span>
+                      ))}
+                    </dd>
+                  </div>
+                )}
+              </dl>
+            )}
 
             <div className="mt-auto pt-10">
               {/* Lleva al formulario con el proyecto ya referenciado. */}

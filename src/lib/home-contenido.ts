@@ -193,6 +193,39 @@ export const proyectosDestacados: Proyecto[] = DESTACADOS.map((slug) =>
   proyectos.find((p) => p.slug === slug),
 ).filter((p): p is Proyecto => Boolean(p));
 
+/**
+ * Portafolio completo de la página de Proyectos. Abre con las obras de mayor
+ * resolución fotográfica y alterna países para que la grilla no agrupe
+ * Honduras al inicio y Estados Unidos al final.
+ */
+const PORTAFOLIO = [
+  "intercontinental-san-jose",
+  "taylorsville-utah-temple",
+  "ahana-luxury-condo-tower",
+  "iglesia-concepcion-guatemala",
+  "public-safety-building-winter-park",
+  "basilica-de-suyapa",
+  "guacalito-de-la-isla",
+  "city-mall-tegucigalpa",
+  "residencia-la-gorce-island",
+  "indura-beach-golf-resort",
+  "clock-tower-palm-beach",
+  "torre-sky",
+  "225-e-hannibal-square",
+  "capilla-alamar",
+  "residencia-cocoplum",
+  "411-w-new-england",
+  "1500-ponce-de-leon",
+  "residencia-windermere",
+  "residencia-ritz-carlton-tiburon",
+  "hannibal-square-park",
+  "pristine-bay-roatan",
+];
+
+export const proyectosPortafolio: Proyecto[] = PORTAFOLIO.map((slug) =>
+  proyectos.find((p) => p.slug === slug),
+).filter((p): p is Proyecto => Boolean(p));
+
 export type Region = { id: string; nombre: Bilingue; lugares: Bilingue; pines: string[] };
 
 export const regiones: Region[] = [
