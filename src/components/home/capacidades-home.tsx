@@ -65,7 +65,7 @@ export function CapacidadesHome() {
 
   return (
     <section id="produccion" aria-labelledby="produccion-titulo" className="relative bg-mdh-tinta text-white">
-      <div className="mx-auto max-w-[1440px] px-6 pt-24 md:px-10 md:pt-36">
+      <div className="mx-auto max-w-[1440px] px-6 pt-20 md:px-10 md:pt-28">
         <div className="grid gap-10 md:grid-cols-12">
           <Aparecer className="md:col-span-3">
             <p className="mdh-label text-white/55">{t("Producción", "Production")}</p>

@@ -27,7 +27,7 @@ export function ImagenExpansiva({
   alt: string;
   etiqueta?: string;
   frase: string;
-  /** Frase al centro y en negrita, para que no repita el encuadre de la portada. */
+  /** Frase al centro, para que no repita el encuadre de la portada. */
   centrado?: boolean;
   className?: string;
 }) {
@@ -56,9 +56,10 @@ export function ImagenExpansiva({
           {centrado ? (
             <motion.div
               style={{ opacity: opacidadTexto, y: subirTexto }}
-              className="absolute inset-0 grid place-items-center bg-mdh-tinta/35 px-6 text-center text-white md:px-10"
+              className="absolute inset-0 grid place-items-center bg-[radial-gradient(ellipse_at_center,rgba(23,24,25,0.55)_0%,rgba(23,24,25,0.2)_70%)] px-6 text-center text-white md:px-10"
             >
-              <p className="max-w-4xl text-[clamp(1.9rem,4vw,3.75rem)] font-semibold leading-[1.1] tracking-[-0.02em]">
+              {/* Misma voz tipográfica que los titulares: Jost ligera, grande y con tracking cerrado. */}
+              <p className="max-w-5xl text-balance text-[clamp(2.1rem,5vw,4.75rem)] font-light leading-[1.05] tracking-[-0.03em]">
                 {frase}
               </p>
             </motion.div>

@@ -11,11 +11,13 @@ export function HistoriaResumen() {
   const { t } = useLang();
 
   return (
-    <section aria-labelledby="historia-resumen" className="bg-mdh-hueso">
-      <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-10 md:py-36">
-        <div className="grid items-end gap-14 md:grid-cols-12">
+    <section aria-labelledby="historia-resumen" className="bg-mdh-tinta text-white">
+      {/* Mismo fondo que Producción: las dos secciones se leen como un solo capítulo,
+          separadas apenas por una línea fina. */}
+      <div className="mx-auto max-w-[1440px] px-6 pt-24 md:px-10 md:pt-36">
+        <div className="grid items-end gap-14 border-b border-white/10 pb-20 md:grid-cols-12 md:pb-28">
           <div className="md:col-span-6">
-            <h2 id="historia-resumen" className="mdh-label text-mdh-pizarra">
+            <h2 id="historia-resumen" className="mdh-label text-white/55">
               {t("Nuestra historia", "Our story")}
             </h2>
             <p
@@ -30,7 +32,7 @@ export function HistoriaResumen() {
           </div>
 
           <Aparecer className="md:col-span-5 md:col-start-8">
-            <p className="text-xl font-light leading-relaxed md:text-2xl">
+            <p className="text-xl font-light leading-relaxed text-white/80 md:text-2xl">
               {t(
                 "Desde 1970, una empresa familiar hondureña dedicada a la piedra natural. Hoy nuestro trabajo forma parte de residencias, templos y edificios en Honduras, Estados Unidos, Centroamérica y el Caribe.",
                 "Since 1970, a Honduran family company devoted to natural stone. Today our work is part of residences, temples and buildings in Honduras, the United States, Central America and the Caribbean.",
