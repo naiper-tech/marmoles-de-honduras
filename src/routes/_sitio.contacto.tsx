@@ -60,21 +60,9 @@ function ContactoPagina() {
     <>
       <section aria-labelledby="contacto-titulo" className="bg-white pt-36 md:pt-48">
         <div className="mx-auto max-w-[1440px] px-6 md:px-10">
-          <div className="mdh-label flex items-center gap-4 text-mdh-pizarra">
-            <span>04</span>
-            <motion.span
-              aria-hidden="true"
-              className="block h-px w-12 origin-left bg-mdh-tinta/40"
-              initial={{ scaleX: 0 }}
-              animate={{ scaleX: 1 }}
-              transition={{ duration: 1.2, ease: EASE, delay: 0.2 }}
-            />
-            <span>{t("Contacto", "Contact")}</span>
-          </div>
-
           <h1
             id="contacto-titulo"
-            className="mt-8 text-[clamp(2.8rem,8vw,8rem)] font-extralight leading-[0.95] tracking-[-0.035em]"
+            className="text-[clamp(2.8rem,8vw,8rem)] font-extralight leading-[0.95] tracking-[-0.035em]"
           >
             <Emerge
               key={lang}

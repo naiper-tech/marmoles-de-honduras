@@ -11,15 +11,11 @@ import { EASE, Emerge } from "./movimiento";
  * dónde mantenerse transparente.
  */
 export function PortadaPagina({
-  numero,
-  etiqueta,
   lineas,
   texto,
   imagen,
   alt = "",
 }: {
-  numero: string;
-  etiqueta: string;
   lineas: string[];
   texto?: string;
   imagen: string;
@@ -60,19 +56,7 @@ export function PortadaPagina({
         style={{ opacity: opacidad, y: subir }}
         className="relative mx-auto w-full max-w-[1440px] px-6 pb-12 md:px-10 md:pb-16"
       >
-        <div className="mdh-label flex items-center gap-4 text-white/75">
-          <span>{numero}</span>
-          <motion.span
-            aria-hidden="true"
-            className="block h-px w-12 origin-left bg-white/60"
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 1.2, ease: EASE, delay: 0.3 }}
-          />
-          <span>{etiqueta}</span>
-        </div>
-
-        <h1 className="mt-8 text-[clamp(2.5rem,7.2vw,7.25rem)] font-light leading-[0.98] tracking-[-0.03em]">
+        <h1 className="text-[clamp(2.5rem,7.2vw,7.25rem)] font-light leading-[0.98] tracking-[-0.03em]">
           <Emerge key={lineas.join("|")} alCargar retraso={0.35} lineas={lineas} />
         </h1>
 

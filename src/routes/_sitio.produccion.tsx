@@ -58,8 +58,6 @@ function ProduccionPagina() {
   return (
     <>
       <PortadaPagina
-        numero="02"
-        etiqueta={t("Producción", "Production")}
         lineas={lang === "en" ? ["What we can", "do for you."] : ["Lo que podemos", "hacer por ti."]}
         texto={t(
           "Cada pieza se fabrica a la medida del proyecto. Si puedes imaginarla en piedra, podemos hacerla.",

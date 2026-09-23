@@ -6,7 +6,7 @@ import plantaAerea from "@/assets/planta-aerea.jpg";
 import { CasaMarmol } from "@/components/home/casa-marmol";
 import { Cierre } from "@/components/home/cierre";
 import { TextoPorScroll } from "@/components/home/efectos";
-import { GaleriaPlanta } from "@/components/home/galeria-planta";
+import { HistoriaFija } from "@/components/home/historia-fija";
 import { Aparecer, EASE, ImagenRevelada } from "@/components/home/movimiento";
 import { PortadaPagina } from "@/components/home/portada-pagina";
 import { Valores } from "@/components/home/valores";
@@ -39,8 +39,6 @@ function Nosotros() {
   return (
     <>
       <PortadaPagina
-        numero="01"
-        etiqueta={t("Nosotros", "About")}
         lineas={lang === "en" ? ["More than 55 years", "shaping stone."] : ["Más de 55 años", "dando forma a la piedra."]}
         imagen={taller}
         alt={t(
@@ -97,7 +95,7 @@ function Nosotros() {
       </section>
 
       <LaPlanta />
-      <GaleriaPlanta />
+      <HistoriaFija />
       <Valores />
       <CasaMarmol />
       <Cierre />

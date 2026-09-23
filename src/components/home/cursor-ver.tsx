@@ -26,6 +26,7 @@ export function useCursorVer() {
 
   const eventos = fino
     ? {
+        "data-cursor": "ver",
         onPointerEnter: (e: PointerEvent) => {
           // Aparece donde está el mouse, sin viajar desde la última posición.
           if (!activo) {

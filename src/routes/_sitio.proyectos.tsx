@@ -35,8 +35,6 @@ function ProyectosPagina() {
   return (
     <>
       <PortadaPagina
-        numero="03"
-        etiqueta={t("Proyectos", "Projects")}
         lineas={lang === "en" ? ["Delivered work,", "in Honduras and abroad."] : ["Obra entregada,", "dentro y fuera de Honduras."]}
         texto={t(
           "Filtra por país o por tipo de obra y abre cada proyecto para verlo en detalle.",

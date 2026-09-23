@@ -127,6 +127,7 @@ export function Alcance() {
                 >
                   {/* Zona sensible más grande que el punto: fácil de alcanzar con el cursor. */}
                   <span
+                    data-cursor="enlace"
                     onPointerEnter={() => setActivo(p.pin)}
                     className="absolute left-1/2 top-1/2 hidden h-6 w-6 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full md:block"
                   />

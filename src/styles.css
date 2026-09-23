@@ -374,3 +374,14 @@ html.lenis.lenis-smooth {
 html.lenis.lenis-stopped {
   overflow: clip;
 }
+
+/* Cursor de marca (CursorPremium): se oculta el del sistema salvo en campos de texto. */
+html.mdh-cursor,
+html.mdh-cursor * {
+  cursor: none !important;
+}
+html.mdh-cursor input,
+html.mdh-cursor textarea,
+html.mdh-cursor [contenteditable="true"] {
+  cursor: text !important;
+}
