@@ -20,12 +20,15 @@ export function ImagenExpansiva({
   alt,
   etiqueta,
   frase,
+  centrado = false,
   className = "",
 }: {
   imagen: string;
   alt: string;
-  etiqueta: string;
+  etiqueta?: string;
   frase: string;
+  /** Frase al centro y en negrita, para que no repita el encuadre de la portada. */
+  centrado?: boolean;
   className?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -50,15 +53,26 @@ export function ImagenExpansiva({
             aria-hidden="true"
             className="absolute inset-0 bg-[linear-gradient(to_top,rgba(23,24,25,0.85)_0%,rgba(23,24,25,0.1)_55%)]"
           />
-          <motion.div
-            style={{ opacity: opacidadTexto, y: subirTexto }}
-            className="absolute inset-x-0 bottom-0 mx-auto max-w-[1440px] px-6 pb-14 text-white md:px-10 md:pb-20"
-          >
-            <p className="mdh-label text-white/70">{etiqueta}</p>
-            <p className="mt-5 max-w-3xl text-[clamp(1.75rem,3.6vw,3.5rem)] font-light leading-[1.1] tracking-[-0.015em]">
-              {frase}
-            </p>
-          </motion.div>
+          {centrado ? (
+            <motion.div
+              style={{ opacity: opacidadTexto, y: subirTexto }}
+              className="absolute inset-0 grid place-items-center bg-mdh-tinta/35 px-6 text-center text-white md:px-10"
+            >
+              <p className="max-w-4xl text-[clamp(1.9rem,4vw,3.75rem)] font-semibold leading-[1.1] tracking-[-0.02em]">
+                {frase}
+              </p>
+            </motion.div>
+          ) : (
+            <motion.div
+              style={{ opacity: opacidadTexto, y: subirTexto }}
+              className="absolute inset-x-0 bottom-0 mx-auto max-w-[1440px] px-6 pb-14 text-white md:px-10 md:pb-20"
+            >
+              {etiqueta && <p className="mdh-label text-white/70">{etiqueta}</p>}
+              <p className="mt-5 max-w-3xl text-[clamp(1.75rem,3.6vw,3.5rem)] font-light leading-[1.1] tracking-[-0.015em]">
+                {frase}
+              </p>
+            </motion.div>
+          )}
         </motion.div>
       </div>
     </div>

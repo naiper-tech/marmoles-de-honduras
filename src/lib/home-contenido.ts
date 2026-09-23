@@ -1,6 +1,6 @@
 import sierraBloque from "@/assets/sierra-bloque.jpg";
 import mesaVeta from "@/assets/mesa-veta.jpg";
-import pisoLaGorce from "@/assets/proy-la-gorce.jpg";
+import pisoGuacalito from "@/assets/proy-guacalito-palapa.jpg";
 import artesanoTallado from "@/assets/artesano-tallado.jpg";
 import columnasTaller from "@/assets/columnas-taller.jpg";
 import rosetones from "@/assets/rosetones.jpg";
@@ -12,11 +12,10 @@ import { proyectos, type Proyecto } from "@/lib/site-data";
  * Contenido de la home nueva (/home).
  *
  * PROVISIONAL — pendiente del cliente (kick-off 31/08/2026):
- *  - Hitos reales de "Nuestra historia" (Antonella).
  *  - Término final para "Reprocesamiento" y lista de servicios con fotos.
  *  - ~10 proyectos con blurb y "lo vendido".
  *  - Teléfono a publicar (línea de venta en línea) y correo de RR.HH.
- *  - Video institucional para la portada.
+ *  - Video institucional para la portada (corre de fondo, sin voz).
  */
 
 export type Bilingue = { es: string; en: string };
@@ -27,14 +26,14 @@ export function useTexto() {
   return (texto: Bilingue) => (lang === "en" ? texto.en : texto.es);
 }
 
-export const YOUTUBE_ID = "DIX-ObqYLiM";
 export const CASA_MARMOL_URL = "https://casamarmol.com";
 
 export const CONTACTO = {
   correo: "sales@marmolesdehonduras.com",
   telefono: "+504 2226-9005",
   telefonoHref: "tel:+50422269005",
-  correoRRHH: "info@marmolesdehonduras.com",
+  correoRRHH: "rrhh@marmolesdehonduras.com",
+  direccion: "Km 8 Carretera al Sur, Tegucigalpa, Honduras",
 };
 
 export const REDES = [
@@ -47,56 +46,6 @@ export const REDES = [
 export function correoCon(asunto: string, correo = CONTACTO.correo) {
   return `mailto:${correo}?subject=${encodeURIComponent(asunto)}`;
 }
-
-export type Capitulo = { numero: string; marca: Bilingue; titulo: Bilingue; texto: Bilingue };
-
-export const capitulos: Capitulo[] = [
-  {
-    numero: "I",
-    marca: { es: "1970", en: "1970" },
-    titulo: { es: "Fundación", en: "Founded" },
-    texto: {
-      es: "Nace Mármoles de Honduras y se convierte en la empresa líder de la piedra natural en el país.",
-      en: "Mármoles de Honduras is founded and becomes the country's leading natural stone company.",
-    },
-  },
-  {
-    numero: "II",
-    marca: { es: "Origen", en: "Origin" },
-    titulo: { es: "Canteras propias", en: "Our own quarries" },
-    texto: {
-      es: "Extraemos la piedra directamente, con control del origen desde el primer bloque.",
-      en: "We extract the stone ourselves, controlling its origin from the very first block.",
-    },
-  },
-  {
-    numero: "III",
-    marca: { es: "Planta", en: "Plant" },
-    titulo: { es: "Fabricación a escala", en: "Fabrication at scale" },
-    texto: {
-      es: "Tecnología de punta para responder a proyectos de alta producción.",
-      en: "State-of-the-art technology to deliver high-volume projects.",
-    },
-  },
-  {
-    numero: "IV",
-    marca: { es: "Exportación", en: "Export" },
-    titulo: { es: "Más allá de Honduras", en: "Beyond Honduras" },
-    texto: {
-      es: "Proyectos en Estados Unidos, Centroamérica y el Caribe.",
-      en: "Projects across the United States, Central America and the Caribbean.",
-    },
-  },
-  {
-    numero: "V",
-    marca: { es: "Hoy", en: "Today" },
-    titulo: { es: "Casa Mármol", en: "Casa Mármol" },
-    texto: {
-      es: "Nuestra casa de diseño lleva el mismo oficio a los acabados terminados en Honduras.",
-      en: "Our design house brings the same craft to finished surfaces in Honduras.",
-    },
-  },
-];
 
 export type Capacidad = { id: string; titulo: Bilingue; detalle: Bilingue; imagen: string };
 
@@ -126,7 +75,7 @@ export const capacidades: Capacidad[] = [
       es: "Grandes superficies con tono uniforme, de la cantera a la obra.",
       en: "Large surfaces with a consistent tone, from quarry to site.",
     },
-    imagen: pisoLaGorce,
+    imagen: pisoGuacalito,
   },
   {
     id: "tallado",
@@ -181,12 +130,15 @@ export const materiales: Bilingue[] = [
  */
 const DESTACADOS = [
   "intercontinental-san-jose",
+  "taylorsville-utah-temple",
   "iglesia-concepcion-guatemala",
+  "guacalito-de-la-isla",
   "basilica-de-suyapa",
+  "public-safety-building-winter-park",
   "city-mall-tegucigalpa",
+  "indura-beach-golf-resort",
   "clock-tower-palm-beach",
   "ahana-luxury-condo-tower",
-  "torre-sky",
 ];
 
 export const proyectosDestacados: Proyecto[] = DESTACADOS.map((slug) =>
@@ -207,7 +159,6 @@ const PORTAFOLIO = [
   "basilica-de-suyapa",
   "guacalito-de-la-isla",
   "city-mall-tegucigalpa",
-  "residencia-la-gorce-island",
   "indura-beach-golf-resort",
   "clock-tower-palm-beach",
   "torre-sky",
@@ -232,13 +183,13 @@ export const regiones: Region[] = [
   {
     id: "honduras",
     nombre: { es: "Honduras", en: "Honduras" },
-    lugares: { es: "Tegucigalpa · San Pedro Sula · Roatán", en: "Tegucigalpa · San Pedro Sula · Roatán" },
+    lugares: { es: "", en: "" },
     pines: ["tegucigalpa", "san-pedro-sula", "roatan"],
   },
   {
     id: "eeuu",
     nombre: { es: "Estados Unidos", en: "United States" },
-    lugares: { es: "Florida · Utah · Hawái", en: "Florida · Utah · Hawaii" },
+    lugares: { es: "", en: "" },
     pines: ["palm-beach", "utah", "honolulu"],
   },
   {

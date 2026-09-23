@@ -2,11 +2,13 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 
 import planta from "@/assets/taller-columnas.jpg";
+import sierraColumna from "@/assets/sierra-columna.jpg";
+import artesanoCorte from "@/assets/artesano-corte.jpg";
 import { CapacidadesDetalle } from "@/components/home/capacidades-detalle";
 import { Cierre } from "@/components/home/cierre";
-import { Magnetico, Marquesina, TextoPorScroll } from "@/components/home/efectos";
+import { Magnetico, Marquesina } from "@/components/home/efectos";
 import { EnlaceMas } from "@/components/home/enlaces";
-import { Aparecer } from "@/components/home/movimiento";
+import { Aparecer, ImagenRevelada } from "@/components/home/movimiento";
 import { PortadaPagina } from "@/components/home/portada-pagina";
 import { ProcesoScroll } from "@/components/home/proceso-scroll";
 import { correoCon, materiales, useTexto } from "@/lib/home-contenido";
@@ -30,6 +32,29 @@ function ProduccionPagina() {
   const { t, lang } = useLang();
   const tx = useTexto();
 
+  const argumentos = [
+    {
+      titulo: t("Maquinaria de último nivel", "State-of-the-art machinery"),
+      dato: t("CNC multieje", "Multi-axis CNC"),
+      texto: t(
+        "Equipo italiano de corte con disco de diamante y centros CNC multieje para cortar, fresar y tallar piezas de alta producción con precisión.",
+        "Italian diamond-blade cutting equipment and multi-axis CNC centers to cut, mill and carve high-volume pieces with precision.",
+      ),
+      imagen: sierraColumna,
+      alt: t("Disco de diamante cortando una columna de mármol negro", "A diamond blade cutting a black marble column"),
+    },
+    {
+      titulo: t("Manos expertas", "Expert hands"),
+      dato: t("70+ artesanos", "70+ craftsmen"),
+      texto: t(
+        "Más de 70 artesanos, muchos con décadas en la empresa, trabajan en cada proyecto y tallan a mano las piezas que ninguna máquina puede resolver.",
+        "More than 70 craftsmen, many with decades at the company, work on every project and hand-carve the pieces no machine can solve.",
+      ),
+      imagen: artesanoCorte,
+      alt: t("Artesano trabajando una losa de mármol negro", "A craftsman working a black marble slab"),
+    },
+  ];
+
   return (
     <>
       <PortadaPagina
@@ -44,21 +69,35 @@ function ProduccionPagina() {
         alt={t("Operario cortando losas de piedra en la planta", "Craftsman cutting stone slabs at the plant")}
       />
 
+      {/*
+       * Ronda 1 (#13, #14, #43): en lugar del párrafo "Para quién", los dos argumentos
+       * que el cliente quiere destacar —maquinaria y mano de obra— lado a lado, con foto.
+       * Datos tomados del brochure de marca.
+       */}
       <section aria-labelledby="produccion-intro" className="bg-white">
-        <div className="mx-auto grid max-w-[1440px] gap-10 px-6 pt-28 md:grid-cols-12 md:px-10 md:pt-40">
-          <Aparecer className="md:col-span-3">
-            <h2 id="produccion-intro" className="mdh-label text-mdh-pizarra">
-              {t("Para quién", "Who we work with")}
-            </h2>
-          </Aparecer>
-          <TextoPorScroll
-            key={lang}
-            className="text-[clamp(1.75rem,3.5vw,3.4rem)] font-light leading-[1.18] tracking-[-0.02em] md:col-span-9"
-            texto={t(
-              "Trabajamos para arquitectos, desarrolladores, constructoras y clientes finales. Desde una cubierta de cocina hasta la piedra de un hotel completo, en Honduras o al otro lado del mar.",
-              "We work with architects, developers, contractors and homeowners. From a single kitchen countertop to the stone of an entire hotel, in Honduras or across the sea.",
-            )}
-          />
+        <div className="mx-auto max-w-[1440px] px-6 pt-24 md:px-10 md:pt-32">
+          <h2 id="produccion-intro" className="sr-only">
+            {t("Cómo fabricamos", "How we fabricate")}
+          </h2>
+          <div className="grid gap-16 md:grid-cols-2 md:gap-10">
+            {argumentos.map((a, i) => (
+              <Aparecer key={a.titulo} retraso={i * 0.12}>
+                <ImagenRevelada
+                  src={a.imagen}
+                  alt={a.alt}
+                  className="aspect-[4/5] bg-mdh-niebla md:aspect-[5/6]"
+                  imgClassName="h-full w-full object-cover"
+                />
+                <div className="mt-8 flex items-baseline justify-between gap-6 border-b border-mdh-niebla pb-6">
+                  <h3 className="text-[clamp(1.9rem,3.2vw,3rem)] font-light leading-[1.05] tracking-[-0.02em]">
+                    {a.titulo}
+                  </h3>
+                  <span className="mdh-label shrink-0 text-mdh-pizarra">{a.dato}</span>
+                </div>
+                <p className="mt-6 max-w-lg text-lg leading-relaxed text-mdh-acero">{a.texto}</p>
+              </Aparecer>
+            ))}
+          </div>
         </div>
       </section>
 

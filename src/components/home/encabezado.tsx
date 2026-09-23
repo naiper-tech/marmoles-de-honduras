@@ -67,7 +67,7 @@ export function Encabezado() {
           {/* Las dos versiones se cruzan en opacidad para que el cambio de fondo no dé un salto. */}
           <Link
             to="/"
-            className="relative block h-7 w-[168px] shrink-0 md:h-8 md:w-[196px]"
+            className="relative block h-8 w-[190px] shrink-0 md:h-10 md:w-[236px]"
             aria-label={t("Mármoles de Honduras — inicio", "Mármoles de Honduras — home")}
           >
             <img
@@ -106,10 +106,15 @@ export function Encabezado() {
               href={CASA_MARMOL_URL}
               target="_blank"
               rel="noopener noreferrer"
+              // Botón con borde para separarlo del menú: es otra empresa, abre otro sitio.
               // En pantallas de 1024–1279px no cabe junto a los cinco enlaces; sigue en el pie.
-              className="mdh-label hidden items-center gap-1.5 whitespace-nowrap opacity-75 transition-opacity duration-500 hover:opacity-100 xl:inline-flex"
+              className={`mdh-label hidden min-h-10 items-center gap-2 whitespace-nowrap rounded-full border px-4 transition-colors duration-500 xl:inline-flex ${
+                claro
+                  ? "border-white/50 hover:border-white hover:bg-white hover:text-mdh-tinta"
+                  : "border-mdh-tinta/30 hover:border-mdh-tinta hover:bg-mdh-tinta hover:text-white"
+              }`}
             >
-              Casa Mármol
+              CasaMármol
               <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.5} />
             </a>
             <SelectorIdioma lang={lang} setLang={setLang} />
@@ -172,9 +177,9 @@ export function Encabezado() {
               href={CASA_MARMOL_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="mdh-label inline-flex items-center gap-2 text-mdh-pizarra"
+              className="mdh-label inline-flex min-h-11 items-center gap-2 self-start rounded-full border border-mdh-tinta/30 px-5"
             >
-              Casa Mármol <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
+              CasaMármol <ArrowUpRight className="h-4 w-4" strokeWidth={1.5} />
             </a>
           </motion.nav>
         )}

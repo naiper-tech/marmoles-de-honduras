@@ -19,21 +19,21 @@ export function CapacidadesDetalle() {
 
   return (
     <section aria-labelledby="capacidades-titulo" className="bg-white">
-      <div className="mx-auto max-w-[1440px] px-6 py-28 md:px-10 md:py-40">
-        <div className="grid gap-10 md:grid-cols-12">
-          <p className="mdh-label text-mdh-pizarra md:col-span-3">{t("Capacidades", "Capabilities")}</p>
+      <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-10 md:py-32">
+        {/* Ronda 1 (#44): el nombre de la sección es el titular, para que se lea como un bloque aparte. */}
+        <div className="flex flex-col gap-6 border-b border-mdh-niebla pb-12 md:flex-row md:items-end md:justify-between md:pb-16">
           <h2
             id="capacidades-titulo"
-            className="text-[clamp(2.1rem,4.6vw,4.5rem)] font-light leading-[1.06] tracking-[-0.015em] md:col-span-9"
+            className="text-[clamp(3.25rem,9vw,8.5rem)] font-extralight leading-[0.9] tracking-[-0.04em]"
           >
-            <Emerge
-              key={lang}
-              lineas={lang === "en" ? ["Everything made", "to your project."] : ["Todo a la medida", "de tu proyecto."]}
-            />
+            <Emerge key={lang} lineas={[t("Capacidades", "Capabilities")]} />
           </h2>
+          <p className="max-w-xs text-lg leading-relaxed text-mdh-acero md:pb-3 md:text-right">
+            {t("Todo a la medida de tu proyecto.", "Everything made to your project.")}
+          </p>
         </div>
 
-        <div className="mt-20 grid gap-16 md:mt-28 lg:grid-cols-12 lg:gap-10">
+        <div className="mt-16 grid gap-16 md:mt-20 lg:grid-cols-12 lg:gap-10">
           <div className="hidden lg:col-span-6 lg:block">
             <div className="sticky top-28 h-[calc(100vh-10rem)]">
               <div className="relative h-full overflow-hidden bg-mdh-niebla">

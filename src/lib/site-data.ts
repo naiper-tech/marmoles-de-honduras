@@ -35,7 +35,7 @@ import fotoPonceLeon from "@/assets/proy-ponce-leon.jpg";
 import fotoHannibalSquare from "@/assets/proy-hannibal-square.jpg";
 import fotoHannibalPark from "@/assets/proy-hannibal-park.jpg";
 import fotoNewEngland from "@/assets/proy-411-new-england.jpg";
-import fotoLaGorce from "@/assets/proy-la-gorce.jpg";
+import fotoGuacalitoPalapa from "@/assets/proy-guacalito-palapa.jpg";
 import fotoCocoplum from "@/assets/proy-cocoplum.jpg";
 import fotoWindermere from "@/assets/proy-chimenea-windermere.jpg";
 import fotoWindermereCampana from "@/assets/proy-campana-windermere.jpg";
@@ -340,6 +340,7 @@ export const proyectos: Proyecto[] = [
       },
     ],
     galeria: [fotoGuacalito, matTravertino, tallerColumnas],
+    fotos: [fotoGuacalito, fotoGuacalitoPalapa],
     en: {
       titulo: "Guacalito de la Isla",
       lugar: "Tola",
@@ -943,25 +944,6 @@ export const proyectos: Proyecto[] = [
     en: {
       pais: "United States",
       resumen: "A mixed-use building with a natural stone façade in downtown Winter Park.",
-    },
-  },
-  {
-    slug: "residencia-la-gorce-island",
-    titulo: "Residencia privada, La Gorce Island",
-    lugar: "Miami Beach, Florida",
-    pais: "Estados Unidos",
-    categoria: "Residencial",
-    resumen:
-      "Galería exterior con columnas, arcos y pisos en piedra natural frente a la bahía.",
-    imagen: fotoLaGorce,
-    alcance: [],
-    materiales: [],
-    contenido: [],
-    galeria: [fotoLaGorce],
-    en: {
-      titulo: "Private residence, La Gorce Island",
-      pais: "United States",
-      resumen: "A bayfront loggia with natural stone columns, arches and floors.",
     },
   },
   {

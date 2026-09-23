@@ -122,6 +122,12 @@ function ContactoPagina() {
                 href={correoCon(t("Consulta de proyecto", "Project inquiry"))}
               />
               <Canal etiqueta={t("Teléfono", "Phone")} valor={CONTACTO.telefono} href={CONTACTO.telefonoHref} />
+              <Canal
+                etiqueta={t("Oficinas", "Offices")}
+                valor={CONTACTO.direccion}
+                href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`Mármoles de Honduras, ${CONTACTO.direccion}`)}`}
+                externo
+              />
 
               <Aparecer retraso={0.15} className="border-t border-mdh-niebla pt-10">
                 <p className="mdh-label text-mdh-pizarra">{t("Trabaja con nosotros", "Work with us")}</p>
@@ -169,11 +175,22 @@ function ContactoPagina() {
 }
 
 /** Tarjeta de canal directo: el fondo sube y la flecha gira al hover. */
-function Canal({ etiqueta, valor, href }: { etiqueta: string; valor: string; href: string }) {
+function Canal({
+  etiqueta,
+  valor,
+  href,
+  externo = false,
+}: {
+  etiqueta: string;
+  valor: string;
+  href: string;
+  externo?: boolean;
+}) {
   return (
     <Aparecer>
       <a
         href={href}
+        {...(externo ? { target: "_blank", rel: "noopener noreferrer" } : {})}
         className="group relative block overflow-hidden border border-mdh-niebla p-7 transition-colors duration-700 hover:border-mdh-tinta"
       >
         <span
@@ -185,7 +202,7 @@ function Canal({ etiqueta, valor, href }: { etiqueta: string; valor: string; hre
             <span className="mdh-label block text-mdh-pizarra transition-colors duration-500 group-hover:text-white/60">
               {etiqueta}
             </span>
-            <span className="mt-3 block break-all text-xl font-light transition-colors duration-500 group-hover:text-white">
+            <span className="mt-3 block break-words text-xl font-light transition-colors duration-500 group-hover:text-white">
               {valor}
             </span>
           </span>

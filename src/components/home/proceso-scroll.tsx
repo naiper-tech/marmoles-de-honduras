@@ -27,7 +27,7 @@ export function ProcesoScroll() {
       ref={ref}
       aria-labelledby="proceso-titulo"
       className="relative bg-mdh-tinta text-white"
-      style={escritorio ? { height: "280vh" } : undefined}
+      style={escritorio ? { height: "200vh" } : undefined}
     >
       <div className={escritorio ? "sticky top-0 flex h-screen flex-col justify-center" : "py-28"}>
         <div className="mx-auto w-full max-w-[1440px] px-6 md:px-10">

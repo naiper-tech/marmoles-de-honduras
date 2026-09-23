@@ -20,17 +20,17 @@ export function Alcance() {
 
   return (
     <section id="alcance" className="scroll-mt-16 bg-mdh-hueso">
-      <div className="mx-auto grid max-w-[1440px] gap-16 px-6 py-28 md:px-10 md:py-40 lg:grid-cols-12">
-        <div className="lg:col-span-5">
+      <div className="mx-auto grid max-w-[1440px] items-center gap-12 px-6 py-20 md:grid-cols-12 md:gap-10 md:px-10 md:py-28">
+        <div className="md:col-span-5">
           <p className="mdh-label text-mdh-pizarra">{t("Alcance", "Reach")}</p>
-          <h2 className="mt-6 text-[clamp(2.1rem,4.2vw,4rem)] font-light leading-[1.06] tracking-[-0.015em]">
+          <h2 className="mt-5 text-[clamp(1.9rem,3.4vw,3.25rem)] font-light leading-[1.06] tracking-[-0.015em]">
             <Emerge
               key={lang}
               lineas={lang === "en" ? ["Wherever your", "project is."] : ["Donde esté", "tu proyecto."]}
             />
           </h2>
 
-          <ul className="mt-14 border-t border-mdh-tinta/15" onMouseLeave={() => setRegion(null)}>
+          <ul className="mt-10 border-t border-mdh-tinta/15" onMouseLeave={() => setRegion(null)}>
             {regiones.map((r) => (
               <li key={r.id} className="border-b border-mdh-tinta/15">
                 <button
@@ -38,23 +38,23 @@ export function Alcance() {
                   onMouseEnter={() => setRegion(r.id)}
                   onFocus={() => setRegion(r.id)}
                   onBlur={() => setRegion(null)}
-                  className="flex w-full flex-col gap-1 py-6 text-left sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
+                  className="flex w-full flex-col gap-1 py-4 text-left sm:flex-row sm:items-baseline sm:justify-between sm:gap-6"
                 >
                   <span
-                    className={`text-2xl font-light transition-opacity duration-500 ${
+                    className={`text-xl font-light transition-opacity duration-500 md:text-2xl ${
                       region && region !== r.id ? "opacity-35" : "opacity-100"
                     }`}
                   >
                     {tx(r.nombre)}
                   </span>
-                  <span className="text-sm text-mdh-pizarra sm:text-right">{tx(r.lugares)}</span>
+                  {tx(r.lugares) && <span className="text-sm text-mdh-pizarra sm:text-right">{tx(r.lugares)}</span>}
                 </button>
               </li>
             ))}
           </ul>
 
           <Aparecer retraso={0.1}>
-            <p className="mt-10 text-mdh-acero">
+            <p className="mt-8 text-mdh-acero">
               {t("¿Tu país no aparece?", "Don't see your country?")}{" "}
               <Link to="/contacto" className="mdh-enlace text-mdh-tinta">
                 {t("Escríbenos igual", "Write to us anyway")}
@@ -63,7 +63,7 @@ export function Alcance() {
           </Aparecer>
         </div>
 
-        <Aparecer className="lg:col-span-7 lg:self-center" y={20}>
+        <Aparecer className="md:col-span-7" y={20}>
           <div
             className="relative w-full"
             style={{ aspectRatio: `${mapa.ancho} / ${mapa.alto}` }}

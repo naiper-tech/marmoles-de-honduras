@@ -39,8 +39,8 @@ function ProyectosPagina() {
         etiqueta={t("Proyectos", "Projects")}
         lineas={lang === "en" ? ["Delivered work,", "in Honduras and abroad."] : ["Obra entregada,", "dentro y fuera de Honduras."]}
         texto={t(
-          "Abre cada proyecto para ver su alcance y los materiales que suministramos.",
-          "Open each project to see its scope and the materials we supplied.",
+          "Filtra por país o por tipo de obra y abre cada proyecto para verlo en detalle.",
+          "Filter by country or project type and open each project to see it in detail.",
         )}
         imagen={intercontinental}
         alt={t("Hotel Intercontinental en San José, Costa Rica", "Intercontinental hotel in San José, Costa Rica")}
@@ -67,7 +67,11 @@ function ProyectosPagina() {
               <div>
                 <dt className="mdh-label text-mdh-pizarra">{t("Proyectos", "Projects")}</dt>
                 <dd className="mt-4 text-6xl font-extralight tracking-[-0.04em]">
-                  <Contador hasta={proyectosPortafolio.length} duracion={1.6} />
+                  {/* Ronda 1 (#45): cifra redondeada hacia abajo, "20+", aunque se sumen obras. */}
+                  <span className="inline-flex items-start">
+                    <Contador hasta={Math.floor(proyectosPortafolio.length / 10) * 10} duracion={1.6} />
+                    <span className="text-[0.55em] font-light">+</span>
+                  </span>
                 </dd>
               </div>
               <div>
@@ -86,7 +90,7 @@ function ProyectosPagina() {
       </section>
 
       <GaleriaProyectos />
-      <Cierre lineas={{ es: "¿Tienes un proyecto|similar?", en: "Have a similar|project?" }} />
+      <Cierre />
     </>
   );
 }

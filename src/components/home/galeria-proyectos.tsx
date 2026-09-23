@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
+import { SlidersHorizontal, X } from "lucide-react";
 
 import { proyectosPortafolio } from "@/lib/home-contenido";
 import { loc, useLang } from "@/lib/i18n";
@@ -36,8 +37,7 @@ function useFiltros() {
 
   const cambiar = useCallback((clave: keyof Filtros, valor: string | null) => {
     setFiltros((previos) => {
-      // Volver a tocar el filtro activo lo apaga: no hace falta un botón "quitar".
-      const siguiente = { ...previos, [clave]: previos[clave] === valor ? null : valor };
+      const siguiente = { ...previos, [clave]: valor };
       const url = new URL(window.location.href);
       for (const k of ["pais", "tipo"] as const) {
         if (siguiente[k]) url.searchParams.set(k, siguiente[k]!);
@@ -108,6 +108,7 @@ export function GaleriaProyectos() {
           tipos={tipos}
           filtros={filtros}
           alCambiar={cambiar}
+          alLimpiar={limpiar}
           total={filtrados.length}
           etiquetaTipo={categoria}
         />
@@ -166,11 +167,17 @@ export function GaleriaProyectos() {
   );
 }
 
+/**
+ * Ronda 1 (#46): los filtros tienen que leerse como filtros. Píldoras con borde,
+ * opción "Todos" en cada grupo, estado activo relleno y un "Limpiar" visible.
+ * En móvil cada grupo es una fila con desplazamiento lateral.
+ */
 function BarraFiltros({
   paises,
   tipos,
   filtros,
   alCambiar,
+  alLimpiar,
   total,
   etiquetaTipo,
 }: {
@@ -178,10 +185,12 @@ function BarraFiltros({
   tipos: Proyecto["categoria"][];
   filtros: Filtros;
   alCambiar: (clave: keyof Filtros, valor: string | null) => void;
+  alLimpiar: () => void;
   total: number;
   etiquetaTipo: (c: Proyecto["categoria"]) => string;
 }) {
   const { t, lang } = useLang();
+  const hayFiltro = Boolean(filtros.pais || filtros.tipo);
 
   const grupos = [
     {
@@ -191,58 +200,78 @@ function BarraFiltros({
     },
     {
       clave: "tipo" as const,
-      titulo: t("Tipo", "Type"),
+      titulo: t("Tipo de proyecto", "Project type"),
       opciones: tipos.map((c) => ({ valor: c, texto: etiquetaTipo(c) })),
     },
   ];
 
-  return (
-    <Aparecer className="mb-16 border-y border-mdh-niebla py-6 md:mb-24 md:py-8">
-      {/* Cada grupo ocupa su propia fila: con dos columnas, "El Salvador" quedaba
-          huérfano en un segundo renglón. */}
-      <div className="relative flex flex-col gap-4">
-        <div className="flex flex-col gap-4 md:pr-28">
-          {grupos.map((grupo) => (
-            <div key={grupo.clave} className="flex flex-wrap items-baseline gap-x-6 gap-y-1">
-              <span id={`filtro-${grupo.clave}`} className="mdh-label w-16 shrink-0 text-mdh-pizarra">
-                {grupo.titulo}
-              </span>
-              <div role="group" aria-labelledby={`filtro-${grupo.clave}`} className="flex flex-wrap items-center gap-x-6">
-                {grupo.opciones.map((opcion) => {
-                  const activo = filtros[grupo.clave] === opcion.valor;
-                  return (
-                    <button
-                      key={opcion.valor}
-                      type="button"
-                      onClick={() => alCambiar(grupo.clave, opcion.valor)}
-                      aria-pressed={activo}
-                      className={`mdh-label relative min-h-11 transition-colors duration-300 ${
-                        activo ? "text-mdh-tinta" : "text-mdh-acero/55 hover:text-mdh-tinta"
-                      }`}
-                    >
-                      {opcion.texto}
-                      {activo && (
-                        <motion.span
-                          layoutId={`subrayado-${grupo.clave}`}
-                          aria-hidden="true"
-                          className="absolute inset-x-0 bottom-3 block h-px bg-mdh-tinta"
-                          transition={{ duration: 0.4, ease: EASE }}
-                        />
-                      )}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </div>
+  const pildora = (activo: boolean) =>
+    `inline-flex min-h-11 shrink-0 items-center rounded-full border px-5 text-[0.95rem] transition-colors duration-300 ${
+      activo
+        ? "border-mdh-tinta bg-mdh-tinta text-white"
+        : "border-mdh-tinta/20 text-mdh-acero hover:border-mdh-tinta hover:text-mdh-tinta"
+    }`;
 
-        <p
-          aria-live="polite"
-          className="mdh-label mt-2 text-mdh-pizarra md:absolute md:right-0 md:top-0 md:mt-0"
-        >
-          {total} {total === 1 ? t("obra", "project") : t("obras", "projects")}
+  return (
+    <Aparecer className="mb-16 md:mb-24">
+      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-mdh-niebla pb-5">
+        <p className="mdh-label flex items-center gap-3 text-mdh-tinta">
+          <SlidersHorizontal className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
+          {t("Filtrar proyectos", "Filter projects")}
         </p>
+        <div className="flex items-center gap-6">
+          <p aria-live="polite" className="mdh-label text-mdh-pizarra">
+            {total} {total === 1 ? t("obra", "project") : t("obras", "projects")}
+          </p>
+          {hayFiltro && (
+            <button
+              type="button"
+              onClick={alLimpiar}
+              className="mdh-label inline-flex min-h-11 items-center gap-2 text-mdh-tinta transition-opacity hover:opacity-60"
+            >
+              <X className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
+              {t("Limpiar", "Clear")}
+            </button>
+          )}
+        </div>
+      </div>
+
+      <div className="mt-6 flex flex-col gap-5">
+        {grupos.map((grupo) => (
+          <div key={grupo.clave} className="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
+            <span id={`filtro-${grupo.clave}`} className="mdh-label shrink-0 text-mdh-pizarra md:w-36">
+              {grupo.titulo}
+            </span>
+            <div
+              role="group"
+              aria-labelledby={`filtro-${grupo.clave}`}
+              className="-mx-6 flex gap-2 overflow-x-auto px-6 pb-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0 md:pb-0"
+            >
+              <button
+                type="button"
+                onClick={() => alCambiar(grupo.clave, null)}
+                aria-pressed={!filtros[grupo.clave]}
+                className={pildora(!filtros[grupo.clave])}
+              >
+                {t("Todos", "All")}
+              </button>
+              {grupo.opciones.map((opcion) => {
+                const activo = filtros[grupo.clave] === opcion.valor;
+                return (
+                  <button
+                    key={opcion.valor}
+                    type="button"
+                    onClick={() => alCambiar(grupo.clave, opcion.valor)}
+                    aria-pressed={activo}
+                    className={pildora(activo)}
+                  >
+                    {opcion.texto}
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        ))}
       </div>
     </Aparecer>
   );

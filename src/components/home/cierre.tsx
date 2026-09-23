@@ -7,7 +7,8 @@ import { Magnetico } from "./efectos";
 import { Aparecer, Emerge } from "./movimiento";
 
 /**
- * Cierre de página: una sola acción, grande y magnética, hacia el formulario.
+ * Cierre de página: una sola acción, grande y magnética, hacia el formulario, y los
+ * datos de contacto directos. Compacto a propósito (ronda 1, #32).
  * `lineas` separa los renglones del titular con "|".
  */
 export function Cierre({ lineas }: { lineas?: Bilingue }) {
@@ -25,17 +26,22 @@ export function Cierre({ lineas }: { lineas?: Bilingue }) {
       href: correoCon(t("Consulta de proyecto", "Project inquiry")),
     },
     { etiqueta: t("Teléfono", "Phone"), valor: CONTACTO.telefono, href: CONTACTO.telefonoHref },
+    {
+      etiqueta: t("Oficinas", "Offices"),
+      valor: CONTACTO.direccion,
+      href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`Mármoles de Honduras, ${CONTACTO.direccion}`)}`,
+    },
   ];
 
   return (
     <section id="contacto" aria-labelledby="cierre-titulo" className="overflow-hidden bg-mdh-acero text-white">
-      <div className="mx-auto max-w-[1440px] px-6 py-28 md:px-10 md:py-40">
+      <div className="mx-auto max-w-[1440px] px-6 py-20 md:px-10 md:py-28">
         <p className="mdh-label text-white/55">{t("Contacto", "Contact")}</p>
 
-        <div className="mt-10 grid items-end gap-16 lg:grid-cols-12">
+        <div className="mt-8 grid items-end gap-12 lg:grid-cols-12">
           <h2
             id="cierre-titulo"
-            className="text-[clamp(3rem,6.6vw,6.75rem)] font-extralight leading-[0.95] tracking-[-0.035em] lg:col-span-9"
+            className="text-[clamp(2.6rem,5.2vw,5.25rem)] font-extralight leading-[0.95] tracking-[-0.035em] lg:col-span-9"
           >
             <Emerge key={renglones.join("|")} lineas={renglones} />
           </h2>
@@ -44,7 +50,7 @@ export function Cierre({ lineas }: { lineas?: Bilingue }) {
             <Magnetico fuerza={0.4}>
               <Link
                 to="/contacto"
-                className="group relative grid h-44 w-44 place-items-center overflow-hidden rounded-full bg-white text-mdh-tinta md:h-56 md:w-56"
+                className="group relative grid h-36 w-36 place-items-center overflow-hidden rounded-full bg-white text-mdh-tinta md:h-44 md:w-44"
               >
                 <span
                   aria-hidden="true"
@@ -62,24 +68,19 @@ export function Cierre({ lineas }: { lineas?: Bilingue }) {
           </Aparecer>
         </div>
 
-        <div className="mt-20 grid gap-10 border-t border-white/15 pt-10 md:mt-28 md:grid-cols-3">
+        <div className="mt-14 grid gap-8 border-t border-white/15 pt-8 md:mt-16 md:grid-cols-3">
           {datos.map((dato) => (
             <div key={dato.etiqueta}>
               <p className="mdh-label text-white/45">{dato.etiqueta}</p>
-              <a href={dato.href} className="mdh-enlace mt-3 inline-block break-all text-xl font-light">
+              <a
+                href={dato.href}
+                {...(dato.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                className="mdh-enlace mt-3 inline-block break-words text-lg font-light md:text-xl"
+              >
                 {dato.valor}
               </a>
             </div>
           ))}
-          <div>
-            <p className="mdh-label text-white/45">{t("Alcance", "Reach")}</p>
-            <p className="mt-3 leading-relaxed text-white/70">
-              {t(
-                "Honduras, Estados Unidos, Centroamérica y el Caribe. Si tu país no aparece, escríbenos igual.",
-                "Honduras, the United States, Central America and the Caribbean. If your country isn't listed, write to us anyway.",
-              )}
-            </p>
-          </div>
         </div>
       </div>
     </section>

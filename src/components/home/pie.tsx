@@ -75,6 +75,7 @@ export function Pie() {
                   {CONTACTO.telefono}
                 </a>
               </li>
+              <li className="text-sm leading-relaxed text-white/55">{CONTACTO.direccion}</li>
               <li className="pt-4">
                 <a
                   href={correoCon(t("Únete al equipo — CV", "Join the team — CV"), CONTACTO.correoRRHH)}
@@ -109,7 +110,7 @@ export function Pie() {
                   rel="noopener noreferrer"
                   className="mdh-label inline-flex items-center gap-2 text-white transition-opacity hover:opacity-80"
                 >
-                  Casa Mármol
+                  CasaMármol
                   <ArrowUpRight className="h-3.5 w-3.5" strokeWidth={1.5} />
                 </a>
               </li>

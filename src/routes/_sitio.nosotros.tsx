@@ -1,13 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 
-import taller from "@/assets/planta-aerea.jpg";
-import { Alcance } from "@/components/home/alcance";
+import taller from "@/assets/artesano-acabado.jpg";
+import plantaAerea from "@/assets/planta-aerea.jpg";
 import { CasaMarmol } from "@/components/home/casa-marmol";
 import { Cierre } from "@/components/home/cierre";
 import { TextoPorScroll } from "@/components/home/efectos";
-import { LineaTiempo } from "@/components/home/linea-tiempo";
-import { Aparecer, EASE } from "@/components/home/movimiento";
+import { GaleriaPlanta } from "@/components/home/galeria-planta";
+import { Aparecer, EASE, ImagenRevelada } from "@/components/home/movimiento";
 import { PortadaPagina } from "@/components/home/portada-pagina";
 import { Valores } from "@/components/home/valores";
 import { MISION, VISION, useTexto } from "@/lib/home-contenido";
@@ -32,8 +32,8 @@ function Nosotros() {
   const tx = useTexto();
 
   const principios = [
-    { titulo: t("Misión", "Mission"), texto: tx(MISION), destacado: true },
-    { titulo: t("Visión", "Vision"), texto: tx(VISION), destacado: false },
+    { titulo: t("Misión", "Mission"), texto: tx(MISION) },
+    { titulo: t("Visión", "Vision"), texto: tx(VISION) },
   ];
 
   return (
@@ -42,14 +42,10 @@ function Nosotros() {
         numero="01"
         etiqueta={t("Nosotros", "About")}
         lineas={lang === "en" ? ["More than 55 years", "shaping stone."] : ["Más de 55 años", "dando forma a la piedra."]}
-        texto={t(
-          "Empresa familiar hondureña, líder en la fabricación y distribución de piedra natural.",
-          "A Honduran family company, leading the fabrication and distribution of natural stone.",
-        )}
         imagen={taller}
         alt={t(
-          "Vista aérea de la planta de Mármoles de Honduras en Tegucigalpa",
-          "Aerial view of the Mármoles de Honduras plant in Tegucigalpa",
+          "Artesano de Mármoles de Honduras terminando una pieza de piedra",
+          "A Mármoles de Honduras craftsman finishing a stone piece",
         )}
       />
 
@@ -65,8 +61,8 @@ function Nosotros() {
               key={lang}
               className="text-[clamp(1.75rem,3.5vw,3.4rem)] font-light leading-[1.18] tracking-[-0.02em] md:col-span-9"
               texto={t(
-                "Mármoles de Honduras nació en 1970 y hoy lidera la industria de la piedra natural en el país. Somos una empresa familiar, hondureña y completamente vertical: extraemos en canteras propias, fabricamos en planta y comercializamos dentro y fuera de Honduras.",
-                "Mármoles de Honduras was founded in 1970 and today leads the natural stone industry in the country. We are a family-owned, Honduran and fully vertical company: we quarry our own stone, fabricate it in our plant and sell it in Honduras and abroad.",
+                "Somos una empresa familiar hondureña que desde 1970 trabaja la piedra natural. Nos encargamos de todo el proceso: suministramos el material, lo fabricamos en nuestra planta y lo instalamos en Honduras o lo exportamos a Estados Unidos, Centroamérica y el Caribe.",
+                "We are a Honduran family company that has worked natural stone since 1970. We handle the whole process: we supply the material, fabricate it in our plant, and install it in Honduras or export it to the United States, Central America and the Caribbean.",
               )}
             />
           </div>
@@ -90,13 +86,7 @@ function Nosotros() {
                   <span className="mdh-label">{principio.titulo}</span>
                 </div>
                 <Aparecer className="md:col-span-9">
-                  <p
-                    className={
-                      principio.destacado
-                        ? "text-[clamp(2.2rem,4.8vw,4.75rem)] font-extralight leading-[1.04] tracking-[-0.025em]"
-                        : "max-w-4xl text-[clamp(1.4rem,2.4vw,2.25rem)] font-light leading-[1.35] text-mdh-acero"
-                    }
-                  >
+                  <p className="max-w-4xl text-[clamp(1.6rem,2.8vw,2.6rem)] font-light leading-[1.3] tracking-[-0.015em]">
                     {principio.texto}
                   </p>
                 </Aparecer>
@@ -107,9 +97,8 @@ function Nosotros() {
       </section>
 
       <LaPlanta />
-      <LineaTiempo />
+      <GaleriaPlanta />
       <Valores />
-      <Alcance />
       <CasaMarmol />
       <Cierre />
     </>
@@ -117,8 +106,8 @@ function Nosotros() {
 }
 
 /**
- * Cifras de la operación (brochure de marca): lo que un comprador extranjero
- * necesita saber antes de escribir — tamaño de planta, equipo y cercanía.
+ * La planta (ronda 1, #7, #8 y #38): foto aérea a un lado y cifras al otro. Los
+ * metrajes se retiraron porque cambiaron; el cliente confirmará los nuevos.
  */
 function LaPlanta() {
   const { t } = useLang();
@@ -126,39 +115,47 @@ function LaPlanta() {
   const cifras = [
     { dato: "1970", etiqueta: t("Año de fundación", "Founded") },
     { dato: "70+", etiqueta: t("Artesanos en planta", "Craftsmen on the floor") },
-    { dato: "12,450 m²", etiqueta: t("Área de fabricación", "Manufacturing area") },
     { dato: "24 h", etiqueta: t("Desde EE. UU. para inspección", "From the U.S. for an inspection") },
   ];
 
   return (
-    <section aria-labelledby="planta-titulo" className="border-t border-mdh-niebla bg-mdh-hueso">
-      <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-10 md:py-32">
-        <div className="grid gap-12 md:grid-cols-12">
-          <Aparecer className="md:col-span-3">
+    <section aria-labelledby="planta-titulo" className="bg-mdh-hueso">
+      <div className="mx-auto grid max-w-[1440px] items-center gap-12 px-6 py-24 md:grid-cols-12 md:gap-10 md:px-10 md:py-32">
+        <ImagenRevelada
+          src={plantaAerea}
+          alt={t(
+            "Vista aérea de la planta de Mármoles de Honduras al sur de Tegucigalpa",
+            "Aerial view of the Mármoles de Honduras plant south of Tegucigalpa",
+          )}
+          className="aspect-[4/3] bg-mdh-niebla md:col-span-7"
+          imgClassName="h-full w-full object-cover"
+        />
+
+        <div className="md:col-span-5 md:pl-6">
+          <Aparecer>
             <h2 id="planta-titulo" className="mdh-label text-mdh-pizarra">
               {t("La planta", "The plant")}
             </h2>
-          </Aparecer>
-          <Aparecer className="md:col-span-9">
-            <p className="max-w-3xl text-[clamp(1.25rem,2.2vw,2rem)] font-light leading-[1.35] text-mdh-acero">
+            <p className="mt-6 text-[clamp(1.6rem,2.6vw,2.4rem)] font-light leading-[1.25] tracking-[-0.015em]">
               {t(
-                "12,450 m² de fabricación sobre un terreno de 19,000 m², a las afueras de Tegucigalpa y a minutos del aeropuerto internacional: una visita de inspección desde Estados Unidos toma menos de 24 horas.",
-                "12,450 m² of manufacturing on a 19,000 m² site just outside Tegucigalpa, minutes from the international airport: an inspection visit from the United States takes under 24 hours.",
+                "Fabricamos al sur de Tegucigalpa, sobre la Carretera al Sur.",
+                "We fabricate south of Tegucigalpa, on the Carretera al Sur.",
               )}
             </p>
           </Aparecer>
-        </div>
 
-        <dl className="mt-16 grid grid-cols-2 gap-x-8 gap-y-12 border-t border-mdh-tinta/10 pt-12 md:mt-24 md:grid-cols-4">
-          {cifras.map((cifra, i) => (
-            <Aparecer key={cifra.dato} retraso={i * 0.08}>
-              <dt className="mdh-label text-mdh-pizarra">{cifra.etiqueta}</dt>
-              <dd className="mt-4 text-[clamp(2rem,4vw,3.25rem)] font-extralight leading-none tracking-[-0.03em]">
-                {cifra.dato}
-              </dd>
-            </Aparecer>
-          ))}
-        </dl>
+          <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-mdh-tinta/10 pt-10">
+            {cifras.map((cifra, i) => (
+              // dt antes que dd en el DOM (orden válido); la cifra se ve arriba.
+              <Aparecer key={cifra.dato} retraso={i * 0.08} className="flex flex-col-reverse justify-end gap-4">
+                <dt className="mdh-label leading-relaxed text-mdh-pizarra">{cifra.etiqueta}</dt>
+                <dd className="text-[clamp(1.9rem,3.2vw,3rem)] font-extralight leading-none tracking-[-0.03em]">
+                  {cifra.dato}
+                </dd>
+              </Aparecer>
+            ))}
+          </dl>
+        </div>
       </div>
     </section>
   );
