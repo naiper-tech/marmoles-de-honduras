@@ -123,15 +123,26 @@ export function Pie() {
             © {new Date().getFullYear()} Mármoles de Honduras.{" "}
             {t("Todos los derechos reservados.", "All rights reserved.")}
           </p>
-          <ul className="flex gap-6">
-            {legales.map((legal) => (
-              <li key={legal}>
-                <span aria-disabled="true" title={t("Próximamente", "Coming soon")}>
-                  {legal}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <div className="flex flex-col gap-4 md:flex-row md:items-center md:gap-10">
+            <ul className="flex gap-6">
+              {legales.map((legal) => (
+                <li key={legal}>
+                  <span aria-disabled="true" title={t("Próximamente", "Coming soon")}>
+                    {legal}
+                  </span>
+                </li>
+              ))}
+            </ul>
+            {/* Firma de la agencia: discreta, al nivel de los legales. */}
+            <a
+              href="https://naiper.io"
+              target="_blank"
+              rel="noopener"
+              className="text-white/35 transition-colors duration-300 hover:text-white/80"
+            >
+              Powered by <span className="font-medium">Naiper</span>
+            </a>
+          </div>
         </div>
       </div>
 
