@@ -1,6 +1,17 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 
+let instancia: Lenis | null = null;
+
+/** Lleva la página a `top` con la misma inercia de Lenis; sin Lenis, scroll nativo. */
+export function desplazarA(top: number) {
+  if (instancia) instancia.scrollTo(top, { duration: 1.1 });
+  else {
+    const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    window.scrollTo({ top, behavior: reducido ? "auto" : "smooth" });
+  }
+}
+
 /**
  * Scroll con inercia en escritorio. En táctil se respeta el scroll nativo del
  * dispositivo, y se desactiva si el usuario pide menos movimiento.
@@ -13,6 +24,7 @@ export function ScrollSuave() {
     if (!aplica) return;
 
     const lenis = new Lenis({ lerp: 0.09 });
+    instancia = lenis;
     let cuadro = requestAnimationFrame(function paso(tiempo: number) {
       lenis.raf(tiempo);
       cuadro = requestAnimationFrame(paso);
@@ -31,6 +43,7 @@ export function ScrollSuave() {
       cancelAnimationFrame(cuadro);
       observador.disconnect();
       lenis.destroy();
+      instancia = null;
     };
   }, []);
 

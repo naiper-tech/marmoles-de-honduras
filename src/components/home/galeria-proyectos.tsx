@@ -1,12 +1,14 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
-import { SlidersHorizontal, X } from "lucide-react";
+import * as Popover from "@radix-ui/react-popover";
+import { Check, ChevronDown, SlidersHorizontal, X } from "lucide-react";
 
 import { proyectosPortafolio } from "@/lib/home-contenido";
 import { loc, useLang } from "@/lib/i18n";
 import type { Proyecto } from "@/lib/site-data";
 import { CursorVer, useCursorVer } from "./cursor-ver";
 import { useMedia } from "./efectos";
+import { desplazarA } from "./scroll-suave";
 import { Aparecer, EASE } from "./movimiento";
 import { ModalProyecto, useCategoria, useProyectoAbierto } from "./proyectos";
 
@@ -72,14 +74,12 @@ export function GaleriaProyectos() {
   const escritorio = useMedia("(min-width: 768px)");
   const { filtros, cambiar, limpiar } = useFiltros();
 
-  const paises = useMemo(
-    () => [...new Set(proyectosPortafolio.map((p) => p.pais))],
-    [],
-  );
-  const tipos = useMemo(
-    () => [...new Set(proyectosPortafolio.map((p) => p.categoria))],
-    [],
-  );
+  const porCantidad = <T extends string>(valores: T[]) => {
+    const n = (v: T) => valores.filter((x) => x === v).length;
+    return [...new Set(valores)].sort((a, b) => n(b) - n(a) || a.localeCompare(b, "es"));
+  };
+  const paises = useMemo(() => porCantidad(proyectosPortafolio.map((p) => p.pais)), []);
+  const tipos = useMemo(() => porCantidad(proyectosPortafolio.map((p) => p.categoria)), []);
 
   const filtrados = useMemo(
     () =>
@@ -90,6 +90,13 @@ export function GaleriaProyectos() {
       ),
     [filtros],
   );
+
+  const contar = (clave: keyof Filtros, valor: string | null) =>
+    proyectosPortafolio.filter((p) => {
+      const pais = clave === "pais" ? valor : filtros.pais;
+      const tipo = clave === "tipo" ? valor : filtros.tipo;
+      return (!pais || p.pais === pais) && (!tipo || p.categoria === tipo);
+    }).length;
 
   const sinFiltro = !filtros.pais && !filtros.tipo;
   const [destacado, ...resto] = filtrados;
@@ -110,6 +117,7 @@ export function GaleriaProyectos() {
           alCambiar={cambiar}
           alLimpiar={limpiar}
           total={filtrados.length}
+          contar={contar}
           etiquetaTipo={categoria}
         />
 
@@ -167,10 +175,14 @@ export function GaleriaProyectos() {
   );
 }
 
+const ALTO_ENCABEZADO = 77;
+
 /**
- * Ronda 1 (#46): los filtros tienen que leerse como filtros. Píldoras con borde,
- * opción "Todos" en cada grupo, estado activo relleno y un "Limpiar" visible.
- * En móvil cada grupo es una fila con desplazamiento lateral.
+ * Filtros de proyectos (ronda 1, #46 y ajuste posterior). Una barra compacta que
+ * queda fija bajo el menú mientras se recorre el portafolio y se suelta al terminar
+ * la sección (sticky dentro del contenedor). Cada filtro abre un menú con el número
+ * de obras por opción; las opciones sin obras para el otro filtro se ven apagadas,
+ * así nunca se llega a una combinación vacía por sorpresa.
  */
 function BarraFiltros({
   paises,
@@ -179,6 +191,7 @@ function BarraFiltros({
   alCambiar,
   alLimpiar,
   total,
+  contar,
   etiquetaTipo,
 }: {
   paises: string[];
@@ -187,93 +200,212 @@ function BarraFiltros({
   alCambiar: (clave: keyof Filtros, valor: string | null) => void;
   alLimpiar: () => void;
   total: number;
+  contar: (clave: keyof Filtros, valor: string | null) => number;
   etiquetaTipo: (c: Proyecto["categoria"]) => string;
 }) {
   const { t, lang } = useLang();
   const hayFiltro = Boolean(filtros.pais || filtros.tipo);
+  const centinela = useRef<HTMLDivElement>(null);
+  const [fija, setFija] = useState(false);
+
+  // Detecta cuándo la barra queda pegada bajo el menú para darle fondo y sombra.
+  useEffect(() => {
+    const el = centinela.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => setFija(!e.isIntersecting && e.boundingClientRect.top < ALTO_ENCABEZADO + 1),
+      { rootMargin: `-${ALTO_ENCABEZADO}px 0px 0px 0px`, threshold: 0 },
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
+  // Al filtrar desde abajo, vuelve al inicio de la grilla para ver los resultados.
+  const aplicar = (clave: keyof Filtros, valor: string | null) => {
+    alCambiar(clave, valor);
+    if (fija && centinela.current) {
+      desplazarA(centinela.current.getBoundingClientRect().top + window.scrollY - ALTO_ENCABEZADO);
+    }
+  };
 
   const grupos = [
     {
       clave: "pais" as const,
       titulo: t("País", "Country"),
-      opciones: paises.map((p) => ({ valor: p, texto: lang === "en" ? (PAIS_EN[p] ?? p) : p })),
+      opciones: paises.map((p) => ({
+        valor: p,
+        texto: lang === "en" ? (PAIS_EN[p] ?? p) : p,
+        corto: p === "Estados Unidos" ? t("EE. UU.", "U.S.") : undefined,
+      })),
     },
     {
       clave: "tipo" as const,
-      titulo: t("Tipo de proyecto", "Project type"),
-      opciones: tipos.map((c) => ({ valor: c, texto: etiquetaTipo(c) })),
+      titulo: t("Tipo", "Type"),
+      opciones: tipos.map((c) => ({ valor: c as string, texto: etiquetaTipo(c) })),
     },
   ];
 
-  const pildora = (activo: boolean) =>
-    `inline-flex min-h-11 shrink-0 items-center rounded-full border px-5 text-[0.95rem] transition-colors duration-300 ${
-      activo
-        ? "border-mdh-tinta bg-mdh-tinta text-white"
-        : "border-mdh-tinta/20 text-mdh-acero hover:border-mdh-tinta hover:text-mdh-tinta"
-    }`;
-
   return (
-    <Aparecer className="mb-16 md:mb-24">
-      <div className="flex flex-wrap items-center justify-between gap-4 border-b border-mdh-niebla pb-5">
-        <p className="mdh-label flex items-center gap-3 text-mdh-tinta">
-          <SlidersHorizontal className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
-          {t("Filtrar proyectos", "Filter projects")}
-        </p>
-        <div className="flex items-center gap-6">
-          <p aria-live="polite" className="mdh-label text-mdh-pizarra">
-            {total} {total === 1 ? t("obra", "project") : t("obras", "projects")}
-          </p>
-          {hayFiltro && (
-            <button
-              type="button"
-              onClick={alLimpiar}
-              className="mdh-label inline-flex min-h-11 items-center gap-2 text-mdh-tinta transition-opacity hover:opacity-60"
-            >
-              <X className="h-3.5 w-3.5" strokeWidth={1.5} aria-hidden="true" />
-              {t("Limpiar", "Clear")}
-            </button>
-          )}
-        </div>
-      </div>
+    <>
+      <div ref={centinela} aria-hidden="true" className="h-px" />
+      <div
+        className={`sticky z-30 -mx-6 mb-14 border-b px-6 py-3 transition-[background-color,box-shadow,border-color] duration-500 md:-mx-10 md:mb-20 md:px-10 md:py-4 ${
+          fija
+            ? "border-mdh-niebla bg-white/90 shadow-[0_18px_40px_-30px_rgba(23,24,25,0.45)] backdrop-blur-md"
+            : "border-mdh-niebla bg-white"
+        }`}
+        style={{ top: ALTO_ENCABEZADO - 1 }}
+      >
+        <div className="flex items-center gap-2 md:gap-3">
+          <span className="mdh-label mr-2 hidden items-center gap-2.5 text-mdh-pizarra lg:inline-flex">
+            <SlidersHorizontal className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
+            {t("Filtrar", "Filter")}
+          </span>
 
-      <div className="mt-6 flex flex-col gap-5">
-        {grupos.map((grupo) => (
-          <div key={grupo.clave} className="flex flex-col gap-3 md:flex-row md:items-center md:gap-6">
-            <span id={`filtro-${grupo.clave}`} className="mdh-label shrink-0 text-mdh-pizarra md:w-36">
-              {grupo.titulo}
-            </span>
-            <div
-              role="group"
-              aria-labelledby={`filtro-${grupo.clave}`}
-              className="-mx-6 flex gap-2 overflow-x-auto px-6 pb-1 md:mx-0 md:flex-wrap md:overflow-visible md:px-0 md:pb-0"
-            >
+          {grupos.map((grupo) => {
+            const elegida = (grupo.opciones as { valor: string; texto: string; corto?: string }[]).find(
+              (o) => o.valor === filtros[grupo.clave],
+            );
+            return (
+              <MenuFiltro
+                key={grupo.clave}
+                titulo={grupo.titulo}
+                seleccion={filtros[grupo.clave]}
+                textoSeleccion={elegida?.texto}
+                textoCorto={elegida?.corto}
+                opciones={grupo.opciones}
+                total={contar(grupo.clave, null)}
+                contar={(v) => contar(grupo.clave, v)}
+                alElegir={(v) => aplicar(grupo.clave, v)}
+              />
+            );
+          })}
+
+          <div className="ml-auto flex items-center gap-4">
+            <p aria-live="polite" className="mdh-label hidden text-mdh-pizarra sm:block">
+              {hayFiltro ? total : `${Math.floor(total / 10) * 10}+`}{" "}
+              {total === 1 ? t("obra", "project") : t("obras", "projects")}
+            </p>
+            {hayFiltro && (
               <button
                 type="button"
-                onClick={() => alCambiar(grupo.clave, null)}
-                aria-pressed={!filtros[grupo.clave]}
-                className={pildora(!filtros[grupo.clave])}
+                onClick={() => {
+                  alLimpiar();
+                  if (fija && centinela.current) {
+                    desplazarA(centinela.current.getBoundingClientRect().top + window.scrollY - ALTO_ENCABEZADO);
+                  }
+                }}
+                aria-label={t("Limpiar filtros", "Clear filters")}
+                className="inline-flex h-11 w-11 shrink-0 items-center justify-center gap-2 rounded-full border border-mdh-tinta/20 text-mdh-tinta transition-colors duration-300 hover:border-mdh-tinta sm:w-auto sm:px-4"
               >
-                {t("Todos", "All")}
+                <X className="h-4 w-4" strokeWidth={1.5} aria-hidden="true" />
+                <span className="mdh-label hidden sm:inline">{t("Limpiar", "Clear")}</span>
               </button>
-              {grupo.opciones.map((opcion) => {
-                const activo = filtros[grupo.clave] === opcion.valor;
-                return (
-                  <button
-                    key={opcion.valor}
-                    type="button"
-                    onClick={() => alCambiar(grupo.clave, opcion.valor)}
-                    aria-pressed={activo}
-                    className={pildora(activo)}
-                  >
-                    {opcion.texto}
-                  </button>
-                );
-              })}
-            </div>
+            )}
           </div>
-        ))}
+        </div>
       </div>
-    </Aparecer>
+    </>
+  );
+}
+
+/** Botón de filtro con su menú: "País · Todos ⌄" → lista con conteo por opción. */
+function MenuFiltro({
+  titulo,
+  seleccion,
+  textoSeleccion,
+  textoCorto,
+  opciones,
+  total,
+  contar,
+  alElegir,
+}: {
+  titulo: string;
+  seleccion: string | null;
+  textoSeleccion?: string;
+  /** Versión corta para móvil, cuando el nombre completo no cabe en la píldora. */
+  textoCorto?: string;
+  opciones: { valor: string; texto: string }[];
+  total: number;
+  contar: (valor: string | null) => number;
+  alElegir: (valor: string | null) => void;
+}) {
+  const { t } = useLang();
+  const [abierto, setAbierto] = useState(false);
+  const activo = Boolean(seleccion);
+
+  const elegir = (valor: string | null) => {
+    alElegir(valor);
+    setAbierto(false);
+  };
+
+  const fila = (valor: string | null, texto: string, n: number) => {
+    const elegida = seleccion === valor;
+    const vacia = n === 0 && !elegida;
+    return (
+      <li key={valor ?? "todos"}>
+        <button
+          type="button"
+          disabled={vacia}
+          onClick={() => elegir(valor)}
+          aria-pressed={elegida}
+          className={`flex min-h-11 w-full items-center gap-3 rounded-xl px-3.5 text-left transition-colors duration-200 ${
+            vacia ? "cursor-not-allowed opacity-35" : "hover:bg-mdh-hueso"
+          } ${elegida ? "bg-mdh-hueso" : ""}`}
+        >
+          <span className="grid h-4 w-4 shrink-0 place-items-center">
+            {elegida && <Check className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />}
+          </span>
+          <span className={`flex-1 text-[0.95rem] ${elegida ? "text-mdh-tinta" : "text-mdh-acero"}`}>{texto}</span>
+          <span className="text-xs tabular-nums text-mdh-pizarra">{n}</span>
+        </button>
+      </li>
+    );
+  };
+
+  return (
+    <Popover.Root open={abierto} onOpenChange={setAbierto}>
+      <Popover.Trigger
+        className={`group inline-flex h-11 min-w-0 flex-1 items-center justify-between gap-2 rounded-full border px-4 transition-colors duration-300 sm:flex-none sm:justify-start md:px-5 ${
+          activo
+            ? "border-mdh-tinta bg-mdh-tinta text-white"
+            : "border-mdh-tinta/20 text-mdh-tinta hover:border-mdh-tinta data-[state=open]:border-mdh-tinta"
+        }`}
+      >
+        <span className="flex min-w-0 items-baseline gap-2">
+          <span className={`mdh-label shrink-0 ${activo ? "hidden text-white/60 sm:inline" : "text-mdh-pizarra"}`}>
+            {titulo}
+          </span>
+          {textoCorto ? (
+            <>
+              <span className="truncate text-[0.95rem] sm:hidden">{textoCorto}</span>
+              <span className="hidden truncate text-[0.95rem] sm:inline">{textoSeleccion}</span>
+            </>
+          ) : (
+            <span className="truncate text-[0.95rem]">{textoSeleccion ?? t("Todos", "All")}</span>
+          )}
+        </span>
+        <ChevronDown
+          className="h-4 w-4 shrink-0 transition-transform duration-300 group-data-[state=open]:rotate-180"
+          strokeWidth={1.5}
+          aria-hidden="true"
+        />
+      </Popover.Trigger>
+      <Popover.Portal>
+        <Popover.Content
+          align="start"
+          sideOffset={10}
+          collisionPadding={16}
+          className="mdh z-[70] w-[min(calc(100vw-2rem),300px)] rounded-2xl border border-mdh-niebla bg-white p-1.5 font-mdh text-mdh-tinta shadow-[0_28px_60px_-28px_rgba(23,24,25,0.45)] outline-none data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:animate-in data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95"
+        >
+          <p className="mdh-label px-3.5 pb-2 pt-3 text-mdh-pizarra">{titulo}</p>
+          <ul>
+            {fila(null, t("Todos", "All"), total)}
+            {opciones.map((o) => fila(o.valor, o.texto, contar(o.valor)))}
+          </ul>
+        </Popover.Content>
+      </Popover.Portal>
+    </Popover.Root>
   );
 }
 

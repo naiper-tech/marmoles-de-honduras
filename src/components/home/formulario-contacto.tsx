@@ -55,7 +55,7 @@ export function FormularioContacto({ proyectoSlug }: { proyectoSlug?: string }) 
     <form onSubmit={enviar} className="grid gap-x-10 gap-y-12 sm:grid-cols-2">
       {referencia && (
         <p className="border-l border-mdh-tinta pl-5 leading-relaxed text-mdh-acero sm:col-span-2">
-          {t("Consulta sobre un proyecto similar a", "Inquiry about a project similar to")}{" "}
+          {t("Nos escribes después de ver", "You're writing after seeing")}{" "}
           <span className="text-mdh-tinta">{referencia}</span>
         </p>
       )}
@@ -98,7 +98,7 @@ export function FormularioContacto({ proyectoSlug }: { proyectoSlug?: string }) 
           required
           defaultValue={
             referencia
-              ? t(`Me interesa algo similar a ${referencia}.`, `I'm interested in something similar to ${referencia}.`)
+              ? t(`Vi el proyecto ${referencia} en su portafolio. Les cuento sobre el mío:`, `I saw ${referencia} in your portfolio. Here's my project:`)
               : ""
           }
           className={`${CAMPO} resize-none`}

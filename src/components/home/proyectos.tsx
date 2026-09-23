@@ -174,7 +174,7 @@ export function ModalProyecto({
                 search={{ proyecto: p.slug }}
                 className="group flex w-full items-center justify-between bg-mdh-tinta px-7 py-5 text-white transition-colors duration-500 hover:bg-mdh-acero"
               >
-                <span className="mdh-label">{t("Cotizar algo similar", "Quote something similar")}</span>
+                <span className="mdh-label">{t("¿Tienes un proyecto en mente?", "Have a project in mind?")}</span>
                 <ArrowUpRight
                   className="h-5 w-5 transition-transform duration-500 group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
                   strokeWidth={1.5}

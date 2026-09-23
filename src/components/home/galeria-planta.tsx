@@ -52,12 +52,9 @@ export function GaleriaPlanta() {
       <div className="mx-auto max-w-[1440px] px-6 py-24 md:px-10 md:py-36">
         {/* Titular centrado: rompe el patrón etiqueta-a-la-izquierda del resto de la página. */}
         <div className="mx-auto max-w-4xl text-center">
-          <Aparecer>
-            <p className="mdh-label text-mdh-pizarra">{t("Nuestra historia", "Our story")}</p>
-          </Aparecer>
           <h2
             id="historia-titulo"
-            className="mt-6 text-[clamp(2.1rem,4.6vw,4.5rem)] font-light leading-[1.06] tracking-[-0.015em]"
+            className="text-[clamp(2.1rem,4.6vw,4.5rem)] font-light leading-[1.06] tracking-[-0.015em]"
           >
             <Emerge
               key={lang}
