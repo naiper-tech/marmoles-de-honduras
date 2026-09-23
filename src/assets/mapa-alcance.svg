@@ -1,5 +1,5 @@
-<svg viewBox="0 0 157 72" xmlns="http://www.w3.org/2000/svg" style="background-color: transparent">
-        <circle cx="61.5" cy="0" r="0.24" fill="#c5cbd1" />
+<svg viewBox="59.5 -0.5 98 73" xmlns="http://www.w3.org/2000/svg">
+<circle cx="61.5" cy="0" r="0.24" fill="#c5cbd1" />
 <circle cx="62.5" cy="0" r="0.24" fill="#c5cbd1" />
 <circle cx="63.5" cy="0" r="0.24" fill="#c5cbd1" />
 <circle cx="64.5" cy="0" r="0.24" fill="#c5cbd1" />
@@ -2815,7 +2815,6 @@
 <circle cx="129.5" cy="41.569219381653056" r="0.24" fill="#c5cbd1" />
 <circle cx="130.5" cy="41.569219381653056" r="0.24" fill="#c5cbd1" />
 <circle cx="131.5" cy="41.569219381653056" r="0.24" fill="#c5cbd1" />
-<circle cx="4" cy="42.43524478543749" r="0.24" fill="#c5cbd1" />
 <circle cx="91" cy="42.43524478543749" r="0.24" fill="#c5cbd1" />
 <circle cx="92" cy="42.43524478543749" r="0.24" fill="#c5cbd1" />
 <circle cx="93" cy="42.43524478543749" r="0.24" fill="#c5cbd1" />
@@ -2834,7 +2833,6 @@
 <circle cx="133" cy="42.43524478543749" r="0.24" fill="#c5cbd1" />
 <circle cx="134" cy="42.43524478543749" r="0.24" fill="#c5cbd1" />
 <circle cx="135" cy="42.43524478543749" r="0.24" fill="#c5cbd1" />
-<circle cx="6.5" cy="43.30127018922193" r="0.24" fill="#c5cbd1" />
 <circle cx="91.5" cy="43.30127018922193" r="0.24" fill="#c5cbd1" />
 <circle cx="92.5" cy="43.30127018922193" r="0.24" fill="#c5cbd1" />
 <circle cx="93.5" cy="43.30127018922193" r="0.24" fill="#c5cbd1" />
@@ -2897,7 +2895,6 @@
 <circle cx="137.5" cy="45.033320996790806" r="0.24" fill="#c5cbd1" />
 <circle cx="138.5" cy="45.033320996790806" r="0.24" fill="#c5cbd1" />
 <circle cx="139.5" cy="45.033320996790806" r="0.24" fill="#c5cbd1" />
-<circle cx="10" cy="45.89934640057525" r="0.24" fill="#c5cbd1" />
 <circle cx="91" cy="45.89934640057525" r="0.24" fill="#c5cbd1" />
 <circle cx="92" cy="45.89934640057525" r="0.24" fill="#c5cbd1" />
 <circle cx="93" cy="45.89934640057525" r="0.24" fill="#c5cbd1" />
@@ -2921,7 +2918,6 @@
 <circle cx="137" cy="45.89934640057525" r="0.24" fill="#c5cbd1" />
 <circle cx="138" cy="45.89934640057525" r="0.24" fill="#c5cbd1" />
 <circle cx="139" cy="45.89934640057525" r="0.24" fill="#c5cbd1" />
-<circle cx="10.5" cy="46.76537180435968" r="0.24" fill="#c5cbd1" />
 <circle cx="91.5" cy="46.76537180435968" r="0.24" fill="#c5cbd1" />
 <circle cx="92.5" cy="46.76537180435968" r="0.24" fill="#c5cbd1" />
 <circle cx="93.5" cy="46.76537180435968" r="0.24" fill="#c5cbd1" />
@@ -3487,5 +3483,4 @@
 <circle cx="154" cy="71.8801085141084" r="0.24" fill="#c5cbd1" />
 <circle cx="155" cy="71.8801085141084" r="0.24" fill="#c5cbd1" />
 <circle cx="156" cy="71.8801085141084" r="0.24" fill="#c5cbd1" />
-        
-      </svg>
+</svg>

@@ -177,36 +177,20 @@ export const proyectosPortafolio: Proyecto[] = PORTAFOLIO.map((slug) =>
   proyectos.find((p) => p.slug === slug),
 ).filter((p): p is Proyecto => Boolean(p));
 
-export type Region = { id: string; nombre: Bilingue; lugares: Bilingue; pines: string[] };
+/**
+ * Países con obra (ronda 1, #28: solo países, no ciudades). `pais` coincide con el
+ * campo de los proyectos para contar obras; `pin` es la llave en MAPA.pines.
+ */
+export type PaisAlcance = { pin: string; nombre: Bilingue; pais: string };
 
-export const regiones: Region[] = [
-  {
-    id: "honduras",
-    nombre: { es: "Honduras", en: "Honduras" },
-    lugares: { es: "", en: "" },
-    pines: ["tegucigalpa", "san-pedro-sula", "roatan"],
-  },
-  {
-    id: "eeuu",
-    nombre: { es: "Estados Unidos", en: "United States" },
-    lugares: { es: "", en: "" },
-    pines: ["palm-beach", "utah", "honolulu"],
-  },
-  {
-    id: "centroamerica",
-    nombre: { es: "Centroamérica", en: "Central America" },
-    lugares: {
-      es: "Guatemala · El Salvador · Nicaragua · Costa Rica",
-      en: "Guatemala · El Salvador · Nicaragua · Costa Rica",
-    },
-    pines: ["guatemala", "san-salvador", "tola", "san-jose"],
-  },
-  {
-    id: "caribe",
-    nombre: { es: "El Caribe", en: "The Caribbean" },
-    lugares: { es: "Bahamas", en: "The Bahamas" },
-    pines: ["nassau"],
-  },
+export const paisesAlcance: PaisAlcance[] = [
+  { pin: "honduras", nombre: { es: "Honduras", en: "Honduras" }, pais: "Honduras" },
+  { pin: "estados-unidos", nombre: { es: "Estados Unidos", en: "United States" }, pais: "Estados Unidos" },
+  { pin: "guatemala", nombre: { es: "Guatemala", en: "Guatemala" }, pais: "Guatemala" },
+  { pin: "el-salvador", nombre: { es: "El Salvador", en: "El Salvador" }, pais: "El Salvador" },
+  { pin: "nicaragua", nombre: { es: "Nicaragua", en: "Nicaragua" }, pais: "Nicaragua" },
+  { pin: "costa-rica", nombre: { es: "Costa Rica", en: "Costa Rica" }, pais: "Costa Rica" },
+  { pin: "bahamas", nombre: { es: "Bahamas", en: "The Bahamas" }, pais: "Bahamas" },
 ];
 
 /* ── Nosotros (textos del brief de marca) ─────────────────────────────── */
