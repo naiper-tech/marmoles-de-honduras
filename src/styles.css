@@ -5,6 +5,23 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
+ * Sweet Sans Pro (MVB · Sweet Fonts), tipografía de marca de Mármoles de Honduras.
+ * Subconjunto latino en WOFF2 (~40 KB por peso). Cinco pesos, mapeados a las
+ * clases de Tailwind que ya usa el sitio:
+ *   200 Thin     → font-extralight: cifras y titulares gigantes
+ *   300 Light    → font-light: titulares y frases destacadas
+ *   400 Regular  → texto corrido
+ *   500 Medium   → etiquetas en mayúsculas, énfasis breves
+ *   700 Bold     → <b>/<strong> ocasionales (evita la negrita sintética)
+ */
+@font-face { font-family: "Sweet Sans Pro"; src: url("/fonts/sweet-sans-pro-thin.woff2") format("woff2"); font-weight: 200; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sweet Sans Pro"; src: url("/fonts/sweet-sans-pro-light.woff2") format("woff2"); font-weight: 300; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sweet Sans Pro"; src: url("/fonts/sweet-sans-pro-regular.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sweet Sans Pro"; src: url("/fonts/sweet-sans-pro-medium.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
+@font-face { font-family: "Sweet Sans Pro"; src: url("/fonts/sweet-sans-pro-bold.woff2") format("woff2"); font-weight: 700; font-style: normal; font-display: swap; }
+
+
+/*
  * Design system definition.
  *
  * The @theme inline block maps CSS custom properties to Tailwind utility
@@ -261,9 +278,8 @@
 
 /* ──────────────────────────────────────────────────────────────────────────
  * Nueva home (/home) — sistema visual de Mármoles de Honduras.
- * Paleta tomada del brief de marca. Tipografía de marca: Sweet Sans Pro;
- * Jost es el reemplazo provisional hasta contar con la licencia web.
- * Para cambiarla basta con editar --font-mdh.
+ * Paleta tomada del brief de marca. Tipografía de marca: Sweet Sans Pro
+ * (ver @font-face al inicio). Para cambiarla basta con editar --font-mdh.
  * ────────────────────────────────────────────────────────────────────────── */
 @theme inline {
   --color-mdh-tinta: #171819;
@@ -271,7 +287,7 @@
   --color-mdh-pizarra: #5b6a78;
   --color-mdh-niebla: #dde1e5;
   --color-mdh-hueso: #f3f4f5;
-  --font-mdh: "Jost", ui-sans-serif, system-ui, sans-serif;
+  --font-mdh: "Sweet Sans Pro", ui-sans-serif, system-ui, sans-serif;
 }
 
 @layer base {

@@ -75,7 +75,7 @@ export function Cierre({ lineas }: { lineas?: Bilingue }) {
               <a
                 href={dato.href}
                 {...(dato.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                className="mdh-enlace mt-3 inline-block break-words text-lg font-light md:text-xl"
+                className="mdh-enlace mt-3 inline-block text-lg font-light [overflow-wrap:anywhere] md:text-xl"
               >
                 {dato.valor}
               </a>

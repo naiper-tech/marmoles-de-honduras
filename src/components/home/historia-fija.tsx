@@ -99,9 +99,12 @@ export function HistoriaFija() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end end"] });
 
-  const frase =
-    lang === "en" ? "More than five decades, chapter by chapter." : "Más de cinco décadas, capítulo por capítulo.";
-  const palabras = frase.split(" ");
+  // Dos renglones fijos: con Sweet Sans (más ancha) el corte automático quedaba
+  // en "capítulo / por capítulo" y la frase rozaba las fotos.
+  const renglones =
+    lang === "en" ? ["More than five decades,", "chapter by chapter."] : ["Más de cinco décadas,", "capítulo por capítulo."];
+  const frase = renglones.join(" ");
+  const totalPalabras = frase.split(" ").length;
   const fotos = FOTOS.filter((f) => escritorio || f.movil);
 
   return (
@@ -135,21 +138,32 @@ export function HistoriaFija() {
           <h2
             id="historia-titulo"
             aria-label={frase}
-            className="max-w-[16ch] text-center text-[clamp(2.1rem,4.4vw,4.25rem)] font-light leading-[1.08] tracking-[-0.025em] md:max-w-[20ch]"
+            className="text-center text-[clamp(1.9rem,3.6vw,3.5rem)] font-light leading-[1.12] tracking-[-0.015em]"
           >
-            {palabras.map((p, i) => (
-              <span key={`${lang}-${i}`}>
-                <Palabra
-                  progreso={scrollYProgress}
-                  desde={0.06 + (i / palabras.length) * 0.6}
-                  hasta={0.06 + ((i + 1) / palabras.length) * 0.6}
-                  estatica={Boolean(reducido)}
-                >
-                  {p}
-                </Palabra>
-                {i < palabras.length - 1 && " "}
-              </span>
-            ))}
+            {renglones.map((renglon, r) => {
+              const previas = renglones.slice(0, r).join(" ").split(" ").filter(Boolean).length;
+              const palabras = renglon.split(" ");
+              return (
+                <span key={`${lang}-${r}`} className="block whitespace-nowrap max-sm:whitespace-normal">
+                  {palabras.map((p, i) => {
+                    const n = previas + i;
+                    return (
+                      <span key={i}>
+                        <Palabra
+                          progreso={scrollYProgress}
+                          desde={0.06 + (n / totalPalabras) * 0.6}
+                          hasta={0.06 + ((n + 1) / totalPalabras) * 0.6}
+                          estatica={Boolean(reducido)}
+                        >
+                          {p}
+                        </Palabra>
+                        {i < palabras.length - 1 && " "}
+                      </span>
+                    );
+                  })}
+                </span>
+              );
+            })}
           </h2>
         </div>
       </div>

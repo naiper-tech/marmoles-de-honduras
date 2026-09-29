@@ -167,7 +167,7 @@ function Campo({
   children: ReactNode;
 }) {
   return (
-    <div className={`group relative ${ancho ? "sm:col-span-2" : ""}`}>
+    <div className={`group relative min-w-0 ${ancho ? "sm:col-span-2" : ""}`}>
       <label
         htmlFor={id}
         className="mdh-label text-mdh-pizarra transition-colors duration-500 group-focus-within:text-mdh-tinta"

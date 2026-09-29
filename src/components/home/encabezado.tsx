@@ -63,11 +63,11 @@ export function Encabezado() {
             : "border-mdh-tinta/10 bg-white/90 py-4 text-mdh-tinta backdrop-blur-md"
         }`}
       >
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-6 px-6 md:px-10">
+        <div className="mx-auto flex max-w-[1440px] items-center justify-between gap-3 px-6 md:gap-6 md:px-10">
           {/* Las dos versiones se cruzan en opacidad para que el cambio de fondo no dé un salto. */}
           <Link
             to="/"
-            className="relative block h-8 w-[190px] shrink-0 md:h-10 md:w-[236px]"
+            className="relative block h-8 w-[150px] shrink-0 md:h-10 md:w-[236px]"
             aria-label={t("Mármoles de Honduras — inicio", "Mármoles de Honduras — home")}
           >
             <img

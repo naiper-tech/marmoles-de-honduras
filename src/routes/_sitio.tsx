@@ -14,11 +14,10 @@ import { ScrollSuave } from "@/components/home/scroll-suave";
  */
 export const Route = createFileRoute("/_sitio")({
   head: () => ({
+    // Los dos pesos que pinta la primera pantalla se piden de inmediato.
     links: [
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Jost:wght@200;300;400;500&display=swap",
-      },
+      { rel: "preload", href: "/fonts/sweet-sans-pro-light.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
+      { rel: "preload", href: "/fonts/sweet-sans-pro-regular.woff2", as: "font", type: "font/woff2", crossOrigin: "anonymous" },
     ],
   }),
   component: SitioNuevo,

@@ -98,7 +98,7 @@ function ContactoPagina() {
 
       <section className="bg-white">
         <div className="mx-auto grid max-w-[1440px] gap-20 px-6 py-24 md:px-10 md:py-32 lg:grid-cols-12 lg:gap-10">
-          <Aparecer className="lg:col-span-7">
+          <Aparecer className="min-w-0 lg:col-span-7">
             <FormularioContacto proyectoSlug={proyecto} />
           </Aparecer>
 
@@ -190,7 +190,7 @@ function Canal({
             <span className="mdh-label block text-mdh-pizarra transition-colors duration-500 group-hover:text-white/60">
               {etiqueta}
             </span>
-            <span className="mt-3 block break-words text-xl font-light transition-colors duration-500 group-hover:text-white">
+            <span className="mt-3 block text-xl font-light transition-colors duration-500 [overflow-wrap:anywhere] group-hover:text-white">
               {valor}
             </span>
           </span>
