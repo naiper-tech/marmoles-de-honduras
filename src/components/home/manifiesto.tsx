@@ -1,50 +1,16 @@
-import { motion } from "motion/react";
-
 import planta from "@/assets/losa-tallada.jpg";
 import { useLang } from "@/lib/i18n";
 import { TextoPorScroll } from "./efectos";
 import { ImagenExpansiva } from "./imagen-expansiva";
-import { Aparecer, EASE } from "./movimiento";
+import { Aparecer } from "./movimiento";
 
-/** La empresa: una declaración que se lee al ritmo del scroll y cuatro pilares. */
+/**
+ * La empresa: una declaración que se lee al ritmo del scroll. Los cuatro pilares
+ * (Selección, Fabricación, Instalación, Exportación) se quitaron porque repetían los
+ * paneles de Producción que siguen justo abajo.
+ */
 export function Manifiesto() {
   const { t, lang } = useLang();
-
-  // Ronda 1 (#19–#21, #26): cuatro pilares en el orden del proceso.
-  const pilares = [
-    {
-      n: "01",
-      titulo: t("Selección", "Selection"),
-      texto: t(
-        "Suministramos el material que especifica cada proyecto, a través de una red global de proveedores.",
-        "We supply the material each project specifies, through a global network of suppliers.",
-      ),
-    },
-    {
-      n: "02",
-      titulo: t("Fabricación", "Fabrication"),
-      texto: t(
-        "Tecnología de punta para proyectos de alta producción.",
-        "State-of-the-art technology for high-volume projects.",
-      ),
-    },
-    {
-      n: "03",
-      titulo: t("Instalación", "Installation"),
-      texto: t(
-        "En Honduras, nuestro equipo acompaña cada pieza hasta su lugar final.",
-        "In Honduras, our team takes every piece all the way to its final place.",
-      ),
-    },
-    {
-      n: "04",
-      titulo: t("Exportación", "Export"),
-      texto: t(
-        "Logística nacional e internacional hasta la obra final.",
-        "Domestic and international logistics all the way to the final site.",
-      ),
-    },
-  ];
 
   return (
     <section id="nosotros" aria-labelledby="empresa-titulo" className="bg-white">
@@ -64,30 +30,6 @@ export function Manifiesto() {
             )}
           />
         </div>
-
-        <ol className="mt-24 grid gap-14 sm:grid-cols-2 md:mt-36 md:gap-10 lg:grid-cols-4">
-          {pilares.map((pilar, i) => (
-            <li key={pilar.n} className="group">
-              <motion.span
-                aria-hidden="true"
-                className="block h-px origin-left bg-mdh-tinta"
-                initial={{ scaleX: 0 }}
-                whileInView={{ scaleX: 1 }}
-                viewport={{ once: true, amount: 1 }}
-                transition={{ duration: 1.4, ease: EASE, delay: i * 0.15 }}
-              />
-              <Aparecer retraso={0.2 + i * 0.12} y={16}>
-                <div className="flex items-baseline justify-between gap-4 pt-6">
-                  <h3 className="text-[1.75rem] font-light transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:translate-x-2">
-                    {pilar.titulo}
-                  </h3>
-                  <span className="mdh-label text-mdh-pizarra">{pilar.n}</span>
-                </div>
-                <p className="mt-4 leading-relaxed text-mdh-acero">{pilar.texto}</p>
-              </Aparecer>
-            </li>
-          ))}
-        </ol>
       </div>
 
       <ImagenExpansiva
