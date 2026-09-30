@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
+import { useSrcDiferido } from "./carga-diferida";
 
 /** Avance normalizado 0–1 de `p` dentro del tramo [desde, hasta]. */
 export const tramo = (p: number, desde: number, hasta: number) =>
@@ -31,6 +32,7 @@ export function ImagenExpansiva({
   centrado?: boolean;
   className?: string;
 }) {
+  const foto = useSrcDiferido(imagen);
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end end"] });
 
@@ -48,7 +50,14 @@ export function ImagenExpansiva({
     <div ref={ref} className={`relative h-[190vh] ${className}`}>
       <div className="sticky top-0 h-[100svh] overflow-hidden">
         <motion.div style={{ clipPath: recorte }} className="absolute inset-0 bg-mdh-tinta">
-          <motion.img src={imagen} alt={alt} style={{ scale: escala }} className="h-full w-full object-cover" />
+          <motion.img
+            src={foto}
+            loading="lazy"
+            decoding="async"
+            alt={alt}
+            style={{ scale: escala }}
+            className="h-full w-full object-cover"
+          />
           <div
             aria-hidden="true"
             className="absolute inset-0 bg-[linear-gradient(to_top,rgba(23,24,25,0.85)_0%,rgba(23,24,25,0.1)_55%)]"

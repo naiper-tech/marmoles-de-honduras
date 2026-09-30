@@ -104,7 +104,7 @@ export function Alcance() {
             )}
             onPointerLeave={() => encender(null)}
           >
-            <img src={mapaUrl} alt="" className="absolute inset-0 h-full w-full" draggable={false} />
+            <img src={mapaUrl} alt="" loading="lazy" decoding="async" className="absolute inset-0 h-full w-full" draggable={false} />
 
             {UBICACIONES.map((u) => (
               <Punto

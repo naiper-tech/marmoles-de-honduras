@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 import intercontinental from "@/assets/foto-intercontinental-cr.jpg";
+import intercontinentalMovil from "@/assets/foto-intercontinental-cr.jpg?w=720&h=1100&fit=cover&quality=68&format=webp";
 import { Cierre } from "@/components/home/cierre";
 import { Contador, TextoPorScroll } from "@/components/home/efectos";
 import { GaleriaProyectos } from "@/components/home/galeria-proyectos";
@@ -35,13 +36,21 @@ function ProyectosPagina() {
   return (
     <>
       <PortadaPagina
-        lineas={lang === "en" ? ["Delivered projects,", "in Honduras and abroad."] : ["Obras entregadas,", "dentro y fuera de Honduras."]}
+        lineas={
+          lang === "en"
+            ? ["Delivered projects,", "in Honduras and abroad."]
+            : ["Obras entregadas,", "dentro y fuera de Honduras."]
+        }
         texto={t(
           "Filtra por país o por tipo de obra y abre cada proyecto para verlo en detalle.",
           "Filter by country or project type and open each project to see it in detail.",
         )}
         imagen={intercontinental}
-        alt={t("Hotel Intercontinental en San José, Costa Rica", "Intercontinental hotel in San José, Costa Rica")}
+        imagenMovil={intercontinentalMovil}
+        alt={t(
+          "Hotel Intercontinental en San José, Costa Rica",
+          "Intercontinental hotel in San José, Costa Rica",
+        )}
       />
 
       <section aria-labelledby="portafolio-titulo" className="bg-white">
@@ -67,7 +76,10 @@ function ProyectosPagina() {
                 <dd className="mt-4 text-6xl font-extralight tracking-[-0.04em]">
                   {/* Ronda 1 (#45): cifra redondeada hacia abajo, "20+", aunque se sumen obras. */}
                   <span className="inline-flex items-start">
-                    <Contador hasta={Math.floor(proyectosPortafolio.length / 10) * 10} duracion={1.6} />
+                    <Contador
+                      hasta={Math.floor(proyectosPortafolio.length / 10) * 10}
+                      duracion={1.6}
+                    />
                     <span className="text-[0.55em] font-light">+</span>
                   </span>
                 </dd>
@@ -80,7 +92,9 @@ function ProyectosPagina() {
               </div>
               <div className="col-span-2 md:col-span-1">
                 <dt className="mdh-label text-mdh-pizarra">{t("Tipologías", "Typologies")}</dt>
-                <dd className="mt-5 text-xl font-light leading-relaxed">{tipologias.join(" · ")}</dd>
+                <dd className="mt-5 text-xl font-light leading-relaxed">
+                  {tipologias.join(" · ")}
+                </dd>
               </div>
             </dl>
           </div>

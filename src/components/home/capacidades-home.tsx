@@ -9,6 +9,8 @@ import { materiales, useTexto, whatsappCon } from "@/lib/home-contenido";
 import { useLang } from "@/lib/i18n";
 import { Magnetico, Marquesina } from "./efectos";
 import { Aparecer, Emerge } from "./movimiento";
+import { miniatura } from "@/lib/imagenes";
+import { VACIO, useCargaLista } from "./carga-diferida";
 
 /**
  * Producción en la home (ronda 1, #26): las mismas cuatro categorías de "La empresa",
@@ -16,6 +18,7 @@ import { Aparecer, Emerge } from "./movimiento";
  * el cursor, al enfocar o al tocar— sin mandar al visitante a otra página.
  */
 export function CapacidadesHome() {
+  const fotosListas = useCargaLista();
   const { t, lang } = useLang();
   const tx = useTexto();
   const [activa, setActiva] = useState(0);
@@ -29,7 +32,10 @@ export function CapacidadesHome() {
         "Marble, quartz, travertine, granite, quartzite and onyx. We source the material each project specifies.",
       ),
       imagen: imgMateriales,
-      alt: t("Losa de mármol con veta sobre la mesa de trabajo", "A veined marble slab on the workbench"),
+      alt: t(
+        "Losa de mármol con veta sobre la mesa de trabajo",
+        "A veined marble slab on the workbench",
+      ),
     },
     {
       id: "fabricacion",
@@ -39,7 +45,10 @@ export function CapacidadesHome() {
         "Cutting, CNC milling, carving and polishing at the plant, piece by piece and made to measure.",
       ),
       imagen: imgFabricacion,
-      alt: t("Artesanos puliendo columnas de mármol negro", "Craftsmen polishing black marble columns"),
+      alt: t(
+        "Artesanos puliendo columnas de mármol negro",
+        "Craftsmen polishing black marble columns",
+      ),
     },
     {
       id: "instalacion",
@@ -64,7 +73,11 @@ export function CapacidadesHome() {
   ];
 
   return (
-    <section id="produccion" aria-labelledby="produccion-titulo" className="relative bg-mdh-tinta text-white">
+    <section
+      id="produccion"
+      aria-labelledby="produccion-titulo"
+      className="relative bg-mdh-tinta text-white"
+    >
       <div className="mx-auto max-w-[1440px] px-6 pt-20 md:px-10 md:pt-28">
         <div className="grid gap-10 md:grid-cols-12">
           <Aparecer className="md:col-span-3">
@@ -77,7 +90,11 @@ export function CapacidadesHome() {
             >
               <Emerge
                 key={lang}
-                lineas={lang === "en" ? ["What we can", "do for you."] : ["Lo que podemos", "hacer por ti."]}
+                lineas={
+                  lang === "en"
+                    ? ["What we can", "do for you."]
+                    : ["Lo que podemos", "hacer por ti."]
+                }
               />
             </h2>
             <Aparecer retraso={0.15}>
@@ -92,7 +109,10 @@ export function CapacidadesHome() {
         </div>
 
         {/* Escritorio: paneles que se abren. El abierto ocupa cuatro veces el ancho de los demás. */}
-        <div role="list" className="mt-16 hidden h-[min(72vh,640px)] min-h-[480px] gap-3 md:mt-24 md:flex">
+        <div
+          role="list"
+          className="mt-16 hidden h-[min(72vh,640px)] min-h-[480px] gap-3 md:mt-24 md:flex"
+        >
           {categorias.map((c, i) => {
             const abierta = activa === i;
             return (
@@ -109,7 +129,7 @@ export function CapacidadesHome() {
                 className="group relative basis-0 cursor-pointer overflow-hidden bg-mdh-acero outline-none transition-[flex-grow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] focus-visible:ring-2 focus-visible:ring-white"
               >
                 <img
-                  src={c.imagen}
+                  src={fotosListas ? c.imagen : VACIO}
                   alt={c.alt}
                   loading="lazy"
                   className={`absolute inset-0 h-full w-full object-cover transition-[scale,filter] duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] ${
@@ -124,7 +144,9 @@ export function CapacidadesHome() {
                       : "bg-mdh-tinta/55"
                   }`}
                 />
-                <span className="mdh-label absolute left-6 top-6 text-white/70">{String(i + 1).padStart(2, "0")}</span>
+                <span className="mdh-label absolute left-6 top-6 text-white/70">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
 
                 {/* Cerrado: el título corre en vertical para que quepa en el panel angosto. */}
                 <span
@@ -138,7 +160,9 @@ export function CapacidadesHome() {
 
                 <div
                   className={`absolute inset-x-0 bottom-0 p-8 transition-[opacity,translate] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] lg:p-10 ${
-                    abierta ? "translate-y-0 opacity-100 delay-200" : "pointer-events-none translate-y-6 opacity-0"
+                    abierta
+                      ? "translate-y-0 opacity-100 delay-200"
+                      : "pointer-events-none translate-y-6 opacity-0"
                   }`}
                 >
                   <h3 className="text-[clamp(2rem,3.4vw,3.25rem)] font-light leading-none tracking-[-0.02em]">
@@ -156,12 +180,20 @@ export function CapacidadesHome() {
           {categorias.map((c, i) => (
             <li key={c.id} className="w-[82%] shrink-0 snap-start">
               <div className="relative aspect-[4/5] overflow-hidden bg-mdh-acero">
-                <img src={c.imagen} alt={c.alt} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+                <img
+                  src={fotosListas ? miniatura(c.imagen) : VACIO}
+                  alt={c.alt}
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
                 <div
                   aria-hidden="true"
                   className="absolute inset-0 bg-[linear-gradient(to_top,rgba(23,24,25,0.9)_0%,rgba(23,24,25,0.1)_60%)]"
                 />
-                <span className="mdh-label absolute left-5 top-5 text-white/70">{String(i + 1).padStart(2, "0")}</span>
+                <span className="mdh-label absolute left-5 top-5 text-white/70">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
                 <div className="absolute inset-x-0 bottom-0 p-6">
                   <h3 className="text-3xl font-light">{c.titulo}</h3>
                   <p className="mt-3 text-base leading-relaxed text-white/75">{c.texto}</p>
@@ -180,7 +212,10 @@ export function CapacidadesHome() {
               className="flex items-center text-[clamp(3rem,8vw,7.5rem)] font-extralight leading-none tracking-[-0.03em] text-transparent transition-colors duration-500 [-webkit-text-stroke:1px_rgba(255,255,255,0.45)] hover:text-white"
             >
               {tx(material)}
-              <span aria-hidden="true" className="mx-10 text-[0.3em] text-white/30 [-webkit-text-stroke:0]">
+              <span
+                aria-hidden="true"
+                className="mx-10 text-[0.3em] text-white/30 [-webkit-text-stroke:0]"
+              >
                 ●
               </span>
             </span>
@@ -198,13 +233,21 @@ export function CapacidadesHome() {
         </p>
         <Magnetico>
           <a
-            href={whatsappCon(t("Hola, me gustaría recibir el catálogo de piedra natural.", "Hi, I'd like to receive the natural stone catalog."))}
+            href={whatsappCon(
+              t(
+                "Hola, me gustaría recibir el catálogo de piedra natural.",
+                "Hi, I'd like to receive the natural stone catalog.",
+              ),
+            )}
             target="_blank"
             rel="noopener noreferrer"
             className="mdh-label group inline-flex shrink-0 items-center gap-4 border border-white/30 px-7 py-4 transition-colors duration-500 hover:border-white hover:bg-white hover:text-mdh-tinta"
           >
             {t("Solicitar catálogo", "Request the catalog")}
-            <ArrowUpRight className="h-4 w-4 transition-transform duration-500 group-hover:rotate-45" strokeWidth={1.5} />
+            <ArrowUpRight
+              className="h-4 w-4 transition-transform duration-500 group-hover:rotate-45"
+              strokeWidth={1.5}
+            />
           </a>
         </Magnetico>
       </div>

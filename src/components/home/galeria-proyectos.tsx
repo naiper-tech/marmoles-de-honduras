@@ -10,6 +10,8 @@ import { CursorVer, useCursorVer } from "./cursor-ver";
 import { desplazarA } from "./scroll-suave";
 import { Aparecer, EASE } from "./movimiento";
 import { ModalProyecto, useCategoria, useProyectoAbierto } from "./proyectos";
+import { miniatura } from "@/lib/imagenes";
+import { VACIO, useCargaLista } from "./carga-diferida";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -95,7 +97,6 @@ export function GaleriaProyectos() {
       const tipo = clave === "tipo" ? valor : filtros.tipo;
       return (!pais || p.pais === pais) && (!tipo || p.categoria === tipo);
     }).length;
-
 
   const abrirProyecto = (slug: string) => {
     cursor.apagar();
@@ -231,9 +232,9 @@ function BarraFiltros({
           </span>
 
           {grupos.map((grupo) => {
-            const elegida = (grupo.opciones as { valor: string; texto: string; corto?: string }[]).find(
-              (o) => o.valor === filtros[grupo.clave],
-            );
+            const elegida = (
+              grupo.opciones as { valor: string; texto: string; corto?: string }[]
+            ).find((o) => o.valor === filtros[grupo.clave]);
             return (
               <MenuFiltro
                 key={grupo.clave}
@@ -260,7 +261,11 @@ function BarraFiltros({
                 onClick={() => {
                   alLimpiar();
                   if (fija && centinela.current) {
-                    desplazarA(centinela.current.getBoundingClientRect().top + window.scrollY - ALTO_ENCABEZADO);
+                    desplazarA(
+                      centinela.current.getBoundingClientRect().top +
+                        window.scrollY -
+                        ALTO_ENCABEZADO,
+                    );
                   }
                 }}
                 aria-label={t("Limpiar filtros", "Clear filters")}
@@ -324,7 +329,9 @@ function MenuFiltro({
           <span className="grid h-4 w-4 shrink-0 place-items-center">
             {elegida && <Check className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />}
           </span>
-          <span className={`flex-1 text-base ${elegida ? "text-mdh-tinta" : "text-mdh-acero"}`}>{texto}</span>
+          <span className={`flex-1 text-base ${elegida ? "text-mdh-tinta" : "text-mdh-acero"}`}>
+            {texto}
+          </span>
           <span className="text-xs tabular-nums text-mdh-pizarra">{n}</span>
         </button>
       </li>
@@ -341,7 +348,9 @@ function MenuFiltro({
         }`}
       >
         <span className="flex min-w-0 items-baseline gap-2">
-          <span className={`mdh-label shrink-0 ${activo ? "hidden text-white/60 sm:inline" : "text-mdh-pizarra"}`}>
+          <span
+            className={`mdh-label shrink-0 ${activo ? "hidden text-white/60 sm:inline" : "text-mdh-pizarra"}`}
+          >
             {titulo}
           </span>
           {textoCorto ? (
@@ -413,6 +422,7 @@ function FilaProyectos({
   cursor: ReturnType<typeof useCursorVer>;
   alAbrir: (slug: string) => void;
 }) {
+  const fotosListas = useCargaLista();
   const { t, lang } = useLang();
   const categoria = useCategoria();
   const pista = useRef<HTMLUListElement>(null);
@@ -447,10 +457,18 @@ function FilaProyectos({
       type="button"
       onClick={() => mover(dir)}
       disabled={apagada}
-      aria-label={dir === 1 ? t(`Siguientes proyectos: ${titulo}`, `Next projects: ${titulo}`) : t(`Proyectos anteriores: ${titulo}`, `Previous projects: ${titulo}`)}
+      aria-label={
+        dir === 1
+          ? t(`Siguientes proyectos: ${titulo}`, `Next projects: ${titulo}`)
+          : t(`Proyectos anteriores: ${titulo}`, `Previous projects: ${titulo}`)
+      }
       className="grid h-12 w-12 place-items-center rounded-full border border-mdh-tinta/20 text-mdh-tinta transition-colors duration-300 hover:border-mdh-tinta hover:bg-mdh-tinta hover:text-white disabled:pointer-events-none disabled:opacity-25"
     >
-      {dir === 1 ? <ArrowRight className="h-4 w-4" strokeWidth={1.5} /> : <ArrowLeft className="h-4 w-4" strokeWidth={1.5} />}
+      {dir === 1 ? (
+        <ArrowRight className="h-4 w-4" strokeWidth={1.5} />
+      ) : (
+        <ArrowLeft className="h-4 w-4" strokeWidth={1.5} />
+      )}
     </button>
   );
 
@@ -458,7 +476,9 @@ function FilaProyectos({
     <Aparecer>
       <section aria-label={titulo}>
         <div className="flex items-end justify-between gap-6 border-b border-mdh-niebla pb-6">
-          <h2 className="text-[clamp(1.9rem,3.4vw,3.25rem)] font-light leading-none tracking-[-0.02em]">{titulo}</h2>
+          <h2 className="text-[clamp(1.9rem,3.4vw,3.25rem)] font-light leading-none tracking-[-0.02em]">
+            {titulo}
+          </h2>
           {obras.length > 1 && (
             <div className="flex shrink-0 gap-2">
               {flecha(-1, inicio)}
@@ -485,9 +505,10 @@ function FilaProyectos({
                 >
                   <div className="relative aspect-[4/5] overflow-hidden bg-mdh-niebla">
                     <img
-                      src={p.imagen}
+                      src={fotosListas ? miniatura(p.imagen) : VACIO}
                       alt={`${p.titulo}, ${p.lugar}`}
                       loading="lazy"
+                      decoding="async"
                       className="absolute inset-0 h-full w-full object-cover grayscale-[45%] transition-[filter,scale] duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05] group-hover:grayscale-0"
                     />
                   </div>

@@ -1,5 +1,6 @@
 import { motion } from "motion/react";
 import type { ReactNode } from "react";
+import { useSrcDiferido } from "./carga-diferida";
 
 /** Curva lenta y asentada: el lujo no tiene prisa. */
 export const EASE = [0.22, 1, 0.36, 1] as const;
@@ -81,6 +82,7 @@ export function ImagenRevelada({
   className?: string;
   imgClassName?: string;
 }) {
+  const diferida = useSrcDiferido(src);
   return (
     <motion.div
       className={`overflow-hidden ${className ?? ""}`}
@@ -90,9 +92,10 @@ export function ImagenRevelada({
       transition={{ duration: 1.4, ease: EASE }}
     >
       <motion.img
-        src={src}
+        src={diferida}
         alt={alt}
         loading="lazy"
+        decoding="async"
         className={imgClassName}
         initial={{ scale: 1.14 }}
         whileInView={{ scale: 1 }}

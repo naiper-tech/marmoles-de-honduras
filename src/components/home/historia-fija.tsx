@@ -12,6 +12,8 @@ import artesanoLijado from "@/assets/artesano-lijado.jpg";
 import { useLang } from "@/lib/i18n";
 import { useMedia } from "./efectos";
 import { tramo } from "./imagen-expansiva";
+import { miniatura } from "@/lib/imagenes";
+import { useSrcDiferido } from "./carga-diferida";
 
 type Lugar = { x: string; y: string; w: string; proporcion: string };
 
@@ -102,7 +104,9 @@ export function HistoriaFija() {
   // Dos renglones fijos: con Sweet Sans (más ancha) el corte automático quedaba
   // en "capítulo / por capítulo" y la frase rozaba las fotos.
   const renglones =
-    lang === "en" ? ["More than five decades,", "chapter by chapter."] : ["Más de cinco décadas,", "capítulo por capítulo."];
+    lang === "en"
+      ? ["More than five decades,", "chapter by chapter."]
+      : ["Más de cinco décadas,", "capítulo por capítulo."];
   const frase = renglones.join(" ");
   const totalPalabras = frase.split(" ").length;
   const fotos = FOTOS.filter((f) => escritorio || f.movil);
@@ -144,7 +148,10 @@ export function HistoriaFija() {
               const previas = renglones.slice(0, r).join(" ").split(" ").filter(Boolean).length;
               const palabras = renglon.split(" ");
               return (
-                <span key={`${lang}-${r}`} className="block whitespace-nowrap max-sm:whitespace-normal">
+                <span
+                  key={`${lang}-${r}`}
+                  className="block whitespace-nowrap max-sm:whitespace-normal"
+                >
                   {palabras.map((p, i) => {
                     const n = previas + i;
                     return (
@@ -188,6 +195,7 @@ function Foto({
   src: string;
   alt: string;
 }) {
+  const foto = useSrcDiferido(miniatura(src));
   // Funciones en lugar de rangos: evita la aceleración nativa de Chrome (ver imagen-expansiva).
   const avance = useTransform(() => (estatica ? 1 : tramo(progreso.get(), entra, entra + 0.09)));
   const opacity = useTransform(() => avance.get());
@@ -203,8 +211,17 @@ function Foto({
       className="absolute m-0 will-change-transform"
       style={{ ...estilo, opacity, scale, y }}
     >
-      <div className="relative overflow-hidden border border-white/15" style={{ aspectRatio: proporcion }}>
-        <img src={src} alt={alt} loading="lazy" className="absolute inset-0 h-full w-full object-cover" />
+      <div
+        className="relative overflow-hidden border border-white/15"
+        style={{ aspectRatio: proporcion }}
+      >
+        <img
+          src={foto}
+          alt={alt}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 h-full w-full object-cover"
+        />
       </div>
     </motion.figure>
   );
@@ -223,7 +240,9 @@ function Palabra({
   estatica: boolean;
   children: string;
 }) {
-  const opacity = useTransform(() => (estatica ? 1 : 0.18 + 0.82 * tramo(progreso.get(), desde, hasta)));
+  const opacity = useTransform(() =>
+    estatica ? 1 : 0.18 + 0.82 * tramo(progreso.get(), desde, hasta),
+  );
   return (
     <motion.span aria-hidden="true" style={{ opacity }} className="inline-block">
       {children}

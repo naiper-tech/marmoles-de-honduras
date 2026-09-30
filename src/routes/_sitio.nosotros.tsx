@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { motion } from "motion/react";
 
 import taller from "@/assets/artesano-acabado.jpg";
+import tallerMovil from "@/assets/artesano-acabado.jpg?w=720&h=1100&fit=cover&quality=68&format=webp";
 import plantaAerea from "@/assets/planta-aerea.jpg";
 import { CasaMarmol } from "@/components/home/casa-marmol";
 import { Cierre } from "@/components/home/cierre";
@@ -39,8 +40,13 @@ function Nosotros() {
   return (
     <>
       <PortadaPagina
-        lineas={lang === "en" ? ["More than 55 years", "shaping stone."] : ["Más de 55 años", "dando forma a la piedra."]}
+        lineas={
+          lang === "en"
+            ? ["More than 55 years", "shaping stone."]
+            : ["Más de 55 años", "dando forma a la piedra."]
+        }
         imagen={taller}
+        imagenMovil={tallerMovil}
         alt={t(
           "Artesano de Mármoles de Honduras terminando una pieza de piedra",
           "A Mármoles de Honduras craftsman finishing a stone piece",
@@ -72,7 +78,9 @@ function Nosotros() {
                 className="group grid gap-6 border-t border-mdh-niebla py-12 last:border-b md:grid-cols-12 md:py-16"
               >
                 <div className="flex items-center gap-4 md:col-span-3">
-                  <span className="mdh-label text-mdh-pizarra">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="mdh-label text-mdh-pizarra">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
                   <motion.span
                     aria-hidden="true"
                     className="block h-px w-8 origin-left bg-mdh-tinta"
@@ -113,7 +121,10 @@ function LaPlanta() {
   const cifras = [
     { dato: "1970", etiqueta: t("Año de fundación", "Founded") },
     { dato: "70+", etiqueta: t("Artesanos en planta", "Craftsmen on the floor") },
-    { dato: "24 h", etiqueta: t("Desde EE. UU. para inspección", "From the U.S. for an inspection") },
+    {
+      dato: "24 h",
+      etiqueta: t("Desde EE. UU. para inspección", "From the U.S. for an inspection"),
+    },
   ];
 
   return (
@@ -145,7 +156,11 @@ function LaPlanta() {
           <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-mdh-tinta/10 pt-10">
             {cifras.map((cifra, i) => (
               // dt antes que dd en el DOM (orden válido); la cifra se ve arriba.
-              <Aparecer key={cifra.dato} retraso={i * 0.08} className="flex flex-col-reverse justify-end gap-4">
+              <Aparecer
+                key={cifra.dato}
+                retraso={i * 0.08}
+                className="flex flex-col-reverse justify-end gap-4"
+              >
                 <dt className="mdh-label leading-relaxed text-mdh-pizarra">{cifra.etiqueta}</dt>
                 <dd className="text-[clamp(1.9rem,3.2vw,3rem)] font-extralight leading-none tracking-[-0.03em]">
                   {cifra.dato}

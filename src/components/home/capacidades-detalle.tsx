@@ -5,6 +5,8 @@ import { capacidades, useTexto, type Capacidad } from "@/lib/home-contenido";
 import { useLang } from "@/lib/i18n";
 import { EnlaceMas } from "./enlaces";
 import { EASE, Emerge } from "./movimiento";
+import { miniatura } from "@/lib/imagenes";
+import { VACIO, useCargaLista } from "./carga-diferida";
 
 const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -13,6 +15,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
  * cada vez que otra capacidad llega al centro de la pantalla.
  */
 export function CapacidadesDetalle() {
+  const fotosListas = useCargaLista();
   const { t, lang } = useLang();
   const tx = useTexto();
   const [activa, setActiva] = useState(0);
@@ -41,7 +44,9 @@ export function CapacidadesDetalle() {
                 <AnimatePresence initial={false}>
                   <motion.img
                     key={actual.id}
-                    src={actual.imagen}
+                    src={fotosListas ? actual.imagen : VACIO}
+                    loading="lazy"
+                    decoding="async"
                     alt={tx(actual.titulo)}
                     initial={{ clipPath: "inset(100% 0% 0% 0%)", scale: 1.18 }}
                     animate={{ clipPath: "inset(0% 0% 0% 0%)", scale: 1 }}
@@ -99,6 +104,7 @@ function ItemCapacidad({
   activa: boolean;
   alActivar: () => void;
 }) {
+  const fotosListas = useCargaLista();
   const tx = useTexto();
   const { t } = useLang();
   const ref = useRef<HTMLLIElement>(null);
@@ -116,12 +122,20 @@ function ItemCapacidad({
         activa ? "lg:opacity-100" : "lg:opacity-25"
       }`}
     >
-      <img src={capacidad.imagen} alt="" loading="lazy" className="mb-8 aspect-[4/3] w-full object-cover lg:hidden" />
+      <img
+        src={fotosListas ? miniatura(capacidad.imagen) : VACIO}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        className="mb-8 aspect-[4/3] w-full object-cover lg:hidden"
+      />
       <span className="block text-[clamp(3.5rem,6vw,5.5rem)] font-extralight leading-none tracking-[-0.04em] text-transparent [-webkit-text-stroke:1px_var(--color-mdh-pizarra)] transition-colors duration-700 group-hover:text-mdh-tinta">
         {pad(numero)}
       </span>
       <h3 className="mt-6 text-3xl font-light md:text-4xl">{tx(capacidad.titulo)}</h3>
-      <p className="mt-4 max-w-md text-lg leading-relaxed text-mdh-acero">{tx(capacidad.detalle)}</p>
+      <p className="mt-4 max-w-md text-lg leading-relaxed text-mdh-acero">
+        {tx(capacidad.detalle)}
+      </p>
       {capacidad.abierta && (
         <EnlaceMas to="/contacto" className="mt-8 self-start">
           {t("Cuéntanos tu idea", "Tell us your idea")}

@@ -14,6 +14,7 @@ export function WhatsappFlotante() {
       href={whatsappCon(t("Hola, me gustaría cotizar un proyecto con Mármoles de Honduras.", "Hi, I'd like a quote for a project with Mármoles de Honduras."))}
       target="_blank"
       rel="noopener noreferrer"
+      data-medir="flotante"
       aria-label={t("Escríbenos por WhatsApp", "Message us on WhatsApp")}
       className="group fixed bottom-[max(1.25rem,env(safe-area-inset-bottom))] right-5 z-[35] flex items-center md:bottom-8 md:right-8"
     >

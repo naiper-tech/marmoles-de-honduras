@@ -1,9 +1,11 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { motion, useScroll, useTransform } from "motion/react";
 
-import poster from "@/assets/proceso-corte-bloque.jpg";
+import posterMovil from "@/assets/portada-taller-movil.jpg?w=540&format=webp";
+import poster from "@/assets/portada-taller.jpg?w=1920&quality=70&format=webp";
 import { useLang } from "@/lib/i18n";
 import { Emerge } from "./movimiento";
+import { useVideoDiferido } from "./video-diferido";
 
 /**
  * Portada a sangre con video de planta. Sin texto sobre el video más allá de lo
@@ -18,17 +20,11 @@ export function Portada() {
   const ref = useRef<HTMLElement>(null);
   const loopRef = useRef<HTMLVideoElement>(null);
 
-  // React no escribe el atributo `muted` en el HTML del servidor, y sin él varios
-  // navegadores bloquean el autoplay. Se fuerza al montar.
-  useEffect(() => {
-    const loop = loopRef.current;
-    if (!loop) return;
-    // La fuente se asigna en el cliente para elegir peso según pantalla (12 MB → 4-6 MB)
-    // y para que el póster se vea de inmediato mientras el video carga.
-    loop.src = window.innerWidth < 768 ? "/videos/hero-taller-sd.mp4" : "/videos/hero-taller-hd.mp4";
-    loop.muted = true;
-    void loop.play().catch(() => {});
-  }, []);
+  // Móvil: recorte vertical de 350 KB. Escritorio: 1080p de 1.7 MB.
+  useVideoDiferido(loopRef, {
+    movil: "/videos/taller-movil.mp4",
+    escritorio: "/videos/taller-1080.mp4",
+  });
 
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const escala = useTransform(scrollYProgress, [0, 1], [1, 1.12]);
@@ -42,15 +38,28 @@ export function Portada() {
       className="relative h-[100svh] min-h-[640px] overflow-hidden bg-mdh-tinta text-white"
     >
       <motion.div style={{ scale: escala }} className="absolute inset-0">
+        {/* El póster es el primer cuadro del video: al arrancar no hay salto. Va como
+            <picture> y no como `poster` para que el móvil baje su recorte vertical. */}
+        <picture>
+          <source media="(max-width: 767px)" srcSet={posterMovil} />
+          <img
+            src={poster}
+            alt=""
+            aria-hidden="true"
+            fetchPriority="high"
+            // 1 px más corta que la pantalla: Chrome descarta como "fondo" las imágenes
+            // que la cubren entera y el LCP caía en el logo de la cortina. Invisible
+            // sobre el fondo tinta de la sección.
+            className="absolute inset-x-0 top-0 h-[calc(100%-1px)] w-full object-cover"
+          />
+        </picture>
         <video
           ref={loopRef}
-          className="h-full w-full object-cover"
-          poster={poster}
-          autoPlay
+          className="absolute inset-0 h-full w-full object-cover"
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="none"
           aria-hidden="true"
         />
       </motion.div>

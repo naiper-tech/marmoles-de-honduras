@@ -14,11 +14,14 @@ export function PortadaPagina({
   lineas,
   texto,
   imagen,
+  imagenMovil,
   alt = "",
 }: {
   lineas: string[];
   texto?: string;
   imagen: string;
+  /** Recorte vertical para móvil: pesa una fracción y se ve igual de nítido. */
+  imagenMovil?: string;
   alt?: string;
 }) {
   const { t } = useLang();
@@ -38,14 +41,18 @@ export function PortadaPagina({
       className="relative flex h-[90svh] min-h-[620px] items-end overflow-hidden bg-mdh-tinta text-white"
     >
       <motion.div style={{ y, scale: escala }} className="absolute inset-0">
-        <motion.img
-          src={imagen}
-          alt={alt}
-          initial={{ scale: 1.14 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 2.4, ease: EASE }}
-          className="h-full w-full object-cover"
-        />
+        <picture>
+          {imagenMovil && <source media="(max-width: 767px)" srcSet={imagenMovil} />}
+          <motion.img
+            src={imagen}
+            alt={alt}
+            fetchPriority="high"
+            initial={{ scale: 1.14 }}
+            animate={{ scale: 1 }}
+            transition={{ duration: 2.4, ease: EASE }}
+            className="h-full w-full object-cover"
+          />
+        </picture>
       </motion.div>
       <div
         aria-hidden="true"
@@ -66,7 +73,11 @@ export function PortadaPagina({
           transition={{ delay: 1.1, duration: 1.1, ease: EASE }}
           className="mt-10 flex flex-col gap-8 border-t border-white/20 pt-8 md:flex-row md:items-end md:justify-between"
         >
-          {texto && <p className="max-w-xl text-xl leading-relaxed text-white/80 md:text-[1.35rem]">{texto}</p>}
+          {texto && (
+            <p className="max-w-xl text-xl leading-relaxed text-white/80 md:text-[1.35rem]">
+              {texto}
+            </p>
+          )}
           <span className="mdh-label flex items-center gap-3 text-white/60">
             {t("Desliza", "Scroll")}
             <motion.span

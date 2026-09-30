@@ -6,6 +6,7 @@ import { CONTACTO, proyectosDestacados, tiposProyecto, useTexto } from "@/lib/ho
 import { loc, useLang } from "@/lib/i18n";
 import { Magnetico } from "./efectos";
 import { EASE } from "./movimiento";
+import { medir } from "@/lib/medicion";
 
 const CAMPO =
   "mt-3 block w-full rounded-none border-0 border-b border-mdh-tinta/20 bg-transparent px-0 py-3 text-lg font-light text-mdh-tinta placeholder:text-mdh-pizarra/50 focus:outline-none focus-visible:outline-none";
@@ -47,6 +48,7 @@ export function FormularioContacto({ proyectoSlug }: { proyectoSlug?: string }) 
       .filter((linea): linea is string => linea !== null)
       .join("\n");
 
+    medir("generate_lead", { tipo_proyecto: tipo, pais, proyecto: proyectoSlug });
     window.location.href = `mailto:${CONTACTO.correo}?subject=${encodeURIComponent(asunto)}&body=${encodeURIComponent(cuerpo)}`;
     setEnviado(true);
   }

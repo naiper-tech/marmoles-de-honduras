@@ -5,6 +5,7 @@ import { ArrowUpRight, ChevronLeft, ChevronRight, X } from "lucide-react";
 
 import { proyectosDestacados } from "@/lib/home-contenido";
 import { loc, useLang } from "@/lib/i18n";
+import { medir } from "@/lib/medicion";
 import type { Proyecto } from "@/lib/site-data";
 
 const CATEGORIA_EN: Record<Proyecto["categoria"], string> = {
@@ -31,6 +32,7 @@ export function useProyectoAbierto(lista: Proyecto[] = proyectosDestacados) {
 
   const cambiar = useCallback((nuevo: string | null) => {
     setSlug(nuevo);
+    if (nuevo) medir("ver_proyecto", { proyecto: nuevo });
     const url = new URL(window.location.href);
     if (nuevo) url.searchParams.set(PARAMETRO, nuevo);
     else url.searchParams.delete(PARAMETRO);

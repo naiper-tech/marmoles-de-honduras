@@ -1,14 +1,16 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowUpRight } from "lucide-react";
 
 import planta from "@/assets/taller-columnas.jpg";
-import posterMaquinas from "@/assets/sierra-columna.jpg";
+import plantaMovil from "@/assets/taller-columnas.jpg?w=720&h=1100&fit=cover&quality=68&format=webp";
+import posterMaquinas from "@/assets/sierra-columna.jpg?w=1000&h=750&fit=cover&quality=70&format=webp";
 import { CapacidadesDetalle } from "@/components/home/capacidades-detalle";
 import { Cierre } from "@/components/home/cierre";
 import { Magnetico, Marquesina } from "@/components/home/efectos";
 import { Aparecer } from "@/components/home/movimiento";
 import { PortadaPagina } from "@/components/home/portada-pagina";
+import { useVideoDiferido } from "@/components/home/video-diferido";
 import { materiales, useTexto, whatsappCon } from "@/lib/home-contenido";
 import { useLang } from "@/lib/i18n";
 
@@ -46,13 +48,19 @@ function ProduccionPagina() {
   return (
     <>
       <PortadaPagina
-        lineas={lang === "en" ? ["What we can", "do for you."] : ["Lo que podemos", "hacer por ti."]}
+        lineas={
+          lang === "en" ? ["What we can", "do for you."] : ["Lo que podemos", "hacer por ti."]
+        }
         texto={t(
           "Cada pieza se fabrica a la medida del proyecto. Si puedes imaginarla en piedra, podemos hacerla.",
           "Every piece is made to measure for the project. If you can picture it in stone, we can make it.",
         )}
         imagen={planta}
-        alt={t("Operario cortando losas de piedra en la planta", "Craftsman cutting stone slabs at the plant")}
+        imagenMovil={plantaMovil}
+        alt={t(
+          "Operario cortando losas de piedra en la planta",
+          "Craftsman cutting stone slabs at the plant",
+        )}
       />
 
       <MaquinariaYOficio />
@@ -67,7 +75,10 @@ function ProduccionPagina() {
                 className="flex items-center text-[clamp(3rem,8vw,7.5rem)] font-extralight leading-none tracking-[-0.03em] text-transparent transition-colors duration-500 [-webkit-text-stroke:1px_rgba(23,24,25,0.35)] hover:text-mdh-tinta"
               >
                 {tx(material)}
-                <span aria-hidden="true" className="mx-10 text-[0.25em] text-mdh-tinta/25 [-webkit-text-stroke:0]">
+                <span
+                  aria-hidden="true"
+                  className="mx-10 text-[0.25em] text-mdh-tinta/25 [-webkit-text-stroke:0]"
+                >
                   ●
                 </span>
               </span>
@@ -82,7 +93,10 @@ function ProduccionPagina() {
               {t("Catálogo", "Catalog")}
             </h2>
             <p className="mt-8 text-[clamp(1.75rem,3vw,2.75rem)] font-light leading-snug">
-              {t("Un inventario que cambia constantemente.", "An inventory that is always changing.")}
+              {t(
+                "Un inventario que cambia constantemente.",
+                "An inventory that is always changing.",
+              )}
             </p>
             <p className="mt-6 max-w-md text-lg leading-relaxed text-mdh-acero">
               {t(
@@ -92,19 +106,30 @@ function ProduccionPagina() {
             </p>
             <Magnetico className="mt-10 self-start">
               <a
-                href={whatsappCon(t("Hola, me gustaría recibir el catálogo de piedra natural.", "Hi, I'd like to receive the natural stone catalog."))}
+                href={whatsappCon(
+                  t(
+                    "Hola, me gustaría recibir el catálogo de piedra natural.",
+                    "Hi, I'd like to receive the natural stone catalog.",
+                  ),
+                )}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={BOTON}
               >
                 <RellenoBoton />
                 <span className="relative">{t("Solicitar catálogo", "Request the catalog")}</span>
-                <ArrowUpRight className="relative h-4 w-4 transition-transform duration-700 group-hover:rotate-45" strokeWidth={1.5} />
+                <ArrowUpRight
+                  className="relative h-4 w-4 transition-transform duration-700 group-hover:rotate-45"
+                  strokeWidth={1.5}
+                />
               </a>
             </Magnetico>
           </Aparecer>
 
-          <Aparecer retraso={0.1} className="flex flex-col md:border-l md:border-mdh-tinta/10 md:pl-14">
+          <Aparecer
+            retraso={0.1}
+            className="flex flex-col md:border-l md:border-mdh-tinta/10 md:pl-14"
+          >
             <p className="mdh-label text-mdh-pizarra">{t("Exportación", "Export")}</p>
             <p className="mt-8 text-[clamp(1.75rem,3vw,2.75rem)] font-light leading-snug">
               {t("A nivel nacional e internacional.", "At home and abroad.")}
@@ -118,8 +143,13 @@ function ProduccionPagina() {
             <Magnetico className="mt-10 self-start">
               <Link to="/proyectos" className={BOTON}>
                 <RellenoBoton />
-                <span className="relative">{t("Ver proyectos entregados", "See delivered projects")}</span>
-                <ArrowUpRight className="relative h-4 w-4 transition-transform duration-700 group-hover:rotate-45" strokeWidth={1.5} />
+                <span className="relative">
+                  {t("Ver proyectos entregados", "See delivered projects")}
+                </span>
+                <ArrowUpRight
+                  className="relative h-4 w-4 transition-transform duration-700 group-hover:rotate-45"
+                  strokeWidth={1.5}
+                />
               </Link>
             </Magnetico>
           </Aparecer>
@@ -142,13 +172,12 @@ function MaquinariaYOficio() {
   const { t } = useLang();
   const video = useRef<HTMLVideoElement>(null);
 
-  useEffect(() => {
-    const v = video.current;
-    if (!v) return;
-    v.src = window.innerWidth < 768 ? "/videos/hero-taller-sd.mp4" : "/videos/hero-taller-hd.mp4";
-    v.muted = true;
-    void v.play().catch(() => {});
-  }, []);
+  // Está bajo la portada: se pide solo cuando el visitante se acerca.
+  useVideoDiferido(
+    video,
+    { movil: "/videos/taller-540.mp4", escritorio: "/videos/taller-1080.mp4" },
+    { alVerse: true },
+  );
 
   return (
     <section aria-labelledby="maquinaria-titulo" className="bg-white">
@@ -159,11 +188,10 @@ function MaquinariaYOficio() {
               ref={video}
               className="absolute inset-0 h-full w-full object-cover"
               poster={posterMaquinas}
-              autoPlay
               muted
               loop
               playsInline
-              preload="metadata"
+              preload="none"
               aria-hidden="true"
             />
           </div>
@@ -175,7 +203,10 @@ function MaquinariaYOficio() {
             id="maquinaria-titulo"
             className="mt-6 text-[clamp(1.9rem,3.2vw,3rem)] font-light leading-[1.1] tracking-[-0.015em]"
           >
-            {t("Maquinaria de último nivel, manos expertas.", "State-of-the-art machinery, expert hands.")}
+            {t(
+              "Maquinaria de último nivel, manos expertas.",
+              "State-of-the-art machinery, expert hands.",
+            )}
           </h2>
           <p className="mt-6 text-lg leading-relaxed text-mdh-acero">
             {t(
