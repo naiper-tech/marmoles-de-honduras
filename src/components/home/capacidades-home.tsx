@@ -5,7 +5,7 @@ import imgMateriales from "@/assets/mesa-veta.jpg";
 import imgFabricacion from "@/assets/taller-columnas.jpg";
 import imgInstalacion from "@/assets/artesano-lijado.jpg";
 import imgExportacion from "@/assets/proy-ahana.jpg";
-import { correoCon, materiales, useTexto } from "@/lib/home-contenido";
+import { materiales, useTexto, whatsappCon } from "@/lib/home-contenido";
 import { useLang } from "@/lib/i18n";
 import { Magnetico, Marquesina } from "./efectos";
 import { Aparecer, Emerge } from "./movimiento";
@@ -23,7 +23,7 @@ export function CapacidadesHome() {
   const categorias = [
     {
       id: "materiales",
-      titulo: t("Materiales", "Materials"),
+      titulo: t("Selección", "Selection"),
       texto: t(
         "Mármol, cuarzo, travertino, granito, cuarcita y ónix. Conseguimos el material que especifica cada proyecto.",
         "Marble, quartz, travertine, granite, quartzite and onyx. We source the material each project specifies.",
@@ -73,7 +73,7 @@ export function CapacidadesHome() {
           <div className="md:col-span-9">
             <h2
               id="produccion-titulo"
-              className="text-[clamp(2.1rem,4.6vw,4.5rem)] font-light leading-[1.06] tracking-[-0.015em]"
+              className="text-[clamp(2rem,4vw,3.75rem)] font-light leading-[1.06] tracking-[-0.015em]"
             >
               <Emerge
                 key={lang}
@@ -164,7 +164,7 @@ export function CapacidadesHome() {
                 <span className="mdh-label absolute left-5 top-5 text-white/70">{String(i + 1).padStart(2, "0")}</span>
                 <div className="absolute inset-x-0 bottom-0 p-6">
                   <h3 className="text-3xl font-light">{c.titulo}</h3>
-                  <p className="mt-3 text-[0.95rem] leading-relaxed text-white/75">{c.texto}</p>
+                  <p className="mt-3 text-base leading-relaxed text-white/75">{c.texto}</p>
                 </div>
               </div>
             </li>
@@ -198,7 +198,9 @@ export function CapacidadesHome() {
         </p>
         <Magnetico>
           <a
-            href={correoCon(t("Solicitud de catálogo de piedra natural", "Natural stone catalog request"))}
+            href={whatsappCon(t("Hola, me gustaría recibir el catálogo de piedra natural.", "Hi, I'd like to receive the natural stone catalog."))}
+            target="_blank"
+            rel="noopener noreferrer"
             className="mdh-label group inline-flex shrink-0 items-center gap-4 border border-white/30 px-7 py-4 transition-colors duration-500 hover:border-white hover:bg-white hover:text-mdh-tinta"
           >
             {t("Solicitar catálogo", "Request the catalog")}

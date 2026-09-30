@@ -7,7 +7,6 @@ import { Cierre } from "@/components/home/cierre";
 import { HistoriaResumen } from "@/components/home/historia-resumen";
 import { Manifiesto } from "@/components/home/manifiesto";
 import { Portada } from "@/components/home/portada";
-import { ProyectosHorizontal } from "@/components/home/proyectos-horizontal";
 
 export const Route = createFileRoute("/_sitio/")({
   head: () => ({
@@ -31,7 +30,6 @@ function Inicio() {
       <Manifiesto />
       <HistoriaResumen />
       <CapacidadesHome />
-      <ProyectosHorizontal />
       <Alcance />
       <CasaMarmol />
       <Cierre />

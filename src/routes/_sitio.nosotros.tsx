@@ -59,8 +59,8 @@ function Nosotros() {
               key={lang}
               className="text-[clamp(1.75rem,3.5vw,3.4rem)] font-light leading-[1.18] tracking-[-0.02em] md:col-span-9"
               texto={t(
-                "Somos una empresa familiar hondureña que desde 1970 trabaja la piedra natural. Nos encargamos de todo el proceso: suministramos el material, lo fabricamos en nuestra planta y lo instalamos en Honduras o lo exportamos a Estados Unidos, Centroamérica y el Caribe.",
-                "We are a Honduran family company that has worked natural stone since 1970. We handle the whole process: we supply the material, fabricate it in our plant, and install it in Honduras or export it to the United States, Central America and the Caribbean.",
+                "Somos una empresa familiar hondureña que desde 1970 trabaja la piedra natural. Nos encargamos de todo el proceso: suministramos el material, lo fabricamos en nuestra planta y lo instalamos a nivel nacional e internacional.",
+                "We are a Honduran family company that has worked natural stone since 1970. We handle the whole process: we supply the material, fabricate it in our plant and install it at home and abroad.",
               )}
             />
           </div>

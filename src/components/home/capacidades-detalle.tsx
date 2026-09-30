@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useInView } from "motion/react";
 
 import { capacidades, useTexto, type Capacidad } from "@/lib/home-contenido";
 import { useLang } from "@/lib/i18n";
+import { EnlaceMas } from "./enlaces";
 import { EASE, Emerge } from "./movimiento";
 
 const pad = (n: number) => String(n).padStart(2, "0");
@@ -99,6 +100,7 @@ function ItemCapacidad({
   alActivar: () => void;
 }) {
   const tx = useTexto();
+  const { t } = useLang();
   const ref = useRef<HTMLLIElement>(null);
   const enCentro = useInView(ref, { margin: "-45% 0px -45% 0px" });
 
@@ -120,6 +122,11 @@ function ItemCapacidad({
       </span>
       <h3 className="mt-6 text-3xl font-light md:text-4xl">{tx(capacidad.titulo)}</h3>
       <p className="mt-4 max-w-md text-lg leading-relaxed text-mdh-acero">{tx(capacidad.detalle)}</p>
+      {capacidad.abierta && (
+        <EnlaceMas to="/contacto" className="mt-8 self-start">
+          {t("Cuéntanos tu idea", "Tell us your idea")}
+        </EnlaceMas>
+      )}
     </li>
   );
 }

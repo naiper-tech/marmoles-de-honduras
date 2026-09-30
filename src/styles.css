@@ -401,3 +401,9 @@ html.mdh-cursor textarea,
 html.mdh-cursor [contenteditable="true"] {
   cursor: text !important;
 }
+
+/* Reunión 29/09: texto corrido un poco más grande. Solo afecta a lo que hereda
+   el tamaño; los textos con tamaño explícito (titulares, etiquetas) no cambian. */
+.mdh {
+  font-size: 1.0625rem;
+}

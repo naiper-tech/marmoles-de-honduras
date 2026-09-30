@@ -4,6 +4,7 @@ import { MotionConfig } from "motion/react";
 import { Encabezado } from "@/components/home/encabezado";
 import { CursorPremium } from "@/components/home/cursor-premium";
 import { Entrada } from "@/components/home/entrada";
+import { WhatsappFlotante } from "@/components/home/whatsapp-flotante";
 import { Pie } from "@/components/home/pie";
 import { ScrollSuave } from "@/components/home/scroll-suave";
 
@@ -35,6 +36,7 @@ function SitioNuevo() {
           <Outlet />
         </main>
         <Pie />
+        <WhatsappFlotante />
       </div>
     </MotionConfig>
   );

@@ -35,7 +35,7 @@ function ProyectosPagina() {
   return (
     <>
       <PortadaPagina
-        lineas={lang === "en" ? ["Delivered work,", "in Honduras and abroad."] : ["Obra entregada,", "dentro y fuera de Honduras."]}
+        lineas={lang === "en" ? ["Delivered projects,", "in Honduras and abroad."] : ["Obras entregadas,", "dentro y fuera de Honduras."]}
         texto={t(
           "Filtra por país o por tipo de obra y abre cada proyecto para verlo en detalle.",
           "Filter by country or project type and open each project to see it in detail.",
@@ -56,8 +56,8 @@ function ProyectosPagina() {
               key={lang}
               className="text-[clamp(1.75rem,3.5vw,3.4rem)] font-light leading-[1.18] tracking-[-0.02em]"
               texto={t(
-                "Hoteles, torres residenciales, templos y centros comerciales. Cada proyecto es piedra fabricada en Honduras y entregada donde está la obra.",
-                "Hotels, residential towers, churches and shopping centers. Every project is stone fabricated in Honduras and delivered wherever the site is.",
+                "Hoteles, torres residenciales, templos y centros comerciales. Cada proyecto es piedra trabajada por manos expertas y entregada con nuestro Sello de Calidad Garantizada.",
+                "Hotels, residential towers, churches and shopping centers. Every project is stone worked by expert hands and delivered with our Guaranteed Quality Seal.",
               )}
             />
 

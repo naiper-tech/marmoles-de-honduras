@@ -11,8 +11,6 @@ const CATEGORIA_EN: Record<Proyecto["categoria"], string> = {
   Residencial: "Residential",
   Comercial: "Commercial",
   Institucional: "Institutional",
-  Hotelero: "Hospitality",
-  Religioso: "Religious",
 };
 
 /** El proyecto abierto viaja en la URL: el enlace se puede compartir directo. */
@@ -137,13 +135,13 @@ export function ModalProyecto({
                 {p.anio && (
                   <div>
                     <dt className="mdh-label text-mdh-pizarra">{t("Año", "Year")}</dt>
-                    <dd className="mt-3 text-[0.95rem]">{p.anio}</dd>
+                    <dd className="mt-3 text-base">{p.anio}</dd>
                   </div>
                 )}
                 {p.alcance.length > 0 && (
                   <div>
                     <dt className="mdh-label text-mdh-pizarra">{t("Alcance", "Scope")}</dt>
-                    <dd className="mt-3 space-y-1.5 text-[0.95rem]">
+                    <dd className="mt-3 space-y-1.5 text-base">
                       {p.alcance.map((a) => (
                         <span key={a} className="block">
                           {a}
@@ -155,7 +153,7 @@ export function ModalProyecto({
                 {p.materiales.length > 0 && (
                   <div>
                     <dt className="mdh-label text-mdh-pizarra">{t("Materiales", "Materials")}</dt>
-                    <dd className="mt-3 space-y-1.5 text-[0.95rem]">
+                    <dd className="mt-3 space-y-1.5 text-base">
                       {p.materiales.map((m) => (
                         <span key={m} className="block">
                           {m}

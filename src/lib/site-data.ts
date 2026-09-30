@@ -138,12 +138,9 @@ export const materiales: Material[] = [
   },
 ];
 
-export type Categoria =
-  | "Residencial"
-  | "Comercial"
-  | "Institucional"
-  | "Hotelero"
-  | "Religioso";
+// Tres tipologías, como las clasifica la empresa (reunión 29/09/2026): hoteles y
+// templos van en Institucional; Comercial es para plazas, oficinas y aeropuertos.
+export type Categoria = "Residencial" | "Comercial" | "Institucional";
 
 export type Proyecto = {
   slug: string;
@@ -311,7 +308,7 @@ export const proyectos: Proyecto[] = [
     titulo: "Guacalito de la Isla",
     lugar: "Tola",
     pais: "Nicaragua",
-    categoria: "Hotelero",
+    categoria: "Institucional",
     resumen:
       "Desarrollo residencial y de resort en la costa pacífica de Nicaragua, con piedra natural en interiores y áreas exteriores.",
     imagen: fotoGuacalito,
@@ -378,7 +375,7 @@ export const proyectos: Proyecto[] = [
     titulo: "Intercontinental",
     lugar: "San José",
     pais: "Costa Rica",
-    categoria: "Hotelero",
+    categoria: "Institucional",
     resumen:
       "Piedra natural para áreas públicas de hotelería internacional en San José. Superficies de alto tránsito con acabado de categoría.",
     imagen: fotoInterCR,
@@ -576,7 +573,7 @@ export const proyectos: Proyecto[] = [
     titulo: "Basílica de Suyapa",
     lugar: "Tegucigalpa",
     pais: "Honduras",
-    categoria: "Religioso",
+    categoria: "Institucional",
     resumen:
       "Trabajo en mármol para uno de los espacios religiosos más visitados de Honduras. Obra litúrgica de alto valor simbólico.",
     imagen: fotoBasilica,
@@ -642,7 +639,7 @@ export const proyectos: Proyecto[] = [
     titulo: "Pristine Bay",
     lugar: "Roatán, Islas de la Bahía",
     pais: "Honduras",
-    categoria: "Hotelero",
+    categoria: "Institucional",
     resumen:
       "Villas frente al mar en Roatán, con travertino en terrazas y baños revestidos del piso al cielo.",
     imagen: projBath,
@@ -708,7 +705,7 @@ export const proyectos: Proyecto[] = [
     titulo: "Indura Beach & Golf Resort",
     lugar: "San Pedro Sula",
     pais: "Honduras",
-    categoria: "Hotelero",
+    categoria: "Institucional",
     resumen:
       "Resort de playa y golf con piedra natural en áreas comunes, villas y zonas húmedas.",
     imagen: fotoIndura,
@@ -774,7 +771,7 @@ export const proyectos: Proyecto[] = [
     titulo: "Iglesia Concepción",
     lugar: "Ciudad de Guatemala",
     pais: "Guatemala",
-    categoria: "Religioso",
+    categoria: "Institucional",
     resumen:
       "Obra litúrgica en piedra natural en Ciudad de Guatemala. Talla y fabricación desde nuestra planta en Honduras.",
     imagen: fotoIglesiaConcepcion,
@@ -844,7 +841,7 @@ export const proyectos: Proyecto[] = [
     titulo: "Taylorsville Utah Temple",
     lugar: "Taylorsville, Utah",
     pais: "Estados Unidos",
-    categoria: "Religioso",
+    categoria: "Institucional",
     resumen:
       "Templo en Utah revestido con piedra natural fabricada en Honduras y exportada a Estados Unidos.",
     imagen: fotoTaylorsville,
@@ -1007,7 +1004,7 @@ export const proyectos: Proyecto[] = [
     titulo: "Capilla Alamar",
     lugar: "San Salvador",
     pais: "El Salvador",
-    categoria: "Religioso",
+    categoria: "Institucional",
     resumen: "Altar, relieves y mausoleo en mármol para una capilla en San Salvador.",
     imagen: fotoAlamar,
     alcance: [],

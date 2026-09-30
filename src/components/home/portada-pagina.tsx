@@ -66,7 +66,7 @@ export function PortadaPagina({
           transition={{ delay: 1.1, duration: 1.1, ease: EASE }}
           className="mt-10 flex flex-col gap-8 border-t border-white/20 pt-8 md:flex-row md:items-end md:justify-between"
         >
-          {texto && <p className="max-w-xl text-lg leading-relaxed text-white/75">{texto}</p>}
+          {texto && <p className="max-w-xl text-xl leading-relaxed text-white/80 md:text-[1.35rem]">{texto}</p>}
           <span className="mdh-label flex items-center gap-3 text-white/60">
             {t("Desliza", "Scroll")}
             <motion.span

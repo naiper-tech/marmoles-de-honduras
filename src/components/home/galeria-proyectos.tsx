@@ -1,13 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion, useScroll, useTransform } from "motion/react";
+import { motion } from "motion/react";
 import * as Popover from "@radix-ui/react-popover";
-import { Check, ChevronDown, SlidersHorizontal, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, ChevronDown, SlidersHorizontal, X } from "lucide-react";
 
 import { proyectosPortafolio } from "@/lib/home-contenido";
 import { loc, useLang } from "@/lib/i18n";
 import type { Proyecto } from "@/lib/site-data";
 import { CursorVer, useCursorVer } from "./cursor-ver";
-import { useMedia } from "./efectos";
 import { desplazarA } from "./scroll-suave";
 import { Aparecer, EASE } from "./movimiento";
 import { ModalProyecto, useCategoria, useProyectoAbierto } from "./proyectos";
@@ -62,16 +61,15 @@ function useFiltros() {
 }
 
 /**
- * Portafolio completo: un destacado a lo ancho cuando no hay filtro y una grilla
- * de dos columnas que se reordena al filtrar. Cada foto se desplaza dentro de su
- * marco (parallax) y toma color al hover.
+ * Portafolio completo (reunión 29/09): una fila horizontal por tipología con
+ * flechas para recorrerla. El filtro de tipo deja solo su fila y el de país filtra
+ * dentro de cada una. Las fotos toman color al hover.
  */
 export function GaleriaProyectos() {
   const { t, lang } = useLang();
   const categoria = useCategoria();
   const { proyecto, abrir, cerrar } = useProyectoAbierto(proyectosPortafolio);
   const cursor = useCursorVer();
-  const escritorio = useMedia("(min-width: 768px)");
   const { filtros, cambiar, limpiar } = useFiltros();
 
   const porCantidad = <T extends string>(valores: T[]) => {
@@ -98,9 +96,6 @@ export function GaleriaProyectos() {
       return (!pais || p.pais === pais) && (!tipo || p.categoria === tipo);
     }).length;
 
-  const sinFiltro = !filtros.pais && !filtros.tipo;
-  const [destacado, ...resto] = filtrados;
-  const grilla = sinFiltro ? resto : filtrados;
 
   const abrirProyecto = (slug: string) => {
     cursor.apagar();
@@ -124,48 +119,21 @@ export function GaleriaProyectos() {
         {filtrados.length === 0 ? (
           <VacioFiltro alLimpiar={limpiar} />
         ) : (
-          <>
-            {sinFiltro && destacado && (
-              <Destacado
-                proyecto={loc(destacado, lang)}
-                categoria={categoria(destacado.categoria)}
-                cursor={cursor}
-                etiqueta={t("Destacado", "Featured")}
-                alAbrir={() => abrirProyecto(destacado.slug)}
-              />
-            )}
-
-            <motion.div
-              layout
-              className={`grid gap-x-10 gap-y-20 md:gap-x-16 md:gap-y-28 ${
-                escritorio ? "md:grid-cols-2" : ""
-              } ${sinFiltro && destacado ? "mt-20 md:mt-40" : "mt-14 md:mt-20"}`}
-            >
-              <AnimatePresence mode="popLayout">
-                {grilla.map((original, i) => (
-                  <motion.div
-                    key={original.slug}
-                    layout
-                    initial={{ opacity: 0, y: 24 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -12 }}
-                    transition={{ duration: 0.6, ease: EASE }}
-                    // La segunda columna baja un poco para romper la retícula.
-                    className={escritorio && i % 2 === 1 ? "md:mt-24" : ""}
-                  >
-                    <TarjetaProyecto
-                      proyecto={loc(original, lang)}
-                      numero={sinFiltro ? i + 2 : i + 1}
-                      proporcion={i % 2 === 0 ? "aspect-[4/5]" : "aspect-[5/4]"}
-                      categoria={categoria(original.categoria)}
-                      cursor={cursor}
-                      alAbrir={() => abrirProyecto(original.slug)}
-                    />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
-            </motion.div>
-          </>
+          <div className="flex flex-col gap-20 md:gap-28">
+            {TIPOLOGIAS.filter((c) => !filtros.tipo || filtros.tipo === c).map((c) => {
+              const obras = filtrados.filter((p) => p.categoria === c);
+              if (!obras.length) return null;
+              return (
+                <FilaProyectos
+                  key={c}
+                  titulo={categoria(c)}
+                  obras={obras}
+                  cursor={cursor}
+                  alAbrir={abrirProyecto}
+                />
+              );
+            })}
+          </div>
         )}
       </div>
 
@@ -356,7 +324,7 @@ function MenuFiltro({
           <span className="grid h-4 w-4 shrink-0 place-items-center">
             {elegida && <Check className="h-4 w-4" strokeWidth={1.75} aria-hidden="true" />}
           </span>
-          <span className={`flex-1 text-[0.95rem] ${elegida ? "text-mdh-tinta" : "text-mdh-acero"}`}>{texto}</span>
+          <span className={`flex-1 text-base ${elegida ? "text-mdh-tinta" : "text-mdh-acero"}`}>{texto}</span>
           <span className="text-xs tabular-nums text-mdh-pizarra">{n}</span>
         </button>
       </li>
@@ -378,11 +346,11 @@ function MenuFiltro({
           </span>
           {textoCorto ? (
             <>
-              <span className="truncate text-[0.95rem] sm:hidden">{textoCorto}</span>
-              <span className="hidden truncate text-[0.95rem] sm:inline">{textoSeleccion}</span>
+              <span className="truncate text-base sm:hidden">{textoCorto}</span>
+              <span className="hidden truncate text-base sm:inline">{textoSeleccion}</span>
             </>
           ) : (
-            <span className="truncate text-[0.95rem]">{textoSeleccion ?? t("Todos", "All")}</span>
+            <span className="truncate text-base">{textoSeleccion ?? t("Todos", "All")}</span>
           )}
         </span>
         <ChevronDown
@@ -427,122 +395,121 @@ function VacioFiltro({ alLimpiar }: { alLimpiar: () => void }) {
   );
 }
 
-/** Imagen que se desplaza dentro de su marco mientras la tarjeta cruza la pantalla. */
-function useParalaje(intensidad: number) {
-  const ref = useRef<HTMLButtonElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(() => `${(0.5 - scrollYProgress.get()) * intensidad}%`);
-  return { ref, y };
-}
+/** Orden de las filas (reunión 29/09): tres tipologías. */
+const TIPOLOGIAS: Proyecto["categoria"][] = ["Residencial", "Comercial", "Institucional"];
 
-function Destacado({
-  proyecto: p,
-  categoria,
+/**
+ * Una fila por tipología, navegable con flechas (sin mover la página por su
+ * cuenta). En táctil también se desliza con el dedo.
+ */
+function FilaProyectos({
+  titulo,
+  obras,
   cursor,
-  etiqueta,
   alAbrir,
 }: {
-  proyecto: Proyecto;
-  categoria: string;
+  titulo: string;
+  obras: Proyecto[];
   cursor: ReturnType<typeof useCursorVer>;
-  etiqueta: string;
-  alAbrir: () => void;
+  alAbrir: (slug: string) => void;
 }) {
-  const { ref, y } = useParalaje(16);
+  const { t, lang } = useLang();
+  const categoria = useCategoria();
+  const pista = useRef<HTMLUListElement>(null);
+  const [inicio, setInicio] = useState(true);
+  const [fin, setFin] = useState(false);
+
+  const medir = useCallback(() => {
+    const el = pista.current;
+    if (!el) return;
+    setInicio(el.scrollLeft <= 4);
+    setFin(el.scrollLeft + el.clientWidth >= el.scrollWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    medir();
+    const el = pista.current;
+    if (!el) return;
+    const ro = new ResizeObserver(medir);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [medir, obras.length]);
+
+  const mover = (dir: 1 | -1) => {
+    const el = pista.current;
+    if (!el) return;
+    const reducido = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    el.scrollBy({ left: dir * el.clientWidth * 0.85, behavior: reducido ? "auto" : "smooth" });
+  };
+
+  const flecha = (dir: 1 | -1, apagada: boolean) => (
+    <button
+      type="button"
+      onClick={() => mover(dir)}
+      disabled={apagada}
+      aria-label={dir === 1 ? t(`Siguientes proyectos: ${titulo}`, `Next projects: ${titulo}`) : t(`Proyectos anteriores: ${titulo}`, `Previous projects: ${titulo}`)}
+      className="grid h-12 w-12 place-items-center rounded-full border border-mdh-tinta/20 text-mdh-tinta transition-colors duration-300 hover:border-mdh-tinta hover:bg-mdh-tinta hover:text-white disabled:pointer-events-none disabled:opacity-25"
+    >
+      {dir === 1 ? <ArrowRight className="h-4 w-4" strokeWidth={1.5} /> : <ArrowLeft className="h-4 w-4" strokeWidth={1.5} />}
+    </button>
+  );
 
   return (
     <Aparecer>
-      <button
-        ref={ref}
-        type="button"
-        onClick={alAbrir}
-        aria-haspopup="dialog"
-        {...cursor.eventos}
-        className={`group relative block w-full overflow-hidden text-left text-white ${cursor.fino ? "cursor-none" : ""}`}
-      >
-        <div className="relative aspect-[4/5] overflow-hidden bg-mdh-tinta md:aspect-[16/8]">
-          <motion.img
-            src={p.imagen}
-            alt={`${p.titulo}, ${p.lugar}`}
-            style={{ y }}
-            className="absolute inset-x-0 -top-[12%] h-[124%] w-full object-cover transition-[scale] duration-[1400ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.04]"
-          />
-          <div
-            aria-hidden="true"
-            className="absolute inset-0 bg-[linear-gradient(to_top,rgba(23,24,25,0.85)_0%,rgba(23,24,25,0)_60%)]"
-          />
-          <div className="absolute inset-x-0 bottom-0 flex flex-col gap-5 p-6 md:flex-row md:items-end md:justify-between md:p-12">
-            <div>
-              <p className="mdh-label text-white/70">
-                01 · {etiqueta}
-              </p>
-              {/* El padding inferior del subrayado no ocupa espacio en línea: el margen del
-                  párrafo siguiente debe superarlo para que la línea no cruce la ubicación. */}
-              <h3 className="mt-4 text-[clamp(2.2rem,5vw,5rem)] font-light leading-[1.1] tracking-[-0.02em]">
-                <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-1 transition-[background-size] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:bg-[length:100%_1px]">
-                  {p.titulo}
-                </span>
-              </h3>
-              <p className="mt-6 text-white/75">
-                {p.lugar}, {p.pais}
-              </p>
+      <section aria-label={titulo}>
+        <div className="flex items-end justify-between gap-6 border-b border-mdh-niebla pb-6">
+          <h2 className="text-[clamp(1.9rem,3.4vw,3.25rem)] font-light leading-none tracking-[-0.02em]">{titulo}</h2>
+          {obras.length > 1 && (
+            <div className="flex shrink-0 gap-2">
+              {flecha(-1, inicio)}
+              {flecha(1, fin)}
             </div>
-            <span className="mdh-label text-white/70">{categoria}</span>
-          </div>
+          )}
         </div>
-      </button>
+
+        <ul
+          ref={pista}
+          onScroll={medir}
+          className="-mx-6 mt-8 flex snap-x snap-mandatory gap-5 overflow-x-auto scroll-px-6 px-6 pb-2 [scrollbar-width:none] md:-mx-10 md:gap-8 md:scroll-px-10 md:px-10 [&::-webkit-scrollbar]:hidden"
+        >
+          {obras.map((original, i) => {
+            const p = loc(original, lang);
+            return (
+              <li key={original.slug} className="w-[78%] shrink-0 snap-start sm:w-[46%] lg:w-[31%]">
+                <button
+                  type="button"
+                  onClick={() => alAbrir(original.slug)}
+                  aria-haspopup="dialog"
+                  {...cursor.eventos}
+                  className={`group block w-full text-left ${cursor.fino ? "cursor-none" : ""}`}
+                >
+                  <div className="relative aspect-[4/5] overflow-hidden bg-mdh-niebla">
+                    <img
+                      src={p.imagen}
+                      alt={`${p.titulo}, ${p.lugar}`}
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover grayscale-[45%] transition-[filter,scale] duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.05] group-hover:grayscale-0"
+                    />
+                  </div>
+                  <div className="mt-5 flex items-start gap-4">
+                    <span className="mdh-label pt-1.5 text-mdh-pizarra">{pad(i + 1)}</span>
+                    <div className="min-w-0">
+                      <h3 className="text-xl font-light leading-snug md:text-2xl">
+                        <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-1 transition-[background-size] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:bg-[length:100%_1px]">
+                          {p.titulo}
+                        </span>
+                      </h3>
+                      <p className="mt-2 text-base text-mdh-pizarra">
+                        {p.lugar}, {p.pais} · {categoria(original.categoria)}
+                      </p>
+                    </div>
+                  </div>
+                </button>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
     </Aparecer>
-  );
-}
-
-function TarjetaProyecto({
-  proyecto: p,
-  numero,
-  proporcion,
-  categoria,
-  cursor,
-  alAbrir,
-}: {
-  proyecto: Proyecto;
-  numero: number;
-  proporcion: string;
-  categoria: string;
-  cursor: ReturnType<typeof useCursorVer>;
-  alAbrir: () => void;
-}) {
-  const { ref, y } = useParalaje(14);
-
-  return (
-    <button
-      ref={ref}
-      type="button"
-      onClick={alAbrir}
-      aria-haspopup="dialog"
-      {...cursor.eventos}
-      className={`group block w-full text-left ${cursor.fino ? "cursor-none" : ""}`}
-    >
-      <div className={`relative overflow-hidden bg-mdh-niebla ${proporcion}`}>
-        <motion.img
-          src={p.imagen}
-          alt={`${p.titulo}, ${p.lugar}`}
-          loading="lazy"
-          style={{ y }}
-          className="absolute inset-x-0 -top-[10%] h-[120%] w-full object-cover grayscale-[45%] transition-[filter,scale] duration-[1200ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.06] group-hover:grayscale-0"
-        />
-      </div>
-      <div className="mt-6 flex items-start gap-5">
-        <span className="mdh-label pt-2 text-mdh-pizarra">{pad(numero)}</span>
-        <div className="min-w-0">
-          <h3 className="text-2xl font-light leading-snug md:text-3xl">
-            <span className="bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1px] bg-left-bottom bg-no-repeat pb-1 transition-[background-size] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:bg-[length:100%_1px]">
-              {p.titulo}
-            </span>
-          </h3>
-          <p className="mt-2 text-sm text-mdh-pizarra">
-            {p.lugar}, {p.pais} · {categoria}
-          </p>
-        </div>
-      </div>
-    </button>
   );
 }

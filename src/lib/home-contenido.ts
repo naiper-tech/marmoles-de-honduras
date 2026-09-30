@@ -5,6 +5,7 @@ import artesanoTallado from "@/assets/artesano-tallado.jpg";
 import columnasTaller from "@/assets/columnas-taller.jpg";
 import rosetones from "@/assets/rosetones.jpg";
 import escaleraRitz from "@/assets/proy-escalera-ritz.jpg";
+import losaTallada from "@/assets/losa-tallada.jpg";
 import { useLang } from "@/lib/i18n";
 import { proyectos, type Proyecto } from "@/lib/site-data";
 
@@ -34,7 +35,14 @@ export const CONTACTO = {
   telefonoHref: "tel:+50422269005",
   correoRRHH: "rrhh@marmolesdehonduras.com",
   direccion: "Km 8 Carretera al Sur, Tegucigalpa, Honduras",
+  whatsapp: "+504 8920-3065",
 };
+
+/** Liga de WhatsApp con el mensaje ya escrito: catálogo, cotizaciones y botón flotante. */
+export function whatsappCon(texto?: string) {
+  const base = "https://wa.me/50489203065";
+  return texto ? `${base}?text=${encodeURIComponent(texto)}` : base;
+}
 
 export const REDES = [
   { nombre: "Instagram", url: "https://www.instagram.com/marmolesdehonduras/" },
@@ -47,7 +55,14 @@ export function correoCon(asunto: string, correo = CONTACTO.correo) {
   return `mailto:${correo}?subject=${encodeURIComponent(asunto)}`;
 }
 
-export type Capacidad = { id: string; titulo: Bilingue; detalle: Bilingue; imagen: string };
+export type Capacidad = {
+  id: string;
+  titulo: Bilingue;
+  detalle: Bilingue;
+  imagen: string;
+  /** Invita a escribir: para lo que no cabe en la lista. */
+  abierta?: boolean;
+};
 
 export const capacidades: Capacidad[] = [
   {
@@ -112,6 +127,16 @@ export const capacidades: Capacidad[] = [
       en: "Solid pieces, built to last as long as the building.",
     },
     imagen: escaleraRitz,
+  },
+  {
+    id: "otros",
+    titulo: { es: "Molduras y otras piezas", en: "Moldings and other pieces" },
+    detalle: {
+      es: "¿Tienes algo más en mente? Cuéntanos tu idea y la hacemos realidad.",
+      en: "Have something else in mind? Tell us your idea and we'll make it real.",
+    },
+    imagen: losaTallada,
+    abierta: true,
   },
 ];
 

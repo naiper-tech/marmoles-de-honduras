@@ -14,7 +14,7 @@ export function Manifiesto() {
   const pilares = [
     {
       n: "01",
-      titulo: t("Materiales", "Materials"),
+      titulo: t("Selección", "Selection"),
       texto: t(
         "Suministramos el material que especifica cada proyecto, a través de una red global de proveedores.",
         "We supply the material each project specifies, through a global network of suppliers.",
@@ -40,8 +40,8 @@ export function Manifiesto() {
       n: "04",
       titulo: t("Exportación", "Export"),
       texto: t(
-        "Logística nacional e internacional hasta la obra, en Honduras, Estados Unidos, Centroamérica y el Caribe.",
-        "Domestic and international logistics all the way to the site, in Honduras, the United States, Central America and the Caribbean.",
+        "Logística nacional e internacional hasta la obra final.",
+        "Domestic and international logistics all the way to the final site.",
       ),
     },
   ];
@@ -59,8 +59,8 @@ export function Manifiesto() {
             key={lang}
             className="text-[clamp(1.85rem,3.9vw,3.75rem)] font-light leading-[1.16] tracking-[-0.02em] md:col-span-9"
             texto={t(
-              "Suministramos, fabricamos e instalamos piedra natural para proyectos residenciales, comerciales e institucionales en Honduras, Estados Unidos, Centroamérica y el Caribe.",
-              "We supply, fabricate and install natural stone for residential, commercial and institutional projects in Honduras, the United States, Central America and the Caribbean.",
+              "Suministramos, fabricamos e instalamos piedra natural para proyectos residenciales, comerciales e institucionales a nivel nacional e internacional.",
+              "We supply, fabricate and install natural stone for residential, commercial and institutional projects, at home and abroad.",
             )}
           />
         </div>

@@ -34,8 +34,8 @@ export function HistoriaResumen() {
           <Aparecer className="md:col-span-5 md:col-start-8">
             <p className="text-xl font-light leading-relaxed text-white/80 md:text-2xl">
               {t(
-                "Desde 1970, una empresa familiar hondureña dedicada a la piedra natural. Hoy nuestro trabajo forma parte de residencias, templos y edificios en Honduras, Estados Unidos, Centroamérica y el Caribe.",
-                "Since 1970, a Honduran family company devoted to natural stone. Today our work is part of residences, temples and buildings in Honduras, the United States, Central America and the Caribbean.",
+                "Desde 1970, una empresa familiar hondureña dedicada a la piedra natural. Hoy nuestro trabajo forma parte de residencias, templos y edificios a nivel nacional e internacional.",
+                "Since 1970, a Honduran family company devoted to natural stone. Today our work is part of residences, temples and buildings at home and abroad.",
               )}
             </p>
             <EnlaceMas to="/nosotros" className="mt-10">
